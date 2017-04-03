@@ -1,5 +1,23 @@
 *.class
 
+# Eclipse #
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# Intellij #
+/out/
+.idea
+*.iml
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

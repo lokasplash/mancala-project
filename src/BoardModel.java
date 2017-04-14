@@ -125,6 +125,8 @@ public class BoardModel {
 				if (onSide1) player1Pits[pitToPlace] += 1;
 				else player2Pits[pitToPlace] += 1;
 			}
+			// Move to the next pit
+			pitToPlace++;
 		}
 	}
 

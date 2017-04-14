@@ -128,6 +128,8 @@ public class BoardModel {
 			// Move to the next pit
 			pitToPlace++;
 		}
+		// Toggle player turn
+		player1Turn = !player1Turn;
 	}
 
 	/**

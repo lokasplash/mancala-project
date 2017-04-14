@@ -81,7 +81,8 @@ public class BoardModel {
 	 *                 getPitsPerSide()).
 	 */
 	public void playerMove(int side, int index){
-		// Argument checking. side must have value 0 or 1.
+		// Argument checking.
+		// side must have value 0 or 1.
 		if (side != 0 && side != 1) {
 			throw new IllegalArgumentException("Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
 					"Received " + side);
@@ -97,39 +98,47 @@ public class BoardModel {
 		int numStones;
 		if (side == SIDE1) {
 			onSide1 = true;
-			// Pick up the stones from side 1
+			// pick up the stones from side 1
 			numStones = player1Pits[index];
 			player1Pits[index] = 0;
 		} else {
 			onSide1 = false;
-			// Pick up the stones from side 1
+			// pick up the stones from side 2
 			numStones = player2Pits[index];
 			player2Pits[index] = 0;
 		}
+
 		// The pit to place stones in, starts at the pit after the index.
 		int pitToPlace = index + 1;
+
 		// Distribute the stones around the board
 		for (; numStones > 0; numStones--) {
-			// If no more pits on this side, put in mancala and toggle the state of onSide1.
+			// if no more pits on this side, put in mancala and toggle the state of onSide1.
 			if (pitToPlace >= pitsPerSide) {
-				// Add to stone to the mancala
+				// Add stone to the mancala
 				if (onSide1) player1Mancala++;
 				else player1Mancala++;
 
-				// Change side, -1 because will increment to 0 at end of loop.
+				// change side, -1 because will increment to 0 at end of loop.
 				pitToPlace = -1;
 				onSide1 = !onSide1;
 			}
-			// Otherwise add stones normally
+			// otherwise add stones normally
 			else {
 				if (onSide1) player1Pits[pitToPlace] += 1;
 				else player2Pits[pitToPlace] += 1;
 			}
-			// Move to the next pit
+			// move to the next pit
 			pitToPlace++;
 		}
-		// Toggle player turn
-		player1Turn = !player1Turn;
+
+		// Determine which player's turn is next
+		boolean p1EndP2Mancala = onSide1 && player1Turn; // if p1 placed into p2's pit, then the next side is p1
+		boolean p2EndP1Mancala = !onSide1 && !player1Turn; // vice versa from line above
+		// toggle player turn if stones did not end in the player's own mancala on their turn
+		if (pitToPlace != 0 || p1EndP2Mancala || p2EndP1Mancala)
+			player1Turn = !player1Turn;
+		// otherwise the player gets to go again
 	}
 
 	/**

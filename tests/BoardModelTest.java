@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BoardModelTest {
 	@Test
-	void testPlayerMoveSideException() {
+	void testPlayerMoveBadSideArgumentException() {
 		BoardModel model = new BoardModel();
 		try {
 			model.playerMove(2, 0);
@@ -23,7 +23,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerMoveIndexException() {
+	void testPlayerMoveBadIndexArgumentException() {
 		BoardModel model = new BoardModel(6, 4);
 		try {
 			model.playerMove(BoardModel.SIDE2, 11);
@@ -35,15 +35,23 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerTurnToggle() {
-		BoardModel model = new BoardModel();
+	void testTurnToggleAfterNotInMancala() {
+		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
 		model.playerMove(BoardModel.SIDE1, 0);
 		assertEquals(false, model.isPlayer1Turn());
 	}
 
 	@Test
-	void testPlayerMoveP1SideOnlyWithMancala() {
+	void testNoTurnToggleAfterInMancala() {
+		BoardModel model = new BoardModel(6, 4);
+		assertEquals(true, model.isPlayer1Turn());
+		model.playerMove(BoardModel.SIDE1, 2);
+		assertEquals(true, model.isPlayer1Turn());
+	}
+
+	@Test
+	void testCorrectStonePlacementForP1SideOnlyWithMancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);
 
@@ -58,7 +66,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerMoveTransferP1ToP2Side() {
+	void testCorrectStonePlacementTransferP1ToP2Side() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 3);
 

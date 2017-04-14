@@ -5,7 +5,9 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by andrew on 4/13/17.
+ * Tests for the BoardModel class.
+ * @author Andrew Jong
+ * @since 14 April 2017
  */
 class BoardModelTest {
 	@Test

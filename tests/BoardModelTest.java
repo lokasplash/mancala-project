@@ -9,6 +9,18 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BoardModelTest {
 	@Test
+	void testPlayerMoveSideException(){
+		BoardModel model = new BoardModel();
+		try {
+			model.playerMove(2, 0);
+		} catch (IllegalArgumentException e) {
+			String expectedErrorMessage = "Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
+			"Received" + 2;
+			assertTrue(expectedErrorMessage.equals(e.getMessage()));
+		}
+	}
+
+	@Test
 	void testPlayerTurnToggle() {
 		BoardModel model = new BoardModel();
 		assertEquals(true, model.isPlayer1Turn());

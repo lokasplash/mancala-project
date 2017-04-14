@@ -15,7 +15,7 @@ class BoardModelTest {
 			model.playerMove(2, 0);
 		} catch (IllegalArgumentException e) {
 			String expectedErrorMessage = "Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
-			"Received" + 2;
+			"Received " + 2;
 			assertTrue(expectedErrorMessage.equals(e.getMessage()));
 		}
 	}

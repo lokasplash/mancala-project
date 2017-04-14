@@ -84,7 +84,7 @@ public class BoardModel {
 		// Argument checking. side must have value 0 or 1.
 		if (side != 0 && side != 1) {
 			throw new IllegalArgumentException("Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
-					"Received" + side);
+					"Received " + side);
 		}
 		// index must be within board bounds.
 		if (index < 0 || index >= pitsPerSide) {

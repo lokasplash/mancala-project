@@ -12,8 +12,7 @@ class BoardModelTest {
 	void testPlayerMoveP1SideOnlyWithMancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);
-
-
+		
 		int[] expectedP1Pits = {4, 4, 0, 5, 5, 5};
 		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
 

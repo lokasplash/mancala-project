@@ -35,7 +35,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testTurnToggleAfterNotInMancala() {
+	void testYesTurnToggleAfterLandInCentralGrid() {
 		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
 		model.playerMove(BoardModel.SIDE1, 0);
@@ -43,7 +43,15 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testNoTurnToggleAfterInMancala() {
+	void testYesTurnToggleAfterLandInOpponentMancala() {
+		BoardModel model = new BoardModel(6, 4);
+		assertEquals(true, model.isPlayer1Turn());
+		model.playerMove(BoardModel.SIDE2, 2);
+		assertEquals(false, model.isPlayer1Turn());
+	}
+
+	@Test
+	void testNoTurnToggleAfterLandInOwnMancala() {
 		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
 		model.playerMove(BoardModel.SIDE1, 2);
@@ -51,7 +59,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testCorrectStonePlacementForP1SideOnlyWithMancala() {
+	void testCorrectStonePlacementP1LandInP1Mancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);
 
@@ -66,7 +74,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testCorrectStonePlacementTransferP1ToP2Side() {
+	void testCorrectStonePlacementP1MoveToP2Side() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 3);
 
@@ -78,5 +86,22 @@ class BoardModelTest {
 
 		int amountInMancala = model.getPlayer1Mancala();
 		assertEquals(1, amountInMancala);
+	}
+
+	@Test
+	void testStoneCaptureP1CaptureP2() {
+		BoardModel model = new BoardModel(4);
+		model.playerMove(BoardModel.SIDE1, 4);
+		model.playerMove(BoardModel.SIDE2, 0);
+		model.playerMove(BoardModel.SIDE1, 0);
+
+		int[] expectedP1Pits = {0, 5, 5, 5, 0, 5};
+		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
+
+		int[] expectedP2Pits = {0, 0, 5, 5, 5, 5};
+		assertTrue(Arrays.equals(expectedP2Pits, model.getPlayer2Pits()));
+
+		assertEquals(8, model.getPlayer1Mancala());
+		assertEquals(0, model.getPlayer2Mancala());
 	}
 }

@@ -22,9 +22,9 @@ public class BoardModel {
 	/* Number of pits on each player's side, should be consistent across all instances of BoardModel */
 	private static int pitsPerSide = 6;
 
-	/* Number of stones to initialize in each pit, default value is 3, should be consistent across all instances
+	/* Number of stones to initialize in each pit, default value is 4, should be consistent across all instances
 	of BoardModel */
-	private static int startingStonesPerPit = 3;
+	private static int startingStonesPerPit = 4;
 
 	/* Pits for each player */
 	private int[] player1Pits = new int[pitsPerSide];
@@ -40,10 +40,19 @@ public class BoardModel {
 	/* === METHODS === */
 
 	/**
-	 * Construct a BoardModel with the default values of pits per side and starting stones per pit. The default
+	 * Construct a BoardModel with the default values of pits per side (6) and starting stones per pit (4). The default
 	 * values cannot be updated after object construction.
 	 */
 	public BoardModel() {
+		initializePits();
+	}
+
+	/**
+	 * Construct a BoardModel with the starting values.
+	 * @param startingStonesPerPit number of starting stones in each pit.
+	 */
+	public BoardModel(int startingStonesPerPit) {
+		BoardModel.startingStonesPerPit = startingStonesPerPit;
 		initializePits();
 	}
 	/**

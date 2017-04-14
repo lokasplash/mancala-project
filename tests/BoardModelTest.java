@@ -9,6 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BoardModelTest {
 	@Test
+	void testPlayerTurnToggle() {
+		BoardModel model = new BoardModel();
+		assertEquals(true, model.isPlayer1Turn());
+		model.playerMove(BoardModel.SIDE1, 0);
+		assertEquals(false, model.isPlayer1Turn());
+	}
+
+	@Test
 	void testPlayerMoveP1SideOnlyWithMancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);

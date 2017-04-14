@@ -71,6 +71,7 @@ public class GameModel {
 		while (!gameFinished) {
 			// TODO: implement game running logic via Controllers
 
+			undoHistory.push(currentBoard); // Store the current board in undo history before updating.
 			currentBoard.playerMove(BoardModel.SIDE1, 4); // Example update board call
 
 			// Example undo
@@ -104,7 +105,7 @@ public class GameModel {
 	/**
 	 * A static nested class for the undo() and redo() methods if there is nothing left in the history.
 	 */
-	private static class EmptyHistoryException extends Exception {
+	static class EmptyHistoryException extends Exception {
 		EmptyHistoryException(String message) {
 			super(message);
 		}
@@ -113,7 +114,7 @@ public class GameModel {
 	/**
 	 * A static nested class for the undo() method if the player has reached the maximum number of undos.
 	 */
-	private static class MaxUndosReachedException extends Exception {
+	static class MaxUndosReachedException extends Exception {
 		MaxUndosReachedException(String message) {
 			super(message);
 		}

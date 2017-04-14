@@ -9,6 +9,30 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class BoardModelTest {
 	@Test
+	void testPlayerMoveSideException() {
+		BoardModel model = new BoardModel();
+		try {
+			model.playerMove(2, 0);
+		} catch (IllegalArgumentException e) {
+			String expectedErrorMessage = "Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
+					"Received " + 2;
+			assertTrue(expectedErrorMessage.equals(e.getMessage()));
+		}
+	}
+
+	@Test
+	void testPlayerMoveIndexException() {
+		BoardModel model = new BoardModel(6, 4);
+		try {
+			model.playerMove(BoardModel.SIDE2, 11);
+		} catch (IllegalArgumentException e) {
+			String expectedErrorMessage = "Requested index out of board bounds, must be between 0 and 5. Received " +
+					11;
+			assertTrue(expectedErrorMessage.equals(e.getMessage()));
+		}
+	}
+
+	@Test
 	void testPlayerTurnToggle() {
 		BoardModel model = new BoardModel();
 		assertEquals(true, model.isPlayer1Turn());
@@ -20,7 +44,7 @@ class BoardModelTest {
 	void testPlayerMoveP1SideOnlyWithMancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);
-		
+
 		int[] expectedP1Pits = {4, 4, 0, 5, 5, 5};
 		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
 

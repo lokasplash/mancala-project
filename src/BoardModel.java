@@ -116,8 +116,8 @@ public class BoardModel {
 				if (onSide1) player1Mancala++;
 				else player1Mancala++;
 
-				// Change side
-				pitToPlace = 0;
+				// Change side, -1 because will increment to 0 at end of loop.
+				pitToPlace = -1;
 				onSide1 = !onSide1;
 			}
 			// Otherwise add stones normally

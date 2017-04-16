@@ -30,7 +30,7 @@ class GameModelTest {
 		} catch (GameModel.EmptyHistoryException e) {
 			e.printStackTrace();
 		} catch (GameModel.MaxUndosReachedException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		model.playerMove(GameModel.SIDE1, 0);
 		try {
@@ -38,7 +38,7 @@ class GameModelTest {
 		} catch (GameModel.EmptyHistoryException e) {
 			e.printStackTrace();
 		} catch (GameModel.MaxUndosReachedException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		model.playerMove(GameModel.SIDE1, 0);
 		try {
@@ -46,7 +46,7 @@ class GameModelTest {
 		} catch (GameModel.EmptyHistoryException e) {
 			e.printStackTrace();
 		} catch (GameModel.MaxUndosReachedException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		model.playerMove(GameModel.SIDE1, 0);
 		try {

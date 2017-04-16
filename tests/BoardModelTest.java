@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardModelTest {
 	@Test
 	void testPlayerMoveBadSideArgumentException() {
-		BoardModel model = new BoardModel();
+		BoardModel model = new BoardModel(6, 4);
 		try {
 			model.playerMove(2, 0);
 		} catch (IllegalArgumentException e) {
@@ -60,7 +60,7 @@ class BoardModelTest {
 
 	@Test
 	void testCorrectStonePlacementP1LandInP1Mancala() {
-		BoardModel model = new BoardModel(4);
+		BoardModel model = new BoardModel(6, 4);
 		model.playerMove(BoardModel.SIDE1, 2);
 
 		int[] expectedP1Pits = {4, 4, 0, 5, 5, 5};
@@ -75,7 +75,7 @@ class BoardModelTest {
 
 	@Test
 	void testCorrectStonePlacementP1MoveToP2Side() {
-		BoardModel model = new BoardModel(4);
+		BoardModel model = new BoardModel(6, 4);
 		model.playerMove(BoardModel.SIDE1, 3);
 
 		int[] expectedP1Pits = {4, 4, 4, 0, 5, 5};
@@ -90,7 +90,7 @@ class BoardModelTest {
 
 	@Test
 	void testStoneCaptureP1CaptureP2() {
-		BoardModel model = new BoardModel(4);
+		BoardModel model = new BoardModel(6, 4);
 		model.playerMove(BoardModel.SIDE1, 4);
 		model.playerMove(BoardModel.SIDE2, 0);
 		model.playerMove(BoardModel.SIDE1, 0);

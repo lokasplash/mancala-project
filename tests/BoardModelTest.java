@@ -1,17 +1,23 @@
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
 
 /**
  * Tests for the BoardModel class.
  * @author Andrew Jong
  * @since 14 April 2017
  */
-class BoardModelTest {
+public class BoardModelTest {
 	@Test
-	void testPlayerMoveSideException() {
+	public void testPlayerMoveSideException() {
 		BoardModel model = new BoardModel();
 		try {
 			model.playerMove(2, 0);
@@ -23,7 +29,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerMoveIndexException() {
+	public void testPlayerMoveIndexException() {
 		BoardModel model = new BoardModel(6, 4);
 		try {
 			model.playerMove(BoardModel.SIDE2, 11);
@@ -35,7 +41,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerTurnToggle() {
+	public void testPlayerTurnToggle() {
 		BoardModel model = new BoardModel();
 		assertEquals(true, model.isPlayer1Turn());
 		model.playerMove(BoardModel.SIDE1, 0);
@@ -43,7 +49,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerMoveP1SideOnlyWithMancala() {
+	public void testPlayerMoveP1SideOnlyWithMancala() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 2);
 
@@ -58,7 +64,7 @@ class BoardModelTest {
 	}
 
 	@Test
-	void testPlayerMoveTransferP1ToP2Side() {
+	public void testPlayerMoveTransferP1ToP2Side() {
 		BoardModel model = new BoardModel(4);
 		model.playerMove(BoardModel.SIDE1, 3);
 

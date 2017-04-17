@@ -1,8 +1,6 @@
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * The GameModel represents handles the game loop and state. It also handles updates to its internal state
@@ -15,8 +13,28 @@ public class GameModel {
 
 	/* === CONSTANTS === */
 
-	private final int maxUndosPerGame = 3;
-	private final int maxUndosPerTurn = 1;
+	/** Specifier denoting the pits on Player 1's side of the board. Meant to be used as the first argument for the
+	 * playerMove() method.
+	 * This value is the same as BoardModel.SIDE1 */
+	public static final int SIDE1 = 0;
+
+	/** Specifier denoting the pits on Player 2's side of the board. Meant to be used as the first argument for the
+	 * playerMove() method.
+	 * This value is the same as BoardModel.SIDE1 */
+	public static final int SIDE2 = 1;
+
+	/** The maximum amount of undos a player can take per turn */
+	private final int MAX_UNDOS_PER_TURN = 3;
+
+	/** The maximum undo depth allowed, ie how many moves back that can be undoed. */
+	private final int MAX_UNDO_DEPTH = 1;
+
+	/* Number of pits on each player's side, should be consistent across all instances of BoardModel */
+	private final int PITS_PER_SIDE = 6;
+
+	/* Number of stones to initialize in each pit, default value is 4, should be consistent across all instances
+	of BoardModel */
+	private int startingStonesPerPit;
 
 	/* === ATTRIBUTES === */
 
@@ -24,9 +42,8 @@ public class GameModel {
 	private Stack<BoardModel> redoHistory = new Stack<>();
 	private BoardModel currentBoard;
 
-	/* Keep track of the amount of undos taken per player */
-	private int player1Undos = 0;
-	private int player2Undos = 0;
+	/* Keep track of the amount of numUndos taken per player */
+	private int numUndos = 0;
 
 	/* Determine if the game is finished */
 	private boolean gameFinished = false;
@@ -35,21 +52,30 @@ public class GameModel {
 	private List<ChangeListener> changeListeners = new LinkedList<>();
 
 
-	/* === METHODS=== */
+	/* === CONSTRUCTORS	 === */
 
 	/**
-	 * Empty constructor that initializes the current board to a new BoardModel with default values.
+	 * Empty constructor that initializes the current board to a new BoardModel with starting stones per pit as 4.
 	 */
 	public GameModel() {
-		currentBoard = new BoardModel();
+		this(4);
+	}
+
+	/**
+	 * Construct a GameModel with the number of starting stones per pit.
+	 * @param startingStonesPerPit number of starting stones per pit.
+	 */
+	public GameModel(int startingStonesPerPit) {
+		this.startingStonesPerPit = startingStonesPerPit;
+		currentBoard = new BoardModel(PITS_PER_SIDE, startingStonesPerPit);
 	}
 
 	/**
 	 * Constructor to attach a single ChangeListener
 	 * @param listener the ChangeListener
 	 */
-	public GameModel(ChangeListener listener) {
-		this();
+	public GameModel(int startingStonesPerPit, ChangeListener listener) {
+		this.startingStonesPerPit = startingStonesPerPit;
 		addChangeListener(listener);
 	}
 
@@ -57,50 +83,45 @@ public class GameModel {
 	 * Constructor to attach several ChangeListeners as a list
 	 * @param changeListeners the list of ChangeListeners
 	 */
-	public GameModel(List<ChangeListener> changeListeners) {
-		this();
+	public GameModel(int startingStonesPerPit, List<ChangeListener> changeListeners) {
+		this.startingStonesPerPit = startingStonesPerPit;
 		this.changeListeners = changeListeners;
 	}
 
+	/* === METHODS === */
+
 	/**
-	 * The main game loop.
+	 * Calls BoardModel.playerMove(side, index) while updating the undo history and listeners.
+	 *
+	 * @param side the side to start on, either GameModel.SIDE1 or GameModel.SIDE2
+	 * @param index the index of the pit, from 0 to the number of pits per side (obtainable via the method
+	 *                 getPitsPerSide()).
+	 * @throws GameFinishedException execpetion to be thrown if the game is finished. See isGameFinished() to get
+	 * the state of game completion.
+	 *
 	 */
-	public void run() {
-		// TODO: Possibility - welcome menu?
+	public void playerMove(int side, int index) throws GameFinishedException {
+		if (gameFinished) throw new GameFinishedException();
 
-		while (!gameFinished) {
-			// TODO: implement game running logic via Controllers
+		redoHistory.clear(); // Reset the redo history
+		undoHistory.push(new BoardModel(currentBoard)); // Store the current board in undo history before updating.
+		if (undoHistory.size() > MAX_UNDO_DEPTH) numUndos = 0;
 
-			undoHistory.push(currentBoard); // Store the current board in undo history before updating.
-			currentBoard.playerMove(BoardModel.SIDE1, 4); // Example update board call
+		currentBoard.playerMove(side, index); // update the current board
 
-			// Example undo
-			try {
-				undo();
-			} catch (EmptyHistoryException e) {
-				// There is no more history on the stack
-				System.out.println(e.getMessage());
-			} catch (MaxUndosReachedException e) {
-				// the player has reached the max amount of undos
-				System.out.println(e.getMessage());
-			}
-			// Example redo
-			try {
-				redo();
-			} catch (EmptyHistoryException e) {
-				System.out.println(e.getMessage());
-			}
+		checkGameFinished();
 
-			// Update all the attached change listeners
-			updateListeners();
-
-			// Determine if the game is finished by checking if all the pits are empty
-			gameFinished = currentBoard.allPitsEmpty();
-		}
-
-		// TODO: Some ending stuff with the view saying the game is done and displaying the winner
-
+		updateListeners();
 	}
+
+	private void checkGameFinished() {
+		gameFinished = currentBoard.allPitsEmpty();
+	}
+
+	/**
+	 * Exception to be thrown if the game is finished. If the game is finished, no additional moves can be made.
+	 */
+	static class GameFinishedException extends Exception{}
 
 	/**
 	 * A static nested class for the undo() and redo() methods if there is nothing left in the history.
@@ -112,41 +133,26 @@ public class GameModel {
 	}
 
 	/**
-	 * A static nested class for the undo() method if the player has reached the maximum number of undos.
+	 * A static nested class for the undo() method if the player has reached the maximum number of numUndos.
 	 */
-	static class MaxUndosReachedException extends Exception {
-		MaxUndosReachedException(String message) {
-			super(message);
-		}
-	}
+	static class MaxUndosReachedException extends Exception {}
 
 	/**
 	 * Undo by popping the undo history stack to replace the curent board.
 	 * @throws EmptyHistoryException undo history is empty
 	 */
 	public void undo() throws EmptyHistoryException, MaxUndosReachedException {
-		// TODO: Keep track of how many undos have been done to prevent more than 1 undo per turn
+		// make sure there are undos
+		if (undoHistory.isEmpty()) throw new EmptyHistoryException("The undo history is empty.");
+		// throw exception if max undos per turn reached
+		if (numUndos >= MAX_UNDOS_PER_TURN) throw new MaxUndosReachedException();
 
-		if (undoHistory.isEmpty()) {
-			throw new EmptyHistoryException("The undo history is empty. No more undos available.");
-		}
-		// If the current board is player 1's turn, then the person initiating the undo is player 2. And vice-versa
-		boolean p1Undoing = !currentBoard.isPlayer1Turn();
-		if ((p1Undoing && player1Undos >= maxUndosPerGame)
-				|| (!p1Undoing && player2Undos >= maxUndosPerGame)) {
-			throw new MaxUndosReachedException("The player has reached the maximum number of undos (" +
-					maxUndosPerGame + ")");
-		}
+		numUndos++;
 
-		// Increment the appropriate undo count
-		if (p1Undoing) {
-			player1Undos++;
-		} else {
-			player2Undos++;
-		}
 		// update undo history, current board, and redo history
-		redoHistory.push(currentBoard);
+		redoHistory.push(new BoardModel(currentBoard));
 		currentBoard = undoHistory.pop();
+		updateListeners();
 	}
 
 	/**
@@ -157,18 +163,12 @@ public class GameModel {
 		if (redoHistory.isEmpty()) {
 			throw new EmptyHistoryException("The redo history is empty. No more redos available.");
 		}
+		numUndos--;
 
-		// If the current board is player 1's turn, then the person initiating the redo is still player 1. And
-		// vice-versa
-		// Decrement the appropriate undo count
-		if (currentBoard.isPlayer1Turn()) {
-			player1Undos--;
-		} else {
-			player2Undos--;
-		}
 		// update undo history, current board, and redo history
-		undoHistory.push(currentBoard);
+		undoHistory.push(new BoardModel(currentBoard));
 		currentBoard = redoHistory.pop();
+		updateListeners();
 	}
 
 	/**
@@ -189,28 +189,68 @@ public class GameModel {
 		}
 	}
 
-	/* === GETTERS === */
+	/* === GETTERS & SETTERS=== */
 
-	public int getMaxUndosPerGame() {
-		return maxUndosPerGame;
+	public int getMAX_UNDOS_PER_TURN() {
+		return MAX_UNDOS_PER_TURN;
 	}
 
+	public int getMAX_UNDO_DEPTH() {
+		return MAX_UNDO_DEPTH;
+	}
+
+	public int getPITS_PER_SIDE() {
+		return PITS_PER_SIDE;
+	}
+
+	public int getStartingStonesPerPit() {
+		return startingStonesPerPit;
+	}
+
+	/**
+	 * Get a representation of the BoardData of the board on the current turn.
+	 * @return an instance of BoardData representing the state of the current board.
+	 */
+	public BoardData getCurrentBoardData(){
+		return new BoardData(currentBoard);
+	}
+
+	/**
+	 * Get the maximum number of undos allowed per turn.
+	 * @return max undos per turn
+	 */
 	public int getMaxUndosPerTurn() {
-		return maxUndosPerTurn;
+		return MAX_UNDOS_PER_TURN;
 	}
 
-	public BoardModel getCurrentBoard() {
-		return currentBoard;
+	/**
+	 * Get the number of undos on the current turn.
+	 * @return undos tallied so far
+	 */
+	public int getNumUndosFromCurrentTurn() {
+		return numUndos;
 	}
 
-	public int getPlayer1Undos() {
-		return player1Undos;
+	/**
+	 * Get whether the GameModel has undo history available and can undo.
+	 * @return true if can undo, false if cannot
+	 */
+	public boolean canUndo() {
+		return !undoHistory.isEmpty();
 	}
 
-	public int getPlayer2Undos() {
-		return player2Undos;
+	/**
+	 * Get whether the GameModel has redo history available and can redo.
+	 * @return true if can redo, false if cannot
+	 */
+	public boolean canRedo() {
+		return !redoHistory.isEmpty();
 	}
 
+	/**
+	 * Get whether the game state is finished when all the central pits are empty of stones.
+	 * @return true if finished, false if not
+	 */
 	public boolean isGameFinished() {
 		return gameFinished;
 	}

@@ -5,6 +5,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * In this demo, side 0 is the top row
+ * pits start at 1, going left to right
+ * 
+ * side[0], panel 1 clicked is printed when that pitpanel is clicked
+ * side[0], pit 1 clicked is printed when the label is clicked
+ * 
+ * side[0], pit 2 clicked is printed when the pitpanel is clicked
+ * 
+ * for side[1], pit 1
+ * 	the click point is printed
+ * 	additionally, the ellipse object is printed when the user clicks inside the ellipse
+ * 
+ */
 public class PitPanelControllerTest {
 	
 	/* Most code from PitPanel.java main() */

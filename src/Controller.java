@@ -1,5 +1,6 @@
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -144,5 +145,30 @@ public class Controller {
 			}
 
 		}
-	
+		
+		public static class ShapeListener extends MouseAdapter {
+
+			int side = 0;
+			int index = 0;
+			Shape s;
+			
+			public ShapeListener(int side, int index, Shape s){
+				this.side = side;
+				this.index = index;
+				this.s = s;
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e){
+				Point clickPoint = e.getPoint();
+				System.out.println(clickPoint.getX() +"," + clickPoint.getY());
+				
+				if(s.contains(clickPoint)){
+				
+					System.out.println(s+" was clicked");
+				}
+			}
+		}
+		
+		
 }

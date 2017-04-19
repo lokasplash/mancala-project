@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 /**
  * A panel for drawing the pit.
@@ -16,7 +17,17 @@ public class PitPanel extends JPanel {
 	private static final Color PIT_FILL_COLOR = Color.pink;
 
 	private static final Color PIT_OUTLINE_COLOR = Color.black;
+	
+	private Ellipse2D.Double pit;
+	
+	public Ellipse2D.Double getShape(){
+		return pit;
+	}
 
+	PitPanel(){
+		pit = new Ellipse2D.Double();
+	}
+	
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(getWidth(), getHeight());
@@ -36,8 +47,13 @@ public class PitPanel extends JPanel {
 		int pitHeight = (int) (this.getHeight() * RATIO);
 		int pitX = getWidth() / 2 - pitWidth / 2;
 		int pitY = getHeight() / 2 - pitHeight / 2;
+		
+		pit.setFrame(pitX, pitY, pitWidth, pitHeight);
+		
 		// draw the pit
 		g2.setColor(PIT_FILL_COLOR);
+		
+		g2.draw(pit);
 		g2.fillOval(pitX, pitY, pitWidth, pitHeight);
 		g2.setColor(PIT_OUTLINE_COLOR);
 

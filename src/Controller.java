@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-//import GameModel.EmptyHistoryException;
+import GameModel.GameFinishedException;
 
 
 /**
  * 
- * Controller class with nested classes that extend ActionListener. Controller class has an instance of the GameModel to manipulate.
+ * Controller class for View with nested classes that extend ActionListener. Controller class has an instance of the GameModel to manipulate.
  *
  */
 public class Controller {
@@ -89,10 +89,22 @@ public class Controller {
 	
 	public static class PitListener implements ActionListener{
 
+		int side = 0;
+		int index = 0;
+		
+		public PitListener(int side, int index){
+			this.side = side;
+			this.index = index;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			try {
+				gameModel.playerMove(side, index);
+			} catch (GameModel.GameFinishedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

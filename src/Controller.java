@@ -1,11 +1,12 @@
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import GameModel.GameFinishedException;
 
 
 /**
@@ -87,25 +88,61 @@ public class Controller {
 		
 	}
 	
-	public static class PitListener implements ActionListener{
+	
+	
+	public static class PitListener extends MouseAdapter {
 
 		int side = 0;
 		int index = 0;
+		PitPanel pitPanel;
 		
-		public PitListener(int side, int index){
+		public PitListener(int side, int index, PitPanel p){
 			this.side = side;
 			this.index = index;
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			try {
-				gameModel.playerMove(side, index);
-			} catch (GameModel.GameFinishedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			pitPanel = p;
 		}
 		
+		@Override
+		public void mousePressed(MouseEvent e){
+			Point clickPoint = e.getPoint();
+			System.out.println(clickPoint.getX() +"," + clickPoint.getY());
+			if(pitPanel.contains(clickPoint)){
+				System.out.println("side["+side+"], pit "+index+ " clicked");
+				try {
+					gameModel.playerMove(side, index);
+				} catch (GameModel.GameFinishedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
 	}
+		public static class PanelListener extends MouseAdapter {
+
+			int side = 0;
+			int index = 0;
+			PitPanel pitPanel;
+			
+			public PanelListener(int side, int index){
+				this.side = side;
+				this.index = index;
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e){
+				Point clickPoint = e.getPoint();
+				System.out.println(clickPoint.getX() +"," + clickPoint.getY());
+				
+					System.out.println("side["+side+"], panel "+index+ " clicked");
+					try {
+						gameModel.playerMove(side, index);
+					} catch (GameModel.GameFinishedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+			}
+
+		}
+	
 }

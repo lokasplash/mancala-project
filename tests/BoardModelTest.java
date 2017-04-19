@@ -17,8 +17,8 @@ import org.junit.Test;
  */
 public class BoardModelTest {
 	@Test
-	public void testPlayerMoveSideException() {
-		BoardModel model = new BoardModel();
+	void testPlayerMoveBadSideArgumentException() {
+		BoardModel model = new BoardModel(6, 4);
 		try {
 			model.playerMove(2, 0);
 		} catch (IllegalArgumentException e) {
@@ -29,7 +29,7 @@ public class BoardModelTest {
 	}
 
 	@Test
-	public void testPlayerMoveIndexException() {
+	void testPlayerMoveBadIndexArgumentException() {
 		BoardModel model = new BoardModel(6, 4);
 		try {
 			model.playerMove(BoardModel.SIDE2, 11);
@@ -41,16 +41,32 @@ public class BoardModelTest {
 	}
 
 	@Test
-	public void testPlayerTurnToggle() {
-		BoardModel model = new BoardModel();
+	void testYesTurnToggleAfterLandInCentralGrid() {
+		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
 		model.playerMove(BoardModel.SIDE1, 0);
 		assertEquals(false, model.isPlayer1Turn());
 	}
 
 	@Test
-	public void testPlayerMoveP1SideOnlyWithMancala() {
-		BoardModel model = new BoardModel(4);
+	void testYesTurnToggleAfterLandInOpponentMancala() {
+		BoardModel model = new BoardModel(6, 4);
+		assertEquals(true, model.isPlayer1Turn());
+		model.playerMove(BoardModel.SIDE2, 2);
+		assertEquals(false, model.isPlayer1Turn());
+	}
+
+	@Test
+	void testNoTurnToggleAfterLandInOwnMancala() {
+		BoardModel model = new BoardModel(6, 4);
+		assertEquals(true, model.isPlayer1Turn());
+		model.playerMove(BoardModel.SIDE1, 2);
+		assertEquals(true, model.isPlayer1Turn());
+	}
+
+	@Test
+	void testCorrectStonePlacementP1LandInP1Mancala() {
+		BoardModel model = new BoardModel(6, 4);
 		model.playerMove(BoardModel.SIDE1, 2);
 
 		int[] expectedP1Pits = {4, 4, 0, 5, 5, 5};
@@ -64,8 +80,8 @@ public class BoardModelTest {
 	}
 
 	@Test
-	public void testPlayerMoveTransferP1ToP2Side() {
-		BoardModel model = new BoardModel(4);
+	void testCorrectStonePlacementP1MoveToP2Side() {
+		BoardModel model = new BoardModel(6, 4);
 		model.playerMove(BoardModel.SIDE1, 3);
 
 		int[] expectedP1Pits = {4, 4, 4, 0, 5, 5};
@@ -76,5 +92,22 @@ public class BoardModelTest {
 
 		int amountInMancala = model.getPlayer1Mancala();
 		assertEquals(1, amountInMancala);
+	}
+
+	@Test
+	void testStoneCaptureP1CaptureP2() {
+		BoardModel model = new BoardModel(6, 4);
+		model.playerMove(BoardModel.SIDE1, 4);
+		model.playerMove(BoardModel.SIDE2, 0);
+		model.playerMove(BoardModel.SIDE1, 0);
+
+		int[] expectedP1Pits = {0, 5, 5, 5, 0, 5};
+		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
+
+		int[] expectedP2Pits = {0, 0, 5, 5, 5, 5};
+		assertTrue(Arrays.equals(expectedP2Pits, model.getPlayer2Pits()));
+
+		assertEquals(8, model.getPlayer1Mancala());
+		assertEquals(0, model.getPlayer2Mancala());
 	}
 }

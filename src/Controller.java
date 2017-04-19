@@ -91,13 +91,13 @@ public class Controller {
 	
 	
 	
-	public static class PitListener extends MouseAdapter {
+	public static class PitPanelListener extends MouseAdapter {
 
 		int side = 0;
 		int index = 0;
 		PitPanel pitPanel;
 		
-		public PitListener(int side, int index, PitPanel p){
+		public PitPanelListener(int side, int index, PitPanel p){
 			this.side = side;
 			this.index = index;
 			pitPanel = p;
@@ -107,7 +107,7 @@ public class Controller {
 		public void mousePressed(MouseEvent e){
 			Point clickPoint = e.getPoint();
 			System.out.println(clickPoint.getX() +"," + clickPoint.getY());
-			if(pitPanel.contains(clickPoint)){
+			if(pitPanel.contains(clickPoint)){ // this if statement is irrelevant, just for testing
 				System.out.println("side["+side+"], pit "+index+ " clicked");
 				try {
 					gameModel.playerMove(side, index);
@@ -118,13 +118,13 @@ public class Controller {
 			}
 		}
 	}
-		public static class PanelListener extends MouseAdapter {
+	
+		public static class ComponentListener extends MouseAdapter {
 
 			int side = 0;
 			int index = 0;
-			PitPanel pitPanel;
 			
-			public PanelListener(int side, int index){
+			public ComponentListener(int side, int index){
 				this.side = side;
 				this.index = index;
 			}
@@ -146,13 +146,13 @@ public class Controller {
 
 		}
 		
-		public static class ShapeListener extends MouseAdapter {
+		public static class PanelShapeListener extends MouseAdapter {
 
 			int side = 0;
 			int index = 0;
 			Shape s;
 			
-			public ShapeListener(int side, int index, Shape s){
+			public PanelShapeListener(int side, int index, Shape s){
 				this.side = side;
 				this.index = index;
 				this.s = s;

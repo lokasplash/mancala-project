@@ -4,6 +4,7 @@ import java.awt.geom.Ellipse2D;
 
 /**
  * A panel for drawing the pit.
+ * @author Andrew Jong
  */
 public class PitPanel extends JPanel {
 	// the ratio of the size of the pit to the entire PitPanel
@@ -63,27 +64,5 @@ public class PitPanel extends JPanel {
 		g2.drawOval(pitX, pitY, pitWidth, pitHeight);
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame("Pit Panel Tester");
-		testFrame.setSize(400, 400);
 
-		PitPanel panel = new PitPanel();
-		panel.setSize(100,100);
-
-		int randomAmount = (int) (Math.random() * 10);
-		JLabel label = new JLabel(String.valueOf(randomAmount), JLabel.CENTER);
-		label.setVerticalTextPosition(JLabel.CENTER);
-		label.setHorizontalAlignment(JLabel.CENTER);
-
-		Font f = new Font("serif", Font.PLAIN, (int) ((int) (panel.getHeight()) * 0.6));
-		label.setFont(f);
-
-		panel.add(label);
-
-		testFrame.add(panel);
-
-		testFrame.pack();
-		testFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		testFrame.setVisible(true);
-	}
 }

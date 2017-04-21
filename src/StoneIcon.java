@@ -7,6 +7,11 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+/**
+ * Icon to display image for the stone; Can be drawn from graphics, or use image file
+ * @author Vincent Diep
+ *
+ */
 public abstract class StoneIcon implements Icon {
 	int size;
 	
@@ -16,13 +21,11 @@ public abstract class StoneIcon implements Icon {
 
 	@Override
 	public int getIconHeight() {
-		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public int getIconWidth() {
-		// TODO Auto-generated method stub
 		return size;
 	}
 
@@ -32,12 +35,10 @@ public abstract class StoneIcon implements Icon {
 
 		DrawnStoneIcon(int size) {
 			super(size);
-			// TODO Auto-generated constructor stub
 		}
 	
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			// TODO Auto-generated method stub
 			Graphics2D g2 = (Graphics2D) g;
 			Graphics g3 = g2.create();
 			
@@ -46,6 +47,8 @@ public abstract class StoneIcon implements Icon {
 			g2.fillOval(x+size/4, y+size/4, size/2, size/2);
 			
 			g2.setColor(Color.BLACK);
+			
+			g2 = (Graphics2D) g3;
 			
 		}
 		
@@ -56,7 +59,6 @@ public abstract class StoneIcon implements Icon {
 
 		ImageStoneIcon(int size, String filename) {
 			super(size);
-			// TODO Auto-generated constructor stub
 			imageIcon = new ImageIcon(filename);
 			
 			Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
@@ -65,7 +67,6 @@ public abstract class StoneIcon implements Icon {
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			// TODO Auto-generated method stub
 			imageIcon.paintIcon(c, g, x, y);
 		}
 		

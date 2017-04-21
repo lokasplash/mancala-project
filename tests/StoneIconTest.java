@@ -4,6 +4,12 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author Vincent Diep
+ *
+ */
+
 public class StoneIconTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

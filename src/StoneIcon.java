@@ -39,16 +39,14 @@ public abstract class StoneIcon implements Icon {
 	
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			Graphics2D g2 = (Graphics2D) g;
-			Graphics g3 = g2.create();
+			Graphics2D g3 = (Graphics2D) g.create();
 			
-			g2.fillOval(x, y, size, size);
-			g2.setColor(Color.BLUE);
-			g2.fillOval(x+size/4, y+size/4, size/2, size/2);
+			g3.fillOval(x, y, size, size);
+			g3.setColor(Color.BLUE);
+			g3.fillOval(x+size/4, y+size/4, size/2, size/2);
 			
-			g2.setColor(Color.BLACK);
-			
-			g2 = (Graphics2D) g3;
+			g3.setColor(Color.BLACK);
+			g3.dispose();
 			
 		}
 		

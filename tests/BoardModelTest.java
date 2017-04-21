@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Andrew Jong
  * @since 14 April 2017
  */
-class BoardModelTest {
+public class BoardModelTest {
 	@Test
 	void testPlayerMoveBadSideArgumentException() {
 		BoardModel model = new BoardModel(6, 4);

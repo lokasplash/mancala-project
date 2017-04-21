@@ -50,17 +50,17 @@ public class PitPanelControllerTest {
 		label.setFont(f);
 		
 		
-		label.addMouseListener(new Controller.PitPanelListener(0, 1, panel));
+//		label.addMouseListener(new Controller.PitPanelListener(0, 1, panel.getShape()));
 		
 		
 
 		panel.add(label);
 		System.out.println(label.getParent().getClass().getName());
 		
-		panel.addMouseListener(new Controller.ComponentListener(0, 1));
-		panel2.addMouseListener(new Controller.PitPanelListener(0, 2, panel2));
+		panel.addMouseListener(new Controller.PitPanelListener(0, 1, panel.getShape()));
+		panel2.addMouseListener(new Controller.PitPanelListener(0, 2, panel2.getShape()));
 		
-		panel3.addMouseListener(new Controller.PanelShapeListener(1, 1, panel3.getShape()));
+		panel3.addMouseListener(new Controller.PitPanelListener(1, 1, panel3.getShape()));
 
 		testFrame.add(panel);
 		testFrame.add(panel2);

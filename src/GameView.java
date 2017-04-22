@@ -18,6 +18,7 @@ public class GameView {
 
 		// Board Panel
 		BoardPanel boardPanel = new BoardPanel();
+
 		GridPanel gridPanel = new GridPanel();
 		MancalaPanel mancalaPanelP1 = new MancalaPanel();
 		MancalaPanel mancalaPanelP2 = new MancalaPanel();

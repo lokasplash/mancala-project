@@ -8,16 +8,6 @@ import java.util.Arrays;
  * @since 14 April 2017
  */
 class BoardModel {
-	/* === STATIC CONSTANTS === */
-
-	/** Specifier denoting the pits on Player 1's side of the board. Meant to be used as the first argument for the
-	 * playerMove() method.
-	 * This value is the same as GameModel.SIDE1 */
-	public static final int SIDE1 = 0;
-	/** Specifier denoting the pits on Player 2's side of the board. Meant to be used as the first argument for the
-	 * playerMove() method.
-	 * This value is the same as GameModel.SIDE1 */
-	public static final int SIDE2 = 1;
 
 	/* === ATTRIBUTES === */
 
@@ -65,13 +55,8 @@ class BoardModel {
 	 * @param index the index of the pit, from 0 to the number of pits per side (obtainable via the method
 	 *                 getPitsPerSide()).
 	 */
-	public void playerMove(int side, int index){
+	public void playerMove(Side side, int index){
 		/* Argument checking. */
-		// side must have value 0 or 1.
-		if (side != 0 && side != 1) {
-			throw new IllegalArgumentException("Please pass in BoardModel.SIDE1 (0) or BoardModel.SIDE2 (1). " +
-					"Received " + side);
-		}
 		// index must be within board bounds.
 		if (index < 0 || index >= player1Pits.length) {
 			throw new IllegalArgumentException("Requested index out of board bounds, must be between 0 and " +
@@ -81,7 +66,7 @@ class BoardModel {
 		/* Determine the correct location of the move and pick up the stones */
 		boolean onSide1; // boolean for remembering which side the stones will go
 		int numStones;
-		if (side == SIDE1) {
+		if (side == Side.P1) {
 			onSide1 = true;
 			// pick up the stones from side 1
 			numStones = player1Pits[index];

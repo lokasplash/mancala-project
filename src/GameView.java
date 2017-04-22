@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The main view for the Mancala Game.
+ * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
+ * implemented later.
  * @author Andrew Jong
  */
 public class GameView {
@@ -17,6 +18,13 @@ public class GameView {
 
 		// Board Panel
 		BoardPanel boardPanel = new BoardPanel();
+		GridPanel gridPanel = new GridPanel();
+		MancalaPanel mancalaPanelP1 = new MancalaPanel();
+		MancalaPanel mancalaPanelP2 = new MancalaPanel();
+		boardPanel.left = mancalaPanelP2;
+		boardPanel.center = gridPanel;
+		boardPanel.right = mancalaPanelP1;
+
 
 		frame.add(boardPanel, BorderLayout.CENTER);
 
@@ -31,7 +39,9 @@ public class GameView {
 		gameModel.addChangeListener(changeEvent -> {
 			BoardData boardData = gameModel.getCurrentBoardData();
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
-			boardPanel.update(boardData);
+			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
+			gridPanel.
+
 			undoRedoPanel.update(boardData);
 		});
 	}

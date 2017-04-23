@@ -70,7 +70,7 @@ public class Controller {
 		public void mousePressed(MouseEvent e) {
 			Point clickPoint = e.getPoint();
 			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
-			if (pitPanel.contains(clickPoint)) { // this if statement is irrelevant, just for testing
+			if (pitPanel.getShape().contains(clickPoint)) { // this if statement is irrelevant, just for testing
 				System.out.println("side[" + side + "], pit " + pitNumber + " clicked");
 				try {
 					gameModel.playerMove(side, pitNumber);

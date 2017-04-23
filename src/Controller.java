@@ -56,15 +56,40 @@ public class Controller {
 	}
 
 	public static class PitPanelListener extends MouseAdapter {
-
-		int side = 0;
+		Side side = Side.P1;
 		int pitNumber = 0;
-		Shape s;
+		PitPanel pitPanel;
 
-		public PitPanelListener(int side, int pitNumber, Shape s) {
+		public PitPanelListener(Side side, int pitNumber, PitPanel p) {
 			this.side = side;
 			this.pitNumber = pitNumber;
-			this.s = s;
+			pitPanel = p;
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			Point clickPoint = e.getPoint();
+			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
+			if (pitPanel.contains(clickPoint)) { // this if statement is irrelevant, just for testing
+				System.out.println("side[" + side + "], pit " + pitNumber + " clicked");
+				try {
+					gameModel.playerMove(side, pitNumber);
+				} catch (GameModel.GameFinishedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public static class ComponentListener extends MouseAdapter {
+
+		Side side = Side.P1;
+		int index = 0;
+
+		public ComponentListener(Side side, int index) {
+			this.side = side;
+			this.index = index;
 		}
 
 		@Override
@@ -72,17 +97,16 @@ public class Controller {
 			Point clickPoint = e.getPoint();
 			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
 
-			if (s.contains(clickPoint)) {
-				System.out.println("Clicked at side " + side + " ,pit " + pitNumber);
-					try {
-						gameModel.playerMove(side, pitNumber);
-					} catch (GameModel.GameFinishedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+			System.out.println("side[" + side + "], panel " + index + " clicked");
+			try {
+				gameModel.playerMove(side, index);
+			} catch (GameModel.GameFinishedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+
 		}
+
 	}
 
 }

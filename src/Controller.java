@@ -62,11 +62,11 @@ public class Controller {
 
 	public static class PitPanelListener extends MouseAdapter {
 
-		int side = 0;
+		Side side = Side.P1;
 		int index = 0;
 		PitPanel pitPanel;
 
-		public PitPanelListener(int side, int index, PitPanel p) {
+		public PitPanelListener(Side side, int index, PitPanel p) {
 			this.side = side;
 			this.index = index;
 			pitPanel = p;
@@ -90,10 +90,10 @@ public class Controller {
 
 	public static class ComponentListener extends MouseAdapter {
 
-		int side = 0;
+		Side side = Side.P1;
 		int index = 0;
 
-		public ComponentListener(int side, int index) {
+		public ComponentListener(Side side, int index) {
 			this.side = side;
 			this.index = index;
 		}

@@ -36,14 +36,18 @@ public class GameView {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
-		// the change listener
+		// the change listener. TODO: Currently all the methods in each panel are unimplemented.
 		gameModel.addChangeListener(changeEvent -> {
 			BoardData boardData = gameModel.getCurrentBoardData();
+			// set the correct turn
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
+			// set the board view
 			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
-			gridPanel.
-
-			undoRedoPanel.update(boardData);
+			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
+			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
+			// set the undo/redo buttons as available or not based on undo history
+			undoRedoPanel.setUndoButton(gameModel.canUndo());
+			undoRedoPanel.setRedoPanel(gameModel.canRedo());
 		});
 	}
 }

@@ -10,7 +10,7 @@ public class BoardPanelTest {
 		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new FlowLayout());
+//		frame.setLayout(new FlowLayout());
 		
 		
 		
@@ -21,6 +21,10 @@ public class BoardPanelTest {
 		mancalaLeft.setPreferredSize(new Dimension(200,400));
 		mancalaLeft.setBackground(java.awt.Color.GREEN);
 		boardPanel.left.add(mancalaLeft);
+		
+//		PitPanel panel = new PitPanel();
+//		panel.setSize(100,100);
+//		boardPanel.left.add(panel);
 		
 		// right side mancala
 		JPanel mancalaRight = new JPanel();

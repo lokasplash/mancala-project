@@ -1,9 +1,12 @@
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -59,6 +62,7 @@ public class Controller {
 		Side side = Side.P1;
 		int pitNumber = 0;
 		PitPanel pitPanel;
+		int stoneCount;
 
 		public PitPanelListener(Side side, int pitNumber, PitPanel p) {
 			this.side = side;
@@ -80,6 +84,30 @@ public class Controller {
 				}
 			}
 		}
+		
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			Point clickPoint = e.getPoint();
+			System.out.println("Moved to " + clickPoint.getX() + "," + clickPoint.getY());
+			if (pitPanel.getShape().contains(clickPoint)) { // this if statement is irrelevant, just for testing
+				System.out.println("side[" + side + "], pit " + pitNumber + " entered");
+				
+				if (side == Side.P1){
+					stoneCount = gameModel.getCurrentBoardData().PLAYER_1_PITS[pitNumber];
+				}
+				else{
+					stoneCount = gameModel.getCurrentBoardData().PLAYER_2_PITS[pitNumber];
+				}
+				pitPanel.setToolTipText(stoneCount + " stones");
+			}
+			else{
+				pitPanel.setToolTipText(null);
+			}
+			
+		}
+		
+		
+		
 	}
 
 	public static class ComponentListener extends MouseAdapter {

@@ -18,7 +18,17 @@ public class PitPanel extends JPanel {
 	private static final Color PIT_FILL_COLOR = Color.pink;
 
 	private static final Color PIT_OUTLINE_COLOR = Color.black;
-	
+
+	private int numStones = 0;
+
+	public int getNumStones() {
+		return numStones;
+	}
+
+	public void setNumStones(int numStones) {
+		this.numStones = numStones;
+	}
+
 	private Ellipse2D.Double pit;
 	
 	public Ellipse2D.Double getShape(){
@@ -26,6 +36,10 @@ public class PitPanel extends JPanel {
 	}
 
 	PitPanel(){
+		this(4);
+	}
+	PitPanel(int numStones){
+		this.numStones = numStones;
 		pit = new Ellipse2D.Double();
 	}
 	
@@ -62,6 +76,11 @@ public class PitPanel extends JPanel {
 		g2.setStroke(new BasicStroke(strokeWidth));
 
 		g2.drawOval(pitX, pitY, pitWidth, pitHeight);
+
+
+		// Draw the num stones
+		g.setFont(new Font("TimesRoman", Font.PLAIN, pitWidth / 3));
+		g2.drawString(String.valueOf(numStones), pitWidth / 2, pitHeight / 2);
 	}
 
 

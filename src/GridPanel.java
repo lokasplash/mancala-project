@@ -21,7 +21,6 @@ public class GridPanel extends JPanel
 			PitPanel pit = new PitPanel();
 			pit.setSize(100, 100);
 			p1Pits[i] = pit;
-			System.out.println("pit");
 			pit.addMouseListener(new Controller.PitPanelListener(0, 5-i, pit));
 		}
 		for(int i=0; i<6;i++)
@@ -58,4 +57,13 @@ public class GridPanel extends JPanel
 	{
 		return p2Pits;
 	}
+
+	public void setP1Pits(PitPanel[] p1Pits) {
+		this.p1Pits = p1Pits;
+	}
+
+	public void setP2Pits(PitPanel[] p2Pits) {
+		this.p2Pits = p2Pits;
+	}
+	
 }

@@ -12,6 +12,7 @@ public class GameView {
 	GameView(GameModel gameModel) {
 		JFrame frame = new JFrame("Mancala");
 		frame.setLayout(new BorderLayout());
+		frame.setSize(new Dimension(1000, 600));
 
 		// Player turn
 		PlayerTurnPanel playerTurnPanel = new PlayerTurnPanel();

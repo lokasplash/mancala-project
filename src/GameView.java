@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
@@ -43,9 +44,12 @@ public class GameView {
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
 			// set the board view
 			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
-//			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
-//			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
-//			// set the undo/redo buttons as available or not based on undo history
+
+			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+			gridPanel.setP1Pits(p1Pits);
+			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+			gridPanel.setP2Pits(p2Pits);
+			// set the undo/redo buttons as available or not based on undo history
 //			undoRedoPanel.setUndoButton(gameModel.canUndo());
 //			undoRedoPanel.setRedoPanel(gameModel.canRedo());
 		});

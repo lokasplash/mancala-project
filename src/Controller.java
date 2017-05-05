@@ -182,5 +182,28 @@ public class Controller {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * StartingStonesButtonListener is created with the number of stones each pit in the GameModel
+	 * should have.
+	 * <p> When its corresponding button is clicked, it will call gameModel.setStones(...)
+	 *  with the appropriate value
+	 *
+	 */
+	public static class StartingStonesButtonListener implements ActionListener{
+
+		int startingStones;
+		StartingStonesButtonListener(int stones){
+			startingStones = stones;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			// TODO Auto-generated method stub
+			gameModel.setStones(startingStones);
+		}
+		
+	}
 
 }

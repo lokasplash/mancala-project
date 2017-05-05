@@ -1,4 +1,4 @@
-import java.awt.FlowLayout;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
@@ -6,15 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 
 /**
  * Controller class for View with nested classes that extend ActionListener. Controller class has an instance of the
  * GameModel to manipulate.
  *
- * @author Vinceint Diep
+ * @author Vincent Diep
  */
 public class Controller {
 
@@ -59,16 +58,15 @@ public class Controller {
 		}
 	}
 
-
 	public static class PitPanelListener extends MouseAdapter {
-
 		Side side = Side.P1;
-		int index = 0;
+		int pitNumber = 0;
 		PitPanel pitPanel;
+		int stoneCount;
 
-		public PitPanelListener(Side side, int index, PitPanel p) {
+		public PitPanelListener(Side side, int pitNumber, PitPanel p) {
 			this.side = side;
-			this.index = index;
+			this.pitNumber = pitNumber;
 			pitPanel = p;
 		}
 
@@ -76,16 +74,40 @@ public class Controller {
 		public void mousePressed(MouseEvent e) {
 			Point clickPoint = e.getPoint();
 			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
-			if (pitPanel.contains(clickPoint)) { // this if statement is irrelevant, just for testing
-				System.out.println("side[" + side + "], pit " + index + " clicked");
+			if (pitPanel.getShape().contains(clickPoint)) { // this if statement is irrelevant, just for testing
+				System.out.println("side[" + side + "], pit " + pitNumber + " clicked");
 				try {
-					gameModel.playerMove(side, index);
+					gameModel.playerMove(side, pitNumber);
 				} catch (GameModel.GameFinishedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		}
+		
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			Point clickPoint = e.getPoint();
+			System.out.println("Moved to " + clickPoint.getX() + "," + clickPoint.getY());
+			if (pitPanel.getShape().contains(clickPoint)) { // this if statement is irrelevant, just for testing
+				System.out.println("side[" + side + "], pit " + pitNumber + " entered");
+				
+				if (side == Side.P1){
+					stoneCount = gameModel.getCurrentBoardData().PLAYER_1_PITS[pitNumber];
+				}
+				else{
+					stoneCount = gameModel.getCurrentBoardData().PLAYER_2_PITS[pitNumber];
+				}
+				pitPanel.setToolTipText(stoneCount + " stones");
+			}
+			else{
+				pitPanel.setToolTipText(null);
+			}
+			
+		}
+		
+		
+		
 	}
 
 	public static class ComponentListener extends MouseAdapter {
@@ -113,30 +135,6 @@ public class Controller {
 
 		}
 
-	}
-
-	public static class PanelShapeListener extends MouseAdapter {
-
-		int side = 0;
-		int index = 0;
-		Shape s;
-
-		public PanelShapeListener(int side, int index, Shape s) {
-			this.side = side;
-			this.index = index;
-			this.s = s;
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			Point clickPoint = e.getPoint();
-			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
-
-			if (s.contains(clickPoint)) {
-
-				System.out.println(s + " was clicked");
-			}
-		}
 	}
 
 }

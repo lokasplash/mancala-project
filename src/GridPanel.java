@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 /**
+
  * Creates a panel with a Gridlayout storing PitPanels
  * @author Prem Panchal
  *
@@ -16,9 +17,10 @@ public class GridPanel extends JPanel
 	private PitPanel[] p1Pits;
 	private PitPanel[] p2Pits;
 	
-	
+
 	GridPanel()
 	{
+		//create pitpanels and add listeners to them
 		p1Pits = new PitPanel[6];
 		p2Pits = new PitPanel[6];
 		for(int i = 0; i<6;i++)
@@ -41,7 +43,7 @@ public class GridPanel extends JPanel
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		
+		//set grid layout and add to panel
 		this.setLayout(new GridLayout(2,6));
 		for(int i=0; i < p1Pits.length; i++)
 		{

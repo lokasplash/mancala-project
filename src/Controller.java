@@ -200,7 +200,7 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent ev) {
 			// TODO Auto-generated method stub
-			gameModel.setStones(startingStones);
+			gameModel = new GameModel(startingStones);
 		}
 		
 	}

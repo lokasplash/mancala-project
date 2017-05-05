@@ -8,7 +8,7 @@ class ControllerTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		GameModel gameModel = new GameModel();
-		Controller.setGameModel(gameModel);
+		Controller.setDefaultGameModel();
 
 		// set up undo button
 		JFrame frame = new JFrame();

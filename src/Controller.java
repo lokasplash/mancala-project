@@ -28,8 +28,15 @@ public class Controller {
 
 	private static GameModel gameModel;
 
-	public static void setGameModel(GameModel g) {
-		gameModel = g;
+	/**
+	 * Sets gameModel to default gameModel settings
+	 */
+	public static void setDefaultGameModel() {
+		gameModel = new GameModel();
+	}
+	
+	public static GameModel getGameModel() {
+		return gameModel;
 	}
 
 	/**

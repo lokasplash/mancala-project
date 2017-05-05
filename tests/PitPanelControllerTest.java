@@ -25,7 +25,7 @@ public class PitPanelControllerTest {
 	/* Most code from PitPanel.java main() */
 	public static void main(String[] args) {
 		GameModel gameModel = new GameModel();
-		Controller.setGameModel(gameModel);
+		Controller.setDefaultGameModel();
 		
 		
 		JFrame testFrame = new JFrame("Pit Panel Tester");

@@ -13,9 +13,8 @@ import java.awt.event.MouseEvent;
  * Controller class needs to be given an instance of the GameModel to manipulate.
  * <pre>
  * 	Ex:
- * 	Controller controller;
  * 	GameModel gameModel = new GameModel();
- * 	controller.setGameModel(gameModel);
+ * 	Controller.setGameModel(gameModel);
  * 
  *	JLabel label = new JLabel(...);
  *	label.addMouseListener(new Controller.PitPanelListener(Side.P1, 1, panel));

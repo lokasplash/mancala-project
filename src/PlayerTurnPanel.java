@@ -5,10 +5,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
+/**
+ * Creates a Text Field stating player Turn
+ * @author Prem Panchal
+ *
+ */
 public class PlayerTurnPanel extends JPanel {
 	
 	private GameModel gamemodel;
+	/*
+	 * @param m gamemodel that knows which player turn it is
+	 */
 	PlayerTurnPanel(GameModel m) {
 		gamemodel = m;
 	}

@@ -6,9 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 /**
- * Creates a GridPanel with a grid layout for PitPanels
+
+ * Creates a panel with a Gridlayout storing PitPanels
  * @author Prem Panchal
+ *
  */
+
 public class GridPanel extends JPanel
 {
 	private PitPanel[] p1Pits;

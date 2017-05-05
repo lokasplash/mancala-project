@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
+
 
 /**
  * Controller class for View.
@@ -47,6 +49,9 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			JButton b = (JButton) e.getSource();
+			b.setText("Undo: "+ gameModel.getNumUndosFromCurrentTurn());
 		}
 	}
 

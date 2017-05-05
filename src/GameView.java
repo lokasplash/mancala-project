@@ -48,9 +48,9 @@ public class GameView {
 //			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
 ////			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
 ////			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
-////			// set the undo/redo buttons as available or not based on undo history
-////			undoRedoPanel.setUndoButton(gameModel.canUndo());
-////			undoRedoPanel.setRedoPanel(gameModel.canRedo());
+//			// set the undo/redo buttons as available or not based on undo history
+			undoRedoPanel.setUndoButton(gameModel.canUndo());
+			undoRedoPanel.setRedoButton(gameModel.canRedo());
 		});
 	}
 }

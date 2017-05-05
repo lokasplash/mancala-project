@@ -6,7 +6,8 @@ public class GameViewTest {
 		// TODO Auto-generated method stub
 		
 		GameModel gameModel = new GameModel();
-
+		Controller.setGameModel(gameModel);
+		
 		GameView view = new GameView(gameModel);
 		
 		try {
@@ -16,6 +17,7 @@ public class GameViewTest {
 			e.printStackTrace();
 		}
 		
+
 	}
 
 }

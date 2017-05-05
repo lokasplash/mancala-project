@@ -1,8 +1,47 @@
-import javax.swing.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+/**
+ * Creates a Text Field stating player Turn
+ * @author Prem Panchal
+ *
+ */
 public class PlayerTurnPanel extends JPanel {
-	boolean playerTurn;
-	public void setPlayerTurn(boolean playerTurn) {
-		this.playerTurn = playerTurn;
+	
+	private GameModel gamemodel;
+	/*
+	 * @param m gamemodel that knows which player turn it is
+	 */
+	PlayerTurnPanel(GameModel m) {
+		gamemodel = m;
 	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		final JTextArea PlayerTurn = new JTextArea(400,50);
+		ChangeListener listener = new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent e)
+			{
+				if(gamemodel.getCurrentBoardData().PLAYER_1_TURN)
+				{
+					PlayerTurn.setText("Player 1 Turn");
+				}
+				else
+				{
+					PlayerTurn.setText("Player 2 Turn");
+				}
+			}
+		};
+		gamemodel.addChangeListener(listener);
+	}
+
 }

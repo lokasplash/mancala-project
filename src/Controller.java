@@ -208,6 +208,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent ev) {
 			// TODO Auto-generated method stub
 			gameModel = new GameModel(startingStones);
+			System.out.println(startingStones);
 		}
 		
 	}

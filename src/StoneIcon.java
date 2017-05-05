@@ -3,7 +3,6 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -15,6 +14,10 @@ import javax.swing.ImageIcon;
 public abstract class StoneIcon implements Icon {
 	int size;
 	
+	/**
+	 * Constructor for StoneIcon
+	 * @param size Size of the StoneIcon
+	 */
 	StoneIcon(int size){
 		this.size = size;
 	}
@@ -30,7 +33,9 @@ public abstract class StoneIcon implements Icon {
 	}
 
 
-	
+	/**
+	 * A StoneIcon that is drawn using Java's graphics
+	 */
 	public static class DrawnStoneIcon extends StoneIcon{
 
 		DrawnStoneIcon(int size) {
@@ -52,9 +57,17 @@ public abstract class StoneIcon implements Icon {
 		
 	}
 	
+	/**
+	 * A StoneIcon that displays an image
+	 */
 	public static class ImageStoneIcon extends StoneIcon{
 		ImageIcon imageIcon;
-
+		
+		/**
+		 * Constructor for an ImageStoneIcon
+		 * @param size Size of the image <p> The image can be larger/smaller than the size since the image is rescaled.
+		 * @param filename Location of image file
+		 */
 		ImageStoneIcon(int size, String filename) {
 			super(size);
 			imageIcon = new ImageIcon(filename);

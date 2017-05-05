@@ -11,18 +11,6 @@ import java.util.*;
  */
 public class GameModel {
 
-	/* === CONSTANTS === */
-
-	/** Specifier denoting the pits on Player 1's side of the board. Meant to be used as the first argument for the
-	 * playerMove() method.
-	 * This value is the same as BoardModel.SIDE1 */
-	public static final int SIDE1 = 0;
-
-	/** Specifier denoting the pits on Player 2's side of the board. Meant to be used as the first argument for the
-	 * playerMove() method.
-	 * This value is the same as BoardModel.SIDE1 */
-	public static final int SIDE2 = 1;
-
 	/** The maximum amount of undos a player can take per turn */
 	private final int MAX_UNDOS_PER_TURN = 3;
 
@@ -100,7 +88,7 @@ public class GameModel {
 	 * the state of game completion.
 	 *
 	 */
-	public void playerMove(int side, int index) throws GameFinishedException {
+	public void playerMove(Side side, int index) throws GameFinishedException {
 		if (gameFinished) throw new GameFinishedException();
 
 		redoHistory.clear(); // Reset the redo history

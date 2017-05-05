@@ -5,7 +5,7 @@ public class StartingStonesTest {
 	public static void main(String[] args)
 	{
 		GameModel game = new GameModel();
-		Controller.setGameModel(game);
+		Controller.setDefaultGameModel();
 		JFrame frame = new JFrame();
 		frame.setSize(800, 600);
 		

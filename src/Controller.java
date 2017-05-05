@@ -208,22 +208,9 @@ public class Controller {
 		public void actionPerformed(ActionEvent ev) {
 			// TODO Auto-generated method stub
 			gameModel = new GameModel(startingStones);
-		}
-		
-	}
-	
-	public static class StartingStonesButtonListener implements ActionListener{
-		int startingStones;
-		public StartingStonesButtonListener(int stones) {
-			startingStones = stones;
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			gameModel.setStones(startingStones);
 			System.out.println(startingStones);
-			
 		}
+		
 	}
 
 }

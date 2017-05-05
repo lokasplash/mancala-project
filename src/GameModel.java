@@ -33,7 +33,7 @@ public class GameModel {
 	/* Keep track of the amount of numUndos taken per player */
 	private int numUndos = 0;
 
-	/* Determine if the ga	me is finished */
+	/* Determine if the game is finished */
 	private boolean gameFinished = false;
 
 	/* List of change Listeners for views */
@@ -193,10 +193,6 @@ public class GameModel {
 
 	public int getStartingStonesPerPit() {
 		return startingStonesPerPit;
-	}
-	
-	public void setStones(int i){
-		startingStonesPerPit = i;
 	}
 
 	/**

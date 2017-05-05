@@ -3,23 +3,33 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 /**
- * A panel for drawing the pit.
- * @author Andrew Jong
+ * Created by andrew on 5/5/17.
  */
-public class PitPanel extends JPanel {
-	// the ratio of the size of the pit to the entire PitPanel
-	private static final double RATIO = 0.80;
+public abstract class PitPanel extends JPanel {
+	protected int numStones = 4;
+	StoneIcon stoneType;
 
-	// weight of the outline of the pit
-	private static final float STROKE_WEIGHT = 0.02f;
+	PitPanel(StoneIcon stoneType) {
+		this.stoneType = stoneType;
+	}
 
-	private static final Color BACKGROUND_FILL_COLOR = Color.orange;
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		//draw the background
+		drawBackground(g2);
+		// draw the pit
+		drawPit(g2);
+		// Draw the num stones
+		drawStones(g2);
+	}
 
-	private static final Color PIT_FILL_COLOR = Color.pink;
+	protected abstract void drawStones(Graphics2D g2);
 
-	private static final Color PIT_OUTLINE_COLOR = Color.black;
+	protected abstract void drawPit(Graphics2D g2);
 
-	private int numStones = 0;
+	protected abstract void drawBackground(Graphics2D g2);
 
 	public int getNumStones() {
 		return numStones;
@@ -29,59 +39,17 @@ public class PitPanel extends JPanel {
 		this.numStones = numStones;
 	}
 
-	private Ellipse2D.Double pit;
-	
-	public Ellipse2D.Double getShape(){
+	protected Shape pit;
+
+
+	public Shape getShape() {
 		return pit;
 	}
 
-	PitPanel(){
-		this(4);
-	}
-	PitPanel(int numStones){
-		this.numStones = numStones;
-		pit = new Ellipse2D.Double();
-	}
-	
+
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(getWidth(), getHeight());
 	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-
-		//draw the background
-		g2.setColor(BACKGROUND_FILL_COLOR);
-		g2.fillRect(0,0, this.getWidth(), this.getHeight());
-
-		// math for the pit
-		int pitWidth = (int) (this.getWidth() * RATIO);
-		int pitHeight = (int) (this.getHeight() * RATIO);
-		int pitX = getWidth() / 2 - pitWidth / 2;
-		int pitY = getHeight() / 2 - pitHeight / 2;
-		
-		pit.setFrame(pitX, pitY, pitWidth, pitHeight);
-		
-		// draw the pit
-		g2.setColor(PIT_FILL_COLOR);
-		
-		g2.draw(pit);
-		g2.fillOval(pitX, pitY, pitWidth, pitHeight);
-		g2.setColor(PIT_OUTLINE_COLOR);
-
-		int strokeWidth = (int) ((getWidth() + getHeight()) / 2 * STROKE_WEIGHT);
-		g2.setStroke(new BasicStroke(strokeWidth));
-
-		g2.drawOval(pitX, pitY, pitWidth, pitHeight);
-
-
-		// Draw the num stones
-		g.setFont(new Font("TimesRoman", Font.PLAIN, pitWidth / 3));
-		g2.drawString(String.valueOf(numStones), pitWidth / 2, pitHeight / 2);
-	}
-
 
 }

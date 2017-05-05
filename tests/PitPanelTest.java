@@ -10,7 +10,8 @@ class PitPanelTest {
 		JFrame testFrame = new JFrame("Pit Panel Tester");
 		testFrame.setSize(400, 400);
 
-		PitPanel panel = new PitPanel();
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		PitPanel panel = new PinkPitPanel(imageIcon, 4);
 		panel.setSize(100,100);
 
 		int randomAmount = (int) (Math.random() * 10);

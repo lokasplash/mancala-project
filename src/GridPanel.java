@@ -14,18 +14,18 @@ public class GridPanel extends JPanel
 	
 	GridPanel()
 	{
-		p1Pits = new PitPanel[6];
-		p2Pits = new PitPanel[6];
+		p1Pits = new PinkPitPanel[6];
+		p2Pits = new PinkPitPanel[6];
 		for(int i = 0; i<6;i++)
 		{
-			PitPanel pit = new PitPanel();
+			PitPanel pit = new PinkPitPanel();
 			pit.setSize(100, 100);
 			p1Pits[i] = pit;
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, 5-i, pit));
 		}
 		for(int i=0; i<6;i++)
 		{
-			PitPanel pit = new PitPanel();
+			PitPanel pit = new PinkPitPanel();
 			pit.setSize(100, 100);
 			p2Pits[i] = pit;
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P2, i, pit));
@@ -62,11 +62,11 @@ public class GridPanel extends JPanel
 		return p2Pits;
 	}
 
-	public void setP1Pits(PitPanel[] p1Pits) {
+	public void setP1Pits(PinkPitPanel[] p1Pits) {
 		this.p1Pits = p1Pits;
 	}
 
-	public void setP2Pits(PitPanel[] p2Pits) {
+	public void setP2Pits(PinkPitPanel[] p2Pits) {
 		this.p2Pits = p2Pits;
 	}
 	

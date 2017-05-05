@@ -21,14 +21,14 @@ public class GridPanel extends JPanel
 			PitPanel pit = new PitPanel();
 			pit.setSize(100, 100);
 			p1Pits[i] = pit;
-			pit.addMouseListener(new Controller.PitPanelListener(0, 5-i, pit));
+			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, 5-i, pit));
 		}
 		for(int i=0; i<6;i++)
 		{
 			PitPanel pit = new PitPanel();
 			pit.setSize(100, 100);
 			p2Pits[i] = pit;
-			pit.addMouseListener(new Controller.PitPanelListener(1, i, pit));
+			pit.addMouseListener(new Controller.PitPanelListener(Side.P2, i, pit));
 		}		
 	}	
 	

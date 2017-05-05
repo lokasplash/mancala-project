@@ -1,8 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 
+/**
+ * Represents a mancala board with 3 components: left, right, and center
+ * Each component is a standalone JPanel
+ * 
+ * @author Vincent Diep
+ *
+ */
 public class BoardPanel extends JPanel{
 
 	JPanel left;
@@ -15,7 +21,9 @@ public class BoardPanel extends JPanel{
 	private static final double RATIO = 0.30;
 
 
-
+	/**
+	 * Constructor for BoardPanel
+	 */
 	BoardPanel(){
 //		left = new JPanel();
 //		right = new JPanel();
@@ -37,6 +45,9 @@ public class BoardPanel extends JPanel{
 
 	}
 	
+	/**
+	 * A component JPanel of BoardPanel that resizes to maintain BoardPanel.RATIO
+	 */
 	public class InternalBoardPanel extends JPanel{
 		
 		@Override

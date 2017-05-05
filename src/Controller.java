@@ -138,5 +138,19 @@ public class Controller {
 			}
 		}
 	}
+	
+	public static class StartingStonesButtonListener implements ActionListener{
+		int startingStones;
+		public StartingStonesButtonListener(int stones) {
+			startingStones = stones;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			gameModel.setStones(startingStones);
+			System.out.println(startingStones);
+			
+		}
+	}
 
 }

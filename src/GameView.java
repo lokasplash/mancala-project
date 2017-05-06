@@ -46,10 +46,10 @@ public class GameView {
 			// set the board view
 			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
 
-			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-			gridPanel.setP1Pits(p1Pits);
-			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-			gridPanel.setP2Pits(p2Pits);
+//			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP1Pits(p1Pits);
+//			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP2Pits(p2Pits);
 			// set the undo/redo buttons as available or not based on undo history
 //			undoRedoPanel.setUndoButton(gameModel.canUndo());
 //			undoRedoPanel.setRedoPanel(gameModel.canRedo());

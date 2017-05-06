@@ -7,22 +7,17 @@ import java.awt.*;
  */
 class PitPanelTest {
 	public static void main(String[] args) {
+		testPink();
+		testBlue();
+	}
+
+	static void testPink() {
 		JFrame testFrame = new JFrame("Pit Panel Tester");
 		testFrame.setSize(400, 400);
 
-		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30, "images/white_stone.png");
 		PitPanel panel = new PinkPitPanel(imageIcon, 4);
 		panel.setSize(100,100);
-
-		int randomAmount = (int) (Math.random() * 10);
-		JLabel label = new JLabel(String.valueOf(randomAmount), JLabel.CENTER);
-		label.setVerticalTextPosition(JLabel.CENTER);
-		label.setHorizontalAlignment(JLabel.CENTER);
-
-		Font f = new Font("serif", Font.PLAIN, (int) ((int) (panel.getHeight()) * 0.6));
-		label.setFont(f);
-
-		panel.add(label);
 
 		testFrame.add(panel);
 
@@ -30,4 +25,20 @@ class PitPanelTest {
 		testFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		testFrame.setVisible(true);
 	}
+
+	static void testBlue() {
+		JFrame testFrame2 = new JFrame("Pit Panel Tester");
+		testFrame2.setSize(400, 400);
+
+		StoneIcon imageIcon2 = new StoneIcon.ImageStoneIcon(30, "images/coin_20.png");
+		PitPanel panel2 = new BluePitPanel(imageIcon2, 4);
+		panel2.setSize(100, 100);
+//
+		testFrame2.add(panel2);
+
+		testFrame2.pack();
+		testFrame2.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		testFrame2.setVisible(true);
+	}
+
 }

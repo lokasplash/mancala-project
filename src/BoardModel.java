@@ -74,6 +74,10 @@ class BoardModel {
 			numStones = player2Pits[index];
 			player2Pits[index] = 0;
 		}
+		if (numStones == 0) {
+			System.out.println("No stones!");
+			return;
+		}
 
 		/* Distribute the stones around the board */
 

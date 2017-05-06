@@ -32,9 +32,6 @@ public class GameModel {
 	/* Keep track of the amount of numUndos taken per player */
 	private int numUndos = 0;
 
-	/* Determine if the game is finished */
-	private boolean gameFinished = false;
-
 	/* List of change Listeners for views */
 	private List<ChangeListener> changeListeners = new LinkedList<>();
 
@@ -85,21 +82,29 @@ public class GameModel {
 	 *                               state of game completion.
 	 */
 	public void playerMove(int index) throws GameFinishedException {
-		if (gameFinished) throw new GameFinishedException();
+		if (currentBoard.isGameFinished()) throw new GameFinishedException();
 
 		redoHistory.clear(); // Reset the redo history
 		undoHistory.push(new BoardModel(currentBoard)); // Store the current board in undo history before updating.
-		if (undoHistory.size() > MAX_UNDO_DEPTH) numUndos = 0;
+		//
+		checkResetUndos();
 
 		currentBoard.playerMove(index); // update the current board
-
-		checkGameFinished();
 
 		updateListeners();
 	}
 
-	private void checkGameFinished() {
-		gameFinished = currentBoard.allPitsEmpty();
+	/**
+	 * Checks if two turns have been moved consecutively to reset the number of undos taken on the current turn.
+	 */
+	private void checkResetUndos(){
+		if (undoHistory.size() >=2 ){
+			BoardModel temp = undoHistory.pop();
+			if (undoHistory.peek().isPlayer1Turn() == currentBoard.isPlayer1Turn()) {
+				numUndos = 0;
+			}
+			undoHistory.add(temp);
+		}
 	}
 
 	/**
@@ -120,8 +125,7 @@ public class GameModel {
 	/**
 	 * A static nested class for the undo() method if the player has reached the maximum number of numUndos.
 	 */
-	static class MaxUndosReachedException extends Exception {
-	}
+	static class MaxUndosReachedException extends Exception {}
 
 	/**
 	 * Undo by popping the undo history stack to replace the curent board.
@@ -131,7 +135,8 @@ public class GameModel {
 		// make sure there are undos
 		if (undoHistory.isEmpty()) throw new EmptyHistoryException("The undo history is empty.");
 		// throw exception if max undos per turn reached
-		if (numUndos >= MAX_UNDOS_PER_TURN) throw new MaxUndosReachedException();
+		if (numUndos >= MAX_UNDOS_PER_TURN || redoHistory.size() >= MAX_UNDO_DEPTH) throw new
+				MaxUndosReachedException();
 
 		numUndos++;
 
@@ -207,7 +212,9 @@ public class GameModel {
 	 * @return true if can undo, false if cannot
 	 */
 	public boolean canUndo() {
-		return !undoHistory.isEmpty();
+		return !undoHistory.isEmpty()
+				&& redoHistory.size() < MAX_UNDO_DEPTH
+				&& numUndos < MAX_UNDOS_PER_TURN;
 	}
 
 	/**
@@ -218,11 +225,18 @@ public class GameModel {
 		return !redoHistory.isEmpty();
 	}
 
+	public int getUndoStackSize() {
+		return undoHistory.size();
+	}
+	public int getRedoStackSize() {
+		return redoHistory.size();
+	}
+
 	/**
 	 * Get whether the game state is finished when all the central pits are empty of stones.
 	 * @return true if finished, false if not
 	 */
 	public boolean isGameFinished() {
-		return gameFinished;
+		return currentBoard.isGameFinished();
 	}
 }

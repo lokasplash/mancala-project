@@ -87,7 +87,7 @@ class BoardModel {
 			if (nextPit >= player1Pits.length) {
 				// Add stone to the mancala
 				if (onSide1) player1Mancala++;
-				else player1Mancala++;
+				else player2Mancala++;
 
 				// change side, and set next pit to zero
 				nextPit = 0;
@@ -123,9 +123,9 @@ class BoardModel {
 					player1Pits[landedPit] = 0;
 					player2Pits[capturePitIndex] = 0;
 				} else {
-					player1Mancala += 1 + player2Pits[capturePitIndex];
+					player2Mancala += 1 + player1Pits[capturePitIndex];
 					player2Pits[landedPit] = 0;
-					player2Pits[capturePitIndex] = 0;
+					player1Pits[capturePitIndex] = 0;
 				}
 			}
 		}

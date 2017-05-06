@@ -6,7 +6,7 @@ public class GameViewTest {
 		// TODO Auto-generated method stub
 		
 		GameModel gameModel = new GameModel();
-		Controller.setGameModel(gameModel);
+		Controller.setDefaultGameModel();
 		
 		GameView view = new GameView(gameModel);
 		

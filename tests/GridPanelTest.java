@@ -10,8 +10,7 @@ public class GridPanelTest {
 	{
 		JFrame frame = new JFrame();
 		frame.setSize(600, 200);
-		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
-		GridPanel grid = new GridPanel(imageIcon);
+		GridPanel grid = new GridPanel();
 		frame.add(grid);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();

@@ -19,8 +19,8 @@ public class GameView extends JPanel {
 
 		BoardPanel boardPanel = new BoardPanel();
 
-		GridPanel gridPanel = new GridPanel();
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
 		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
 		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
 		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
@@ -43,15 +43,13 @@ public class GameView extends JPanel {
 			// set the correct turn
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
 			// set the board view
-//			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
-//
-//			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-//			gridPanel.setP1Pits(p1Pits);
-//			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-//			gridPanel.setP2Pits(p2Pits);
-////			 set the undo/redo buttons as available or not based on undo history
-//			undoRedoPanel.setUndoButton(gameModel.canUndo());
-//			undoRedoPanel.setRedoButton(gameModel.canRedo());
+			mancalaPanelP1.setNumStones(boardData.PLAYER_1_MANCALA);
+
+			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
+			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
+//			 set the undo/redo buttons as available or not based on undo history
+			undoRedoPanel.setUndoButton(gameModel.canUndo());
+			undoRedoPanel.setRedoButton(gameModel.canRedo());
 
 		});
 	}

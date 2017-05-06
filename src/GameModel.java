@@ -12,17 +12,17 @@ import java.util.*;
 public class GameModel {
 
 	/** The maximum amount of undos a player can take per turn */
-	private final int MAX_UNDOS_PER_TURN = 3;
+	final int MAX_UNDOS_PER_TURN = 3;
 
 	/** The maximum undo depth allowed, ie how many moves back that can be undoed. */
-	private final int MAX_UNDO_DEPTH = 1;
+	final int MAX_UNDO_DEPTH = 1;
 
 	/* Number of pits on each player's side, should be consistent across all instances of BoardModel */
-	private final int PITS_PER_SIDE = 6;
+	final int PITS_PER_SIDE = 6;
 
 	/* Number of stones to initialize in each pit, default value is 4, should be consistent across all instances
 	of BoardModel */
-	private int startingStonesPerPit;
+	final int STARTING_STONES_PER_PIT;
 
 	/* === ATTRIBUTES === */
 
@@ -54,7 +54,7 @@ public class GameModel {
 	 * @param startingStonesPerPit number of starting stones per pit.
 	 */
 	public GameModel(int startingStonesPerPit) {
-		this.startingStonesPerPit = startingStonesPerPit;
+		this.STARTING_STONES_PER_PIT = startingStonesPerPit;
 		currentBoard = new BoardModel(PITS_PER_SIDE, startingStonesPerPit);
 	}
 
@@ -63,7 +63,7 @@ public class GameModel {
 	 * @param listener the ChangeListener
 	 */
 	public GameModel(int startingStonesPerPit, ChangeListener listener) {
-		this.startingStonesPerPit = startingStonesPerPit;
+		this.STARTING_STONES_PER_PIT = startingStonesPerPit;
 		addChangeListener(listener);
 	}
 
@@ -72,7 +72,7 @@ public class GameModel {
 	 * @param changeListeners the list of ChangeListeners
 	 */
 	public GameModel(int startingStonesPerPit, List<ChangeListener> changeListeners) {
-		this.startingStonesPerPit = startingStonesPerPit;
+		this.STARTING_STONES_PER_PIT = startingStonesPerPit;
 		this.changeListeners = changeListeners;
 	}
 
@@ -179,21 +179,6 @@ public class GameModel {
 
 	/* === GETTERS & SETTERS=== */
 
-	public int getMAX_UNDOS_PER_TURN() {
-		return MAX_UNDOS_PER_TURN;
-	}
-
-	public int getMAX_UNDO_DEPTH() {
-		return MAX_UNDO_DEPTH;
-	}
-
-	public int getPITS_PER_SIDE() {
-		return PITS_PER_SIDE;
-	}
-
-	public int getStartingStonesPerPit() {
-		return startingStonesPerPit;
-	}
 
 	/**
 	 * Get a representation of the BoardData of the board on the current turn.

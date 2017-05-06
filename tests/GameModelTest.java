@@ -20,7 +20,7 @@ class GameModelTest {
 	@Test
 	void testMaxUndosReachedException() throws Exception {
 		GameModel model = new GameModel();
-		int maxUndos = model.getMAX_UNDOS_PER_TURN();
+		int maxUndos = model.MAX_UNDOS_PER_TURN;
 
 		boolean caughtSuccessfully = false;
 

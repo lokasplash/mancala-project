@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * The BoardModel represents the internal game state of the board and allows manipulation of the board via a player
@@ -20,6 +21,9 @@ class BoardModel {
 
 	/* Keep track of whose turn it is to determine which pits/mancala to place stones in */
 	private boolean player1Turn = true;
+
+	/* Determine if the game is finished */
+	private boolean gameFinished = false;
 
 	/* === METHODS === */
 
@@ -55,7 +59,10 @@ class BoardModel {
 	 *              getPitsPerSide()).
 	 */
 	public void playerMove(int index) {
+		if (gameFinished) return; // don't do anything if game finished
+
 		/* Argument checking. */
+
 		// index must be within board bounds.
 		if (index < 0 || index >= player1Pits.length) {
 			throw new IllegalArgumentException("Requested index out of board bounds, must be between 0 and " +
@@ -63,6 +70,7 @@ class BoardModel {
 		}
 
 		/* Determine the correct location of the move and pick up the stones */
+
 		boolean onSide1 = player1Turn; // boolean for remembering which side the stones will go
 		int numStones;
 		if (onSide1) {
@@ -110,30 +118,37 @@ class BoardModel {
 		boolean withinRange = landedPit >= 0 && landedPit < player1Pits.length;
 		if (withinRange) {
 			boolean onPlayerSide = onSide1 == player1Turn;
+			int[] myPits = (player1Turn) ? player1Pits : player2Pits;
+			int[] opponentPits = (player1Turn) ? player2Pits : player1Pits;
 			// landed pit was empty if the only stone was the last stone placed (1)
-			boolean landedPitEmpty = (onSide1 && player1Pits[landedPit] == 1)
-					|| (!onSide1 && player2Pits[landedPit] == 1);
-			if (onPlayerSide && landedPitEmpty) {
+			boolean landedPitWasEmpty = myPits[landedPit] == 1;
+			if (onPlayerSide && landedPitWasEmpty) {
 				// the index of the opposite pit
-				int capturePitIndex = player1Pits.length - 1 - landedPit;
+				int capturePitIndex = opponentPits.length - 1 - landedPit;
 				// see if stones to capture
-				if (player2Pits[capturePitIndex] > 0) {
+				if (opponentPits[capturePitIndex] > 0) {
+					myPits[landedPit] = 0;
+					opponentPits[capturePitIndex] = 0;
 					// 'capture' from the appropriate pit by adding the player's landed stone and the captured opponent's
 					// stones to the player's mancala, and setting both the captured pit and the landed pit to 0
 					if (onSide1) {
-						player1Mancala += 1 + player2Pits[capturePitIndex];
-						player1Pits[landedPit] = 0;
-						player2Pits[capturePitIndex] = 0;
+						player1Mancala += 1 + opponentPits[capturePitIndex];
 					} else {
-						player2Mancala += 1 + player1Pits[capturePitIndex];
-						player2Pits[landedPit] = 0;
-						player1Pits[capturePitIndex] = 0;
+						player2Mancala += 1 + opponentPits[capturePitIndex];
 					}
 				}
 
 			}
 		}
 
+		/* Take stones on own side if one side empty, and declare game finished */
+		if (isOneSideEmpty()) {
+			player1Mancala += IntStream.of(player1Pits).parallel().sum();
+			Arrays.fill(player1Pits, 0);
+			player2Mancala += IntStream.of(player2Pits).parallel().sum();
+			Arrays.fill(player2Pits, 0);
+			gameFinished = true;
+		}
 
 		/* Determine which player's turn is next */
 
@@ -148,10 +163,10 @@ class BoardModel {
 	}
 
 	/**
-	 * Determine whether all the pits on the one side (excluding mancalas) are empty of stones.
+	 * Determine whether all the pits on one side (excluding mancalas) are empty of stones.
 	 * @return true if stones empty, false if has stones
 	 */
-	public boolean isOneSideEmpty() {
+	private boolean isOneSideEmpty() {
 		boolean side1Empty = true;
 		for (int i : player1Pits) {
 			if (i != 0)
@@ -206,5 +221,13 @@ class BoardModel {
 	 */
 	public boolean isPlayer1Turn() {
 		return player1Turn;
+	}
+
+	/**
+	 * See whether the game is finished or not.
+	 * @return the state of the game true if finished, false if not.
+	 */
+	public boolean isGameFinished() {
+		return gameFinished;
 	}
 }

@@ -4,5 +4,15 @@
  * Meant to be used as the first argument to the playerMove() method.
  */
 public enum Side {
-	P1, P2
+	P1(true), P2(false);
+
+	private boolean p1Side;
+
+	Side(boolean b) {
+		p1Side = b;
+	}
+
+	public boolean isP1Side() {
+		return p1Side;
+	}
 }

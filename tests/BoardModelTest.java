@@ -14,7 +14,7 @@ public class BoardModelTest {
 	void testPlayerMoveBadIndexArgumentException() {
 		BoardModel model = new BoardModel(6, 4);
 		try {
-			model.playerMove(Side.P2, 11);
+			model.playerMove(11);
 		} catch (IllegalArgumentException e) {
 			String expectedErrorMessage = "Requested index out of board bounds, must be between 0 and 5. Received " +
 					11;
@@ -26,30 +26,30 @@ public class BoardModelTest {
 	void testYesTurnToggleAfterLandInCentralGrid() {
 		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
-		model.playerMove(Side.P1, 0);
+		model.playerMove(0);
 		assertEquals(false, model.isPlayer1Turn());
 	}
 
 	@Test
-	void testYesTurnToggleAfterLandInOpponentMancala() {
-		BoardModel model = new BoardModel(6, 4);
+	void testNoContinueTurnWhenLandInOpponentMancala() {
+		BoardModel model = new BoardModel(6, 8);
 		assertEquals(true, model.isPlayer1Turn());
-		model.playerMove(Side.P2, 2);
+		model.playerMove(5);
 		assertEquals(false, model.isPlayer1Turn());
 	}
 
 	@Test
-	void testNoTurnToggleAfterLandInOwnMancala() {
+	void testYesContinueTurnWhenLandInOwnMancala() {
 		BoardModel model = new BoardModel(6, 4);
 		assertEquals(true, model.isPlayer1Turn());
-		model.playerMove(Side.P1, 2);
+		model.playerMove(2);
 		assertEquals(true, model.isPlayer1Turn());
 	}
 
 	@Test
 	void testCorrectStonePlacementP1LandInP1Mancala() {
 		BoardModel model = new BoardModel(6, 4);
-		model.playerMove(Side.P1, 2);
+		model.playerMove(2);
 
 		int[] expectedP1Pits = {4, 4, 0, 5, 5, 5};
 		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
@@ -64,7 +64,7 @@ public class BoardModelTest {
 	@Test
 	void testCorrectStonePlacementP1MoveToP2Side() {
 		BoardModel model = new BoardModel(6, 4);
-		model.playerMove(Side.P1, 3);
+		model.playerMove(3);
 
 		int[] expectedP1Pits = {4, 4, 4, 0, 5, 5};
 		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));
@@ -79,9 +79,9 @@ public class BoardModelTest {
 	@Test
 	void testStoneCaptureP1CaptureP2() {
 		BoardModel model = new BoardModel(6, 4);
-		model.playerMove(Side.P1, 4);
-		model.playerMove(Side.P2, 0);
-		model.playerMove(Side.P1, 0);
+		model.playerMove(4);
+		model.playerMove(0);
+		model.playerMove(0);
 
 		int[] expectedP1Pits = {0, 5, 5, 5, 0, 5};
 		assertTrue(Arrays.equals(expectedP1Pits, model.getPlayer1Pits()));

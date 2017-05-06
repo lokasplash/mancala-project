@@ -5,7 +5,6 @@ import java.util.*;
 /**
  * The GameModel represents handles the game loop and state. It also handles updates to its internal state
  * and notifies its ChangeListeners of changes.
- *
  * @author Andrew Jong
  * @since 14 April 2017
  */
@@ -80,22 +79,19 @@ public class GameModel {
 
 	/**
 	 * Calls BoardModel.playerMove(side, index) while updating the undo history and listeners.
-	 *
-	 * @param side the side to start on, either GameModel.SIDE1 or GameModel.SIDE2
 	 * @param index the index of the pit, from 0 to the number of pits per side (obtainable via the method
-	 *                 getPitsPerSide()).
-	 * @throws GameFinishedException execpetion to be thrown if the game is finished. See isGameFinished() to get
-	 * the state of game completion.
-	 *
+	 *              getPitsPerSide()).
+	 * @throws GameFinishedException execpetion to be thrown if the game is finished. See isGameFinished() to get the
+	 *                               state of game completion.
 	 */
-	public void playerMove(Side side, int index) throws GameFinishedException {
+	public void playerMove(int index) throws GameFinishedException {
 		if (gameFinished) throw new GameFinishedException();
 
 		redoHistory.clear(); // Reset the redo history
 		undoHistory.push(new BoardModel(currentBoard)); // Store the current board in undo history before updating.
 		if (undoHistory.size() > MAX_UNDO_DEPTH) numUndos = 0;
 
-		currentBoard.playerMove(side, index); // update the current board
+		currentBoard.playerMove(index); // update the current board
 
 		checkGameFinished();
 
@@ -109,7 +105,8 @@ public class GameModel {
 	/**
 	 * Exception to be thrown if the game is finished. If the game is finished, no additional moves can be made.
 	 */
-	static class GameFinishedException extends Exception{}
+	static class GameFinishedException extends Exception {
+	}
 
 	/**
 	 * A static nested class for the undo() and redo() methods if there is nothing left in the history.
@@ -123,7 +120,8 @@ public class GameModel {
 	/**
 	 * A static nested class for the undo() method if the player has reached the maximum number of numUndos.
 	 */
-	static class MaxUndosReachedException extends Exception {}
+	static class MaxUndosReachedException extends Exception {
+	}
 
 	/**
 	 * Undo by popping the undo history stack to replace the curent board.
@@ -147,7 +145,7 @@ public class GameModel {
 	 * Undo by popping the redo history stack to replace the curent board.
 	 * @throws EmptyHistoryException redo history is empty
 	 */
-	public void redo() throws EmptyHistoryException{
+	public void redo() throws EmptyHistoryException {
 		if (redoHistory.isEmpty()) {
 			throw new EmptyHistoryException("The redo history is empty. No more redos available.");
 		}
@@ -184,7 +182,7 @@ public class GameModel {
 	 * Get a representation of the BoardData of the board on the current turn.
 	 * @return an instance of BoardData representing the state of the current board.
 	 */
-	public BoardData getCurrentBoardData(){
+	public BoardData getCurrentBoardData() {
 		return new BoardData(currentBoard);
 	}
 

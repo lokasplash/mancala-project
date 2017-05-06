@@ -9,7 +9,7 @@ class GameModelTest {
 	@Test
 	void testCorrectState1Undo() throws GameModel.EmptyHistoryException, GameModel.MaxUndosReachedException, GameModel.GameFinishedException {
 		GameModel model = new GameModel();
-		model.playerMove(Side.P1, 4);
+		model.playerMove(4);
 		model.undo();
 
 		BoardModel expectedStart = new BoardModel(6, 4);
@@ -24,7 +24,7 @@ class GameModelTest {
 
 		boolean caughtSuccessfully = false;
 
-		model.playerMove(Side.P1, 0);
+		model.playerMove(0);
 		try {
 			model.undo();
 		} catch (GameModel.EmptyHistoryException e) {
@@ -32,7 +32,7 @@ class GameModelTest {
 		} catch (GameModel.MaxUndosReachedException e) {
 			throw e;
 		}
-		model.playerMove(Side.P1, 0);
+		model.playerMove(0);
 		try {
 			model.undo();
 		} catch (GameModel.EmptyHistoryException e) {
@@ -40,7 +40,7 @@ class GameModelTest {
 		} catch (GameModel.MaxUndosReachedException e) {
 			throw e;
 		}
-		model.playerMove(Side.P1, 0);
+		model.playerMove(0);
 		try {
 			model.undo();
 		} catch (GameModel.EmptyHistoryException e) {
@@ -48,7 +48,7 @@ class GameModelTest {
 		} catch (GameModel.MaxUndosReachedException e) {
 			throw e;
 		}
-		model.playerMove(Side.P1, 0);
+		model.playerMove(0);
 		try {
 			model.undo();
 		} catch (GameModel.EmptyHistoryException e) {

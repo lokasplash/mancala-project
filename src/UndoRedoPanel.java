@@ -1,11 +1,11 @@
 import javax.swing.*;
 
 /**
- * Created by andrew on 4/22/17.
+ * @author Vincent Diep
  */
 public class UndoRedoPanel extends JPanel {
-	JButton undoButton;
-	JButton redoButton;
+	private JButton undoButton;
+	private JButton redoButton;
 
 	UndoRedoPanel() {
 
@@ -21,19 +21,20 @@ public class UndoRedoPanel extends JPanel {
 		this.add(redoButton);
 	}
 
-	public void setUndoButton(boolean canUndo) {
-		if (canUndo == true) {
-			undoButton.setEnabled(true);
-		} else {
-			undoButton.setEnabled(false);
-		}
+	public void setUndosLeft(int left) {
+		undoButton.setText("Undo (" + left + " left this turn)");
+
 	}
 
-	public void setRedoButton(boolean canRedo) {
-		if (canRedo == true) {
-			redoButton.setEnabled(true);
-		} else {
-			redoButton.setEnabled(false);
-		}
+	public void setRedosLeft(int left) {
+		redoButton.setText("Redo (" + left + ")");
+	}
+
+	public void setCanUndo(boolean canUndo) {
+		undoButton.setEnabled(canUndo);
+	}
+
+	public void setCanRedo(boolean canRedo) {
+		redoButton.setEnabled(canRedo);
 	}
 }

@@ -43,12 +43,15 @@ public class GameView extends JPanel {
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
 			// set the board view
 			mancalaPanelP1.setStones(boardData.PLAYER_1_MANCALA);
+			mancalaPanelP2.setStones(boardData.PLAYER_2_MANCALA);
 
 			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
 			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
 //			 set the undo/redo buttons as available or not based on undo history
-			undoRedoPanel.setUndoButton(gameModel.canUndo());
-			undoRedoPanel.setRedoButton(gameModel.canRedo());
+			undoRedoPanel.setCanUndo(gameModel.canUndo());
+			undoRedoPanel.setUndosLeft(gameModel.MAX_UNDOS_PER_TURN - gameModel.getNumUndosFromCurrentTurn());
+			undoRedoPanel.setCanRedo(gameModel.canRedo());
+			undoRedoPanel.setRedosLeft(gameModel.getNumUndosFromCurrentTurn());
 
 		});
 	}

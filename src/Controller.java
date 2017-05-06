@@ -9,20 +9,19 @@ import javax.swing.JButton;
 
 /**
  * Controller class for View.
- * 
+ * <p>
  * Contains various listeners for buttons, PitPanels, and general components
- * 
+ * <p>
  * Controller class needs to be given an instance of the GameModel to manipulate.
  * <pre>
  * 	Ex:
  * 	GameModel gameModel = new GameModel();
  * 	Controller.setGameModel(gameModel);
- * 
- *	JLabel label = new JLabel(...);
- *	label.addMouseListener(new Controller.PitPanelListener(Side.P1, 1, panel));
- *	... 
- * </pre>
  *
+ * 	JLabel label = new JLabel(...);
+ * 	label.addMouseListener(new Controller.PitPanelListener(Side.P1, 1, panel));
+ * 	...
+ * </pre>
  * @author Vincent Diep
  */
 public class Controller {
@@ -35,7 +34,7 @@ public class Controller {
 	public static void setDefaultGameModel() {
 		gameModel = new GameModel();
 	}
-	
+
 	public static GameModel getGameModel() {
 		return gameModel;
 	}
@@ -55,9 +54,6 @@ public class Controller {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			JButton b = (JButton) e.getSource();
-			b.setText("Undo: "+ gameModel.getNumUndosFromCurrentTurn());
 		}
 	}
 
@@ -75,7 +71,7 @@ public class Controller {
 			}
 		}
 	}
-	
+
 	/**
 	 * Quits game when quit button clicked
 	 */
@@ -89,17 +85,17 @@ public class Controller {
 
 	/**
 	 * Listens to mouse press and mouse motion inside of a PitPanel
-	 * 
+	 * <p>
 	 * If mouse is clicked inside the PitPanel's shape, do playerMove()
 	 * When mouse is over a pit, displays a tooltip containing the number of stones in the pit
 	 */
 	public static class PitPanelListener extends MouseAdapter {
 		/** The Side the PitPanel is on, default Side.P1 */
 		Side side = Side.P1;
-		
+
 		/** The pit number of the PitPanel, default 0 */
 		int pitNumber = 0;
-		
+
 		PitPanel pitPanel;
 
 		/** Initializes PitPanelListener with a side, pit number, and the corresponding PitPanel */
@@ -130,7 +126,7 @@ public class Controller {
 			}
 
 		}
-		
+
 		/** When mouse is over a pit, displays a tooltip containing the number of stones in the pit */
 		@Override
 		public void mouseMoved(MouseEvent e) {
@@ -139,23 +135,20 @@ public class Controller {
 			if (pitPanel.getShape().contains(clickPoint)) {
 				System.out.println("side[" + side + "], pit " + pitNumber + " entered");
 				int stoneCount;
-				
-				if (side == Side.P1){
+
+				if (side == Side.P1) {
 					stoneCount = gameModel.getCurrentBoardData().PLAYER_1_PITS[pitNumber];
-				}
-				else{
+				} else {
 					stoneCount = gameModel.getCurrentBoardData().PLAYER_2_PITS[pitNumber];
 				}
 				pitPanel.setToolTipText(stoneCount + " stones");
-			}
-			else{
+			} else {
 				pitPanel.setToolTipText(null);
 			}
-			
+
 		}
-		
-		
-		
+
+
 	}
 
 	/**
@@ -166,14 +159,14 @@ public class Controller {
 
 		/** The Side of the component that is being listened to, default Side.P1 */
 		Side side = Side.P1;
-		
+
 		/** The pit number of the component that is being listened to, default 0 */
 		int index = 0;
 
 		/**
 		 * Initializes ComponentListener with a side, pit number
-		 * @param side Player side 
-		 * @param index Pit number 
+		 * @param side  Player side
+		 * @param index Pit number
 		 */
 		public ComponentListener(Side side, int index) {
 			this.side = side;
@@ -201,29 +194,28 @@ public class Controller {
 		}
 
 	}
-	
+
 	/**
-	 * 
 	 * StartingStonesButtonListener is created with the number of stones each pit in the GameModel
 	 * should have.
 	 * <p> When its corresponding button is clicked, it will call gameModel.setStones(...)
-	 *  with the appropriate value
-	 *
+	 * with the appropriate value
 	 */
-	public static class StartingStonesButtonListener implements ActionListener{
+	public static class StartingStonesButtonListener implements ActionListener {
 
 		int startingStones;
-		StartingStonesButtonListener(int stones){
+
+		StartingStonesButtonListener(int stones) {
 			startingStones = stones;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent ev) {
 			// TODO Auto-generated method stub
 			gameModel = new GameModel(startingStones);
 			System.out.println(startingStones);
 		}
-		
+
 	}
 
 }

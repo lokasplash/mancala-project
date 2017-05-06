@@ -26,9 +26,9 @@ public class GameView extends JPanel {
 		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
 		mancalaPanelP2.setNumStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
-		boardPanel.left.add(mancalaPanelP2);
-		boardPanel.center.add(gridPanel);
-		boardPanel.right.add(mancalaPanelP1);
+		boardPanel.addLeft(mancalaPanelP1);
+		boardPanel.addCenter(gridPanel);
+		boardPanel.addRight(mancalaPanelP2);
 
 		this.add(boardPanel, BorderLayout.CENTER);
 //		this.add(bp, BorderLayout.CENTER);

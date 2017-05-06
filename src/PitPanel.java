@@ -16,8 +16,9 @@ public abstract class PitPanel extends JPanel {
 		this.setLayout(null);
 		setSize(100, 100);
 		this.stoneType = stoneType;
-		setNumStones(numStones);
 		updatePitSize();
+		setNumStones(numStones);
+		
 	}
 
 	@Override
@@ -49,6 +50,7 @@ public abstract class PitPanel extends JPanel {
 	}
 
 	protected void drawStones(Graphics2D g2) {
+
 		for (Point2D ratio : relativeStoneLocations) {
 			int pitWidth = pit.getBounds().width;
 			int pitHeight = pit.getBounds().height;
@@ -56,8 +58,16 @@ public abstract class PitPanel extends JPanel {
 			int dx = (getWidth() - pitWidth) / 2;
 			int dy = (getHeight() - pitHeight) / 2;
 
-			stoneType.paintIcon(this, g2, (int) (pitWidth * ratio.getX() * 0.7 + dx), (int) (pitHeight * ratio.getY() * 0.7+ dy));
+//			stoneType.paintIcon(this, g2, (int) (pitWidth * ratio.getX() * 0.7 + dx), (int) (pitHeight * ratio.getY() * 0.7+ dy));
+			
+//			stoneType.paintIcon(this, g2, (int) (this.getWidth()* ratio.getX()), (int) (this.getHeight() * ratio.getY())); //ok
+			
+			double scaledX = getWidth()/pitWidth;
+			stoneType.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX/2)+dx, (int) (pitHeight *ratio.getY()*scaledX/2 )+dy);
+
+			
 		}
+		g2.drawRect( (int) pit.getBounds().getX(), (int) pit.getBounds().getY(), pit.getBounds().width, pit.getBounds().height);
 	}
 
 	/**

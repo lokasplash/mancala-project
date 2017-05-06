@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
  */
 public abstract class StoneIcon implements Icon {
 	int size;
+
 	
 	/**
 	 * Constructor for StoneIcon
@@ -35,8 +36,7 @@ public abstract class StoneIcon implements Icon {
 		return size;
 	}
 
-//	protected void paint
-
+		
 	/**
 	 * A StoneIcon that is drawn using Java's graphics
 	 */
@@ -68,6 +68,8 @@ public abstract class StoneIcon implements Icon {
 		ImageIcon imageIcon;
 		Image originalImage;
 		Rectangle componentBounds = null;
+		float ratioX;
+		float ratioY;
 		
 		/**
 		 * Constructor for an ImageStoneIcon
@@ -80,8 +82,14 @@ public abstract class StoneIcon implements Icon {
 			imageIcon = new ImageIcon(filename);
 			originalImage = imageIcon.getImage();
 			
+			ratioX = size/(float)imageIcon.getIconWidth();
+			ratioY = size/ (float)imageIcon.getIconHeight();
+			System.out.println(ratioX);
+			
 			Image image = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
+//			originalImage = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
 			imageIcon.setImage(image);
+//			imageIcon.setImage(originalImage);
 		}
 
 		@Override
@@ -95,12 +103,12 @@ public abstract class StoneIcon implements Icon {
 				System.out.println(c);
 				System.out.println(newWidth);
 				
-				newWidth *= 0.2;
-				newHeight *= 0.2;
+				newWidth *= (float)size/100;
+				newHeight *= (float)size/100;
 				
-				int newSize = Math.min(newWidth, newHeight);
-				
-				Image newImage= originalImage.getScaledInstance(newSize, newSize, Image.SCALE_FAST);
+//				int newSize = Math.min(newWidth, newHeight);
+				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+//				Image newImage= originalImage.getScaledInstance(newSize, newSize, Image.SCALE_FAST);
 				imageIcon.setImage(newImage);
 				componentBounds = newBounds;
 			}

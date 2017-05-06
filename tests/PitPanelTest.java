@@ -30,8 +30,8 @@ class PitPanelTest {
 		JFrame testFrame2 = new JFrame("Pit Panel Tester");
 		testFrame2.setSize(400, 400);
 
-		StoneIcon imageIcon2 = new StoneIcon.ImageStoneIcon(30, "images/coin_20.png");
-		PitPanel panel2 = new BluePitPanel(imageIcon2, 4);
+		StoneIcon imageIcon2 = new StoneIcon.ImageStoneIcon(10, "images/coin_20.png");
+		PitPanel panel2 = new BluePitPanel(imageIcon2, 40);
 		panel2.setSize(100, 100);
 //
 		testFrame2.add(panel2);

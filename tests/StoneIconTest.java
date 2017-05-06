@@ -45,7 +45,7 @@ public class StoneIconTest {
 		frame.add(label6);
 		
 		
-		JLabel label7 = new JLabel(new StoneIcon.ImageStoneIcon(50, "images/ballYellow_09.png"));
+		JLabel label7 = new JLabel(new StoneIcon.ImageStoneIcon(20, "images/ballYellow_09.png"));
 		frame.add(label7);
 		
 //		frame.pack();

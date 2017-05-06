@@ -15,9 +15,8 @@ import javax.swing.JButton;
  * Controller class needs to be given an instance of the GameModel to manipulate.
  * <pre>
  * 	Ex:
- * 	Controller controller;
  * 	GameModel gameModel = new GameModel();
- * 	controller.setGameModel(gameModel);
+ * 	Controller.setGameModel(gameModel);
  * 
  *	JLabel label = new JLabel(...);
  *	label.addMouseListener(new Controller.PitPanelListener(Side.P1, 1, panel));
@@ -30,8 +29,15 @@ public class Controller {
 
 	private static GameModel gameModel;
 
-	public static void setGameModel(GameModel g) {
-		gameModel = g;
+	/**
+	 * Sets gameModel to default gameModel settings
+	 */
+	public static void setDefaultGameModel() {
+		gameModel = new GameModel();
+	}
+	
+	public static GameModel getGameModel() {
+		return gameModel;
 	}
 
 	/**
@@ -186,6 +192,30 @@ public class Controller {
 
 		}
 
+	}
+	
+	/**
+	 * 
+	 * StartingStonesButtonListener is created with the number of stones each pit in the GameModel
+	 * should have.
+	 * <p> When its corresponding button is clicked, it will call gameModel.setStones(...)
+	 *  with the appropriate value
+	 *
+	 */
+	public static class StartingStonesButtonListener implements ActionListener{
+
+		int startingStones;
+		StartingStonesButtonListener(int stones){
+			startingStones = stones;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			// TODO Auto-generated method stub
+			gameModel = new GameModel(startingStones);
+			System.out.println(startingStones);
+		}
+		
 	}
 
 }

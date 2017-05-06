@@ -42,9 +42,8 @@ public class GameStatePanel extends JPanel {
 	 */
 	public void setState(BoardData boardData) {
 		if (boardData.GAME_FINISHED) {
-			stateMessage = "Game finished!";
 			String winner = (boardData.PLAYER_1_MANCALA > boardData.PLAYER_2_MANCALA) ? "Player 1" : "Player 2";
-			stateMessage += " " + winner + " wins";
+			stateMessage = winner + " wins!";
 		} else {
 			stateMessage = (boardData.PLAYER_1_TURN ? "Player 1's Turn" : "Player 2's turn");
 		}

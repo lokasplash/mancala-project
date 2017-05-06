@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JPanel;
 
@@ -29,6 +30,7 @@ public class GridPanel extends JPanel {
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, i, pit));
 			this.add(pit);
 		}
+		Collections.reverse(p1Pits);
 		for (int i = 0; i < numPitsPerSide; i++) {
 			PitPanel pit = new PinkPitPanel(icon, startingStones);
 			pit.setSize(100, 100);

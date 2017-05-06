@@ -41,7 +41,7 @@ public class PitPanel extends JPanel {
 
 		//draw the background
 		g2.setColor(BACKGROUND_FILL_COLOR);
-		g2.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		g2.fillRect(0,0, this.getWidth(), this.getHeight());
 
 		// math for the pit
 		int pitWidth = (int) (this.getWidth() * RATIO);

@@ -3,6 +3,9 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -32,6 +35,7 @@ public abstract class StoneIcon implements Icon {
 		return size;
 	}
 
+//	protected void paint
 
 	/**
 	 * A StoneIcon that is drawn using Java's graphics
@@ -62,6 +66,8 @@ public abstract class StoneIcon implements Icon {
 	 */
 	public static class ImageStoneIcon extends StoneIcon{
 		ImageIcon imageIcon;
+		Image originalImage;
+		Rectangle componentBounds = null;
 		
 		/**
 		 * Constructor for an ImageStoneIcon
@@ -70,14 +76,35 @@ public abstract class StoneIcon implements Icon {
 		 */
 		ImageStoneIcon(int size, String filename) {
 			super(size);
-			imageIcon = new ImageIcon(filename);
 			
-			Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
+			imageIcon = new ImageIcon(filename);
+			originalImage = imageIcon.getImage();
+			
+			Image image = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
 			imageIcon.setImage(image);
 		}
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
+			Rectangle newBounds = c.getBounds();
+			if(componentBounds == null || !(componentBounds.equals(newBounds))){
+				
+				int newWidth = (int) newBounds.getBounds().getWidth();
+				int newHeight = (int) newBounds.getBounds().getHeight();
+				
+				System.out.println(c);
+				System.out.println(newWidth);
+				
+				newWidth *= 0.2;
+				newHeight *= 0.2;
+				
+				int newSize = Math.min(newWidth, newHeight);
+				
+				Image newImage= originalImage.getScaledInstance(newSize, newSize, Image.SCALE_FAST);
+				imageIcon.setImage(newImage);
+				componentBounds = newBounds;
+			}
+
 			imageIcon.paintIcon(c, g, x, y);
 		}
 		

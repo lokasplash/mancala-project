@@ -13,8 +13,8 @@ public class GameView extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(1000,470));
 		// Player turn
-		PlayerTurnPanel playerTurnPanel = new PlayerTurnPanel(gameModel);
-		this.add(playerTurnPanel, BorderLayout.NORTH);
+		GameStatePanel gameStatePanel = new GameStatePanel();
+		this.add(gameStatePanel, BorderLayout.NORTH);
 
 		BoardPanel boardPanel = new BoardPanel();
 
@@ -40,7 +40,7 @@ public class GameView extends JPanel {
 		gameModel.addChangeListener(changeEvent -> {
 			BoardData boardData = gameModel.getCurrentBoardData();
 			// set the correct turn
-			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
+			gameStatePanel.setState(boardData);
 			// set the board view
 			mancalaPanelP1.setStones(boardData.PLAYER_1_MANCALA);
 			mancalaPanelP2.setStones(boardData.PLAYER_2_MANCALA);

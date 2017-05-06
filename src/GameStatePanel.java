@@ -10,39 +10,43 @@ import javax.swing.JPanel;
  * Creates a Text Field stating player Turn
  * @author Prem Panchal
  */
-public class PlayerTurnPanel extends JPanel {
-	private String player = "1";
+public class GameStatePanel extends JPanel {
+	private String stateMessage = "state not set";
 	private Font font;
-	private int fontSize = 20;
+	private int fontSize = 14;
 
 	/**
 	 * Constructor, creates a Player Turn panel
 	 */
-	PlayerTurnPanel() {
+	GameStatePanel() {
 		this.setBackground(Color.ORANGE);
 		font = new Font("SansSerif", Font.BOLD, fontSize);
-		this.setPreferredSize(new Dimension(200, 200));
+		this.setPreferredSize(new Dimension(200, 150));
 	}
 
 	@Override
+	/**
+	 * Draws the string for which player's turn
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		font = font.deriveFont((float) (this.getWidth() * 0.1));
 		g2.setFont(font);
-		g2.drawString("Player " + player + "'s Turn", 0, font.getSize());
+		g2.drawString(stateMessage, 10, font.getSize());
 	}
 
 	/**
 	 * Set the player's turn
-	 * @param isPlayer1 If it is player 1's turn, pass in true. If it is player 2's turn, pass in false.
+	 * @param boardData
 	 */
-	public void setPlayerTurn(boolean isPlayer1) {
-		// TODO Auto-generated method stub
-		if (isPlayer1) {
-			player = "1";
+	public void setState(BoardData boardData) {
+		if (boardData.GAME_FINISHED) {
+			stateMessage = "Game finished!";
+			String winner = (boardData.PLAYER_1_MANCALA > boardData.PLAYER_2_MANCALA) ? "Player 1" : "Player 2";
+			stateMessage += " " + winner + " wins";
 		} else {
-			player = "2";
+			stateMessage = (boardData.PLAYER_1_TURN ? "Player 1's Turn" : "Player 2's turn");
 		}
 		this.repaint();
 	}

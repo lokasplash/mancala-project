@@ -51,7 +51,7 @@ public class GameView extends JPanel {
 			undoRedoPanel.setCanUndo(gameModel.canUndo());
 			undoRedoPanel.setUndosLeft(gameModel.MAX_UNDOS_PER_TURN - gameModel.getNumUndosFromCurrentTurn());
 			undoRedoPanel.setCanRedo(gameModel.canRedo());
-			undoRedoPanel.setRedosLeft(gameModel.getNumUndosFromCurrentTurn());
+			undoRedoPanel.setRedosLeft(gameModel.getRedoStackSize());
 
 		});
 	}

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
@@ -11,22 +12,21 @@ public class GameView {
 	GameView(GameModel gameModel) {
 		JFrame frame = new JFrame("Mancala");
 		frame.setLayout(new BorderLayout());
+		frame.setSize(new Dimension(1000, 600));
 
 		// Player turn
 		PlayerTurnPanel playerTurnPanel = new PlayerTurnPanel(gameModel);
 		frame.add(playerTurnPanel, BorderLayout.NORTH);
 
-		// Board Panel
-//		BoardPanel boardPanel = new BoardPanel();
-//
-//		GridPanel gridPanel = new GridPanel();
-//		MancalaPanel mancalaPanelP1 = new MancalaPanel();
-//		
-//		
-//		MancalaPanel mancalaPanelP2 = new MancalaPanel();
-//		boardPanel.left = mancalaPanelP2;
-//		boardPanel.center = gridPanel;
-//		boardPanel.right = mancalaPanelP1;
+//		 Board Panel
+		BoardPanel boardPanel = new BoardPanel();
+
+		GridPanel gridPanel = new GridPanel();
+		MancalaPanel mancalaPanelP1 = new MancalaPanel();
+		MancalaPanel mancalaPanelP2 = new MancalaPanel();
+		boardPanel.left = mancalaPanelP2;
+		boardPanel.center = gridPanel;
+		boardPanel.right = mancalaPanelP1;
 
 
 //		frame.add(boardPanel, BorderLayout.CENTER);
@@ -44,13 +44,17 @@ public class GameView {
 			BoardData boardData = gameModel.getCurrentBoardData();
 			// set the correct turn
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
-//			// set the board view
-//			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
-////			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
-////			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);
-//			// set the undo/redo buttons as available or not based on undo history
-			undoRedoPanel.setUndoButton(gameModel.canUndo());
-			undoRedoPanel.setRedoButton(gameModel.canRedo());
+			// set the board view
+			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
+
+//			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP1Pits(p1Pits);
+//			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP2Pits(p2Pits);
+			// set the undo/redo buttons as available or not based on undo history
+//			undoRedoPanel.setUndoButton(gameModel.canUndo());
+//			undoRedoPanel.setRedoPanel(gameModel.canRedo());
+
 		});
 	}
 }

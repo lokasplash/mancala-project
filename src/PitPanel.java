@@ -1,68 +1,97 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.util.LinkedList;
 
 /**
- * A panel for drawing the pit.
- * @author Andrew Jong
+ * Created by andrew on 5/5/17.
  */
-public class PitPanel extends JPanel {
-	// the ratio of the size of the pit to the entire PitPanel
-	private static final double RATIO = 0.80;
+public abstract class PitPanel extends JPanel {
+	private int stoneSize;
+	protected StoneIcon stoneType;
+	protected Shape pit;
+	LinkedList<Point2D> relativeStoneLocations = new LinkedList<>();
 
-	// weight of the outline of the pit
-	private static final float STROKE_WEIGHT = 0.02f;
-
-	private static final Color BACKGROUND_FILL_COLOR = Color.orange;
-
-	private static final Color PIT_FILL_COLOR = Color.pink;
-
-	private static final Color PIT_OUTLINE_COLOR = Color.black;
-	
-	private Ellipse2D.Double pit;
-	
-	public Ellipse2D.Double getShape(){
-		return pit;
-	}
-
-	PitPanel(){
-		pit = new Ellipse2D.Double();
-	}
-	
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(getWidth(), getHeight());
+	PitPanel(StoneIcon stoneType, int numStones) {
+		this.setLayout(null);
+		setSize(100, 100);
+		this.stoneType = stoneType;
+		setNumStones(numStones);
+		updatePitSize();
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-
 		//draw the background
-		g2.setColor(BACKGROUND_FILL_COLOR);
-		g2.fillRect(0,0, this.getWidth(), this.getHeight());
-
-		// math for the pit
-		int pitWidth = (int) (this.getWidth() * RATIO);
-		int pitHeight = (int) (this.getHeight() * RATIO);
-		int pitX = getWidth() / 2 - pitWidth / 2;
-		int pitY = getHeight() / 2 - pitHeight / 2;
-		
-		pit.setFrame(pitX, pitY, pitWidth, pitHeight);
-		
+		drawBackground(g2);
 		// draw the pit
-		g2.setColor(PIT_FILL_COLOR);
-		
-		g2.draw(pit);
-		g2.fillOval(pitX, pitY, pitWidth, pitHeight);
-		g2.setColor(PIT_OUTLINE_COLOR);
-
-		int strokeWidth = (int) ((getWidth() + getHeight()) / 2 * STROKE_WEIGHT);
-		g2.setStroke(new BasicStroke(strokeWidth));
-
-		g2.drawOval(pitX, pitY, pitWidth, pitHeight);
+		updatePitSize();
+		drawPit(g2);
+		// Draw the num stones
+		updateStoneSize();
+		drawStones(g2);
 	}
 
+	/**
+	 * Draws the background of the pit.
+	 * @param g2 Graphics2D instance
+	 */
+	protected abstract void drawBackground(Graphics2D g2);
+
+	protected abstract void updatePitSize();
+
+	protected abstract void drawPit(Graphics2D g2);
+
+	private void updateStoneSize() {
+		stoneSize = (int) (getStoneRatio() * (getWidth() + getHeight()) / 2);
+	}
+
+	protected void drawStones(Graphics2D g2) {
+		for (Point2D ratio : relativeStoneLocations) {
+			int pitWidth = pit.getBounds().width;
+			int pitHeight = pit.getBounds().height;
+
+			int dx = (getWidth() - pitWidth) / 2;
+			int dy = (getHeight() - pitHeight) / 2;
+
+			stoneType.paintIcon(this, g2, (int) (pitWidth * ratio.getX() * 0.7 + dx), (int) (pitHeight * ratio.getY() * 0.7+ dy));
+		}
+	}
+
+	/**
+	 * The ratio of the stone size to the size of the entire pit bounds
+	 * @return
+	 */
+	protected abstract double getStoneRatio();
+
+	public int getNumStones() {
+		return getComponents().length;
+	}
+
+	public int getStoneSize() {
+		return stoneSize;
+	}
+
+	public void setNumStones(int numStones) {
+		placeStones(numStones);
+		repaint();
+	}
+
+	/**
+	 * The algorithm for placing the stones. This method is called everytime the number of stones is set.
+	 * @param numStones
+	 */
+	protected abstract void placeStones(int numStones);
+
+	public Shape getShape() {
+		return pit;
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(getWidth(), getHeight());
+	}
 
 }

@@ -75,6 +75,7 @@ public abstract class PitPanel extends JPanel {
 	}
 
 	public void setNumStones(int numStones) {
+		relativeStoneLocations.clear();
 		placeStones(numStones);
 		repaint();
 	}

@@ -24,7 +24,7 @@ public class GameView extends JPanel {
 		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
 		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
 		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
-		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
+		mancalaPanelP2.setNumStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
 		boardPanel.left.add(mancalaPanelP2);
 		boardPanel.center.add(gridPanel);

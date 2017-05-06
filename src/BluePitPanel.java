@@ -25,7 +25,7 @@ public class BluePitPanel extends PitPanel {
 	}
 
 	BluePitPanel(StoneIcon stoneType, int numStones) {
-		super(stoneType, 4);
+		super(stoneType, numStones);
 	}
 
 	@Override

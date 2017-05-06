@@ -16,7 +16,7 @@ class PitPanelTest {
 		testFrame.setSize(400, 400);
 
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30, "images/white_stone.png");
-		PitPanel panel = new PinkPitPanel(imageIcon, 4);
+		PitPanel panel = new PinkPitPanel(imageIcon, 100);
 		panel.setSize(100,100);
 
 		testFrame.add(panel);

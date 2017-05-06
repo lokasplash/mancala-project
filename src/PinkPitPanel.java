@@ -24,7 +24,7 @@ public class PinkPitPanel extends PitPanel {
 	}
 
 	PinkPitPanel(StoneIcon stoneType, int numStones) {
-		super(stoneType, 4);
+		super(stoneType, numStones);
 	}
 
 	@Override

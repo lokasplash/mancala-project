@@ -1,12 +1,16 @@
 import javax.swing.*;
 
 /**
- * @author Vincent Diep
+ * @author Vincent Diep & Andrew Jong
  */
 public class UndoRedoPanel extends JPanel {
 	private JButton undoButton;
 	private JButton redoButton;
 
+	/**
+	 * Constructor creates an undo redo panel with both undo and redo set to disabled by default. Adds the
+	 * appropriate action listener to each button.
+	 */
 	UndoRedoPanel() {
 
 		undoButton = new JButton("Undo");
@@ -21,6 +25,10 @@ public class UndoRedoPanel extends JPanel {
 		this.add(redoButton);
 	}
 
+	/**
+	 * Set the number of undos left this turn
+	 * @param left num undos left
+	 */
 	public void setUndosLeft(int left) {
 		undoButton.setText("Undo (" + left + " left this turn)");
 

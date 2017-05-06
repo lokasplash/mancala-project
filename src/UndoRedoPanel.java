@@ -6,33 +6,33 @@ import javax.swing.*;
 public class UndoRedoPanel extends JPanel {
 	JButton undoButton;
 	JButton redoButton;
-	
-	UndoRedoPanel(){
-		
-		 undoButton = new JButton("Undo");
-		 redoButton = new JButton("Redo");
-		
+
+	UndoRedoPanel() {
+
+		undoButton = new JButton("Undo");
+		redoButton = new JButton("Redo");
+		undoButton.setEnabled(false);
+		redoButton.setEnabled(false);
+
 		undoButton.addActionListener(new Controller.UndoListener());
 		redoButton.addActionListener(new Controller.RedoListener());
-		
+
 		this.add(undoButton);
 		this.add(redoButton);
 	}
 
 	public void setUndoButton(boolean canUndo) {
-		if (canUndo == true){
+		if (canUndo == true) {
 			undoButton.setEnabled(true);
-		}
-		else{
+		} else {
 			undoButton.setEnabled(false);
 		}
 	}
 
 	public void setRedoButton(boolean canRedo) {
-		if (canRedo == true){
+		if (canRedo == true) {
 			redoButton.setEnabled(true);
-		}
-		else{
+		} else {
 			redoButton.setEnabled(false);
 		}
 	}

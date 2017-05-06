@@ -116,22 +116,27 @@ class BoardModel {
 			if (onPlayerSide && landedPitEmpty) {
 				// the index of the opposite pit
 				int capturePitIndex = player1Pits.length - 1 - landedPit;
-				// 'capture' from the appropriate pit by adding the player's landed stone and the captured opponent's
-				// stones to the player's mancala, and setting both the captured pit and the landed pit to 0
-				if (onSide1) {
-					player1Mancala += 1 + player2Pits[capturePitIndex];
-					player1Pits[landedPit] = 0;
-					player2Pits[capturePitIndex] = 0;
-				} else {
-					player2Mancala += 1 + player1Pits[capturePitIndex];
-					player2Pits[landedPit] = 0;
-					player1Pits[capturePitIndex] = 0;
+				// see if stones to capture
+				if (player2Pits[capturePitIndex] > 0) {
+					// 'capture' from the appropriate pit by adding the player's landed stone and the captured opponent's
+					// stones to the player's mancala, and setting both the captured pit and the landed pit to 0
+					if (onSide1) {
+						player1Mancala += 1 + player2Pits[capturePitIndex];
+						player1Pits[landedPit] = 0;
+						player2Pits[capturePitIndex] = 0;
+					} else {
+						player2Mancala += 1 + player1Pits[capturePitIndex];
+						player2Pits[landedPit] = 0;
+						player1Pits[capturePitIndex] = 0;
+					}
 				}
+
 			}
 		}
 
 
 		/* Determine which player's turn is next */
+
 		// if landed in mancala, the next pit to place would be index 0
 		boolean notInEitherMancala = nextPit != 0;
 		// if landed opponent's mancala, the next side to place on will be the current player's
@@ -143,12 +148,21 @@ class BoardModel {
 	}
 
 	/**
-	 * Determine whether all the pits on the board (excluding mancalas) are empty of stones.
+	 * Determine whether all the pits on the one side (excluding mancalas) are empty of stones.
 	 * @return true if stones empty, false if has stones
 	 */
-	public boolean allPitsEmpty() {
-		for (int i : player1Pits) if (i != 0) return false;
-		for (int i : player2Pits) if (i != 0) return false;
+	public boolean isOneSideEmpty() {
+		boolean side1Empty = true;
+		for (int i : player1Pits) {
+			if (i != 0)
+				side1Empty = false;
+		}
+		if (!side1Empty) {
+			for (int i : player2Pits)
+				if (i != 0)
+					return false;
+
+		}
 		return true;
 	}
 

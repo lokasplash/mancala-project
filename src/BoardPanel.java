@@ -18,7 +18,7 @@ public class BoardPanel extends JPanel{
 	/**
 	 * How much of the width of a BoardPanel an InternalBoardPanel should take up
 	 */
-	private static final double RATIO = 0.30;
+	private static final double RATIO = 0.15;
 
 
 	/**

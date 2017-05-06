@@ -47,7 +47,7 @@ public class GridPanel extends JPanel
 	
 	@Override
 	public Dimension getPreferredSize(){
-		return new Dimension(900,300);
+		return new Dimension(600,200);
 	}
 	
 	public PitPanel[] getP1Pits()

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Test the PitPanel
@@ -17,7 +16,7 @@ class PitPanelTest {
 
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30, "images/white_stone.png");
 		PitPanel panel = new PinkPitPanel(imageIcon);
-		panel.setNumStones(10);
+		panel.setStones(10);
 		panel.setSize(100,100);
 
 		testFrame.add(panel);

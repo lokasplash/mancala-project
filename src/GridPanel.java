@@ -45,13 +45,13 @@ public class GridPanel extends JPanel {
 
 	public void setP1Pits(int[] stonesInPits) {
 		for (int i = 0; i < stonesInPits.length; i++) {
-			p1Pits.get(i).setNumStones(stonesInPits[i]);
+			p1Pits.get(i).setStones(stonesInPits[i]);
 		}
 	}
 
 	public void setP2Pits(int[] stonesInPits) {
 		for (int i = 0; i < stonesInPits.length; i++) {
-			p2Pits.get(i).setNumStones(stonesInPits[i]);
+			p2Pits.get(i).setStones(stonesInPits[i]);
 		}
 	}
 

@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
@@ -22,9 +21,9 @@ public class GameView extends JPanel {
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
 		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
 		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
-		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
+		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
 		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
-		mancalaPanelP2.setNumStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
+		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
 		boardPanel.addLeft(mancalaPanelP1);
 		boardPanel.addCenter(gridPanel);
@@ -43,7 +42,7 @@ public class GameView extends JPanel {
 			// set the correct turn
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
 			// set the board view
-			mancalaPanelP1.setNumStones(boardData.PLAYER_1_MANCALA);
+			mancalaPanelP1.setStones(boardData.PLAYER_1_MANCALA);
 
 			gridPanel.setP1Pits(boardData.PLAYER_1_PITS);
 			gridPanel.setP2Pits(boardData.PLAYER_2_PITS);

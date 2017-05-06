@@ -114,15 +114,21 @@ public class Controller {
 		public void mousePressed(MouseEvent e) {
 			Point clickPoint = e.getPoint();
 			System.out.println(clickPoint.getX() + "," + clickPoint.getY());
-			if (pitPanel.getShape().contains(clickPoint)) {
-				System.out.println("side[" + side + "], pit " + pitNumber + " clicked");
-				try {
-					gameModel.playerMove(side, pitNumber);
-				} catch (GameModel.GameFinishedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			boolean correctSide = side.isP1Side() == gameModel.getCurrentBoardData().PLAYER_1_TURN;
+			if (correctSide) {
+				if (pitPanel.getShape().contains(clickPoint)) {
+					System.out.println("side[" + side + "], pit " + pitNumber + " clicked");
+					try {
+						gameModel.playerMove(pitNumber);
+					} catch (GameModel.GameFinishedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
+			} else {
+				System.out.println("Player cannot click me, I belong to the opponent.");
 			}
+
 		}
 		
 		/** When mouse is over a pit, displays a tooltip containing the number of stones in the pit */
@@ -184,7 +190,9 @@ public class Controller {
 
 			System.out.println("side[" + side + "], panel " + index + " clicked");
 			try {
-				gameModel.playerMove(side, index);
+				boolean correctSide = side.isP1Side() == gameModel.getCurrentBoardData().PLAYER_1_TURN;
+				if (correctSide)
+					gameModel.playerMove(index);
 			} catch (GameModel.GameFinishedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

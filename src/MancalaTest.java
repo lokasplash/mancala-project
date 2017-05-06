@@ -8,12 +8,12 @@ import java.awt.*;
 public class MancalaTest {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
-			GameModel model = new GameModel();
+			Controller.setDefaultGameModel();
+			GameModel model = Controller.getGameModel();
 
 			JFrame frame = new JFrame("Mancala");
 			frame.setSize(new Dimension(1000, 600));
 			GameView view = new GameView(model);
-			Controller.setDefaultGameModel();
 			frame.add(view);
 
 			frame.pack();

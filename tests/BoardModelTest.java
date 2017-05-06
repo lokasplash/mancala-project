@@ -34,7 +34,7 @@ public class BoardModelTest {
 	void testNoContinueTurnWhenLandInOpponentMancala() {
 		BoardModel model = new BoardModel(6, 8);
 		assertEquals(true, model.isPlayer1Turn());
-		model.playerMove(6);
+		model.playerMove(5);
 		assertEquals(false, model.isPlayer1Turn());
 	}
 

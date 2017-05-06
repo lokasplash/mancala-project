@@ -54,7 +54,7 @@ public abstract class PitPanel extends JPanel {
 			int pitHeight = pit.getBounds().height;
 
 			int dx = (getWidth() - pitWidth) / 2;
-			int dy = (getWidth() - pitWidth) / 2;
+			int dy = (getHeight() - pitHeight) / 2;
 
 			stoneType.paintIcon(this, g2, (int) (pitWidth * ratio.getX() * 0.7 + dx), (int) (pitHeight * ratio.getY() * 0.7+ dy));
 		}

@@ -17,16 +17,28 @@ public class GameView extends JPanel {
 		PlayerTurnPanel playerTurnPanel = new PlayerTurnPanel(gameModel);
 		this.add(playerTurnPanel, BorderLayout.NORTH);
 
-		BoardPanel boardPanel = new BoardPanel();
+//		BoardPanel boardPanel = new BoardPanel();
+		JPanel bp = new JPanel();
+		bp.setLayout(new FlowLayout());
 
 		GridPanel gridPanel = new GridPanel();
-		MancalaPanel mancalaPanelP1 = new MancalaPanel();
-		MancalaPanel mancalaPanelP2 = new MancalaPanel();
-		boardPanel.left = mancalaPanelP2;
-		boardPanel.center = gridPanel;
-		boardPanel.right = mancalaPanelP1;
+//		MancalaPanel mancalaPanelP1 = new MancalaPanel();
+//		MancalaPanel mancalaPanelP2 = new MancalaPanel();
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon);
+		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
+		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
+		mancalaPanelP1.setNumStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
+		bp.add(mancalaPanelP1);
+		bp.add(gridPanel);
+		bp.add(mancalaPanelP2);
+//
+//		boardPanel.left = mancalaPanelP2;
+//		boardPanel.center = gridPanel;
+//		boardPanel.right = mancalaPanelP1;
 
-		this.add(boardPanel, BorderLayout.CENTER);
+//		this.add(boardPanel, BorderLayout.CENTER);
+		this.add(bp, BorderLayout.CENTER);
 
 		// Undo/redo controls
 		UndoRedoPanel undoRedoPanel = new UndoRedoPanel();
@@ -38,15 +50,15 @@ public class GameView extends JPanel {
 			// set the correct turn
 			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
 			// set the board view
-			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
-
-			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-			gridPanel.setP1Pits(p1Pits);
-			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-			gridPanel.setP2Pits(p2Pits);
-//			 set the undo/redo buttons as available or not based on undo history
-			undoRedoPanel.setUndoButton(gameModel.canUndo());
-			undoRedoPanel.setRedoButton(gameModel.canRedo());
+//			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
+//
+//			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP1Pits(p1Pits);
+//			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
+//			gridPanel.setP2Pits(p2Pits);
+////			 set the undo/redo buttons as available or not based on undo history
+//			undoRedoPanel.setUndoButton(gameModel.canUndo());
+//			undoRedoPanel.setRedoButton(gameModel.canRedo());
 
 		});
 	}

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 /**
 
  * Creates a panel with a Gridlayout storing PitPanels
- * @author Prem Panchal
+ * @author Prem Panchal & Andrew Jong
  *
  */
 
@@ -16,49 +16,38 @@ public class GridPanel extends JPanel
 {
 	private PitPanel[] p1Pits;
 	private PitPanel[] p2Pits;
-	
 
-	GridPanel()
+	GridPanel() {
+		this(new StoneIcon.ImageStoneIcon(30,"images/white_stone.png"));
+	}
+
+	GridPanel(StoneIcon icon)
 	{
-		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		this.setLayout(new GridLayout(2, 6));
 
 		p1Pits = new PitPanel[6];
 		p2Pits = new PitPanel[6];
 		for(int i = 0; i<6;i++)
 		{
-			PitPanel pit = new PinkPitPanel(imageIcon, 4);
+			PitPanel pit = new PinkPitPanel(icon, 4);
 			pit.setSize(100, 100);
 			p1Pits[i] = pit;
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, 5-i, pit));
+			this.add(pit);
 		}
 		for(int i=0; i<6;i++)
 		{
-			PitPanel pit = new PinkPitPanel(imageIcon, 4);
+			PitPanel pit = new PinkPitPanel(icon, 4);
 			pit.setSize(100, 100);
 			p2Pits[i] = pit;
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P2, i, pit));
+			this.add(pit);
 		}		
 	}	
 	
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		//set grid layout and add to panel
-		this.setLayout(new GridLayout(2,6));
-		for(int i=0; i < p1Pits.length; i++)
-		{
-			this.add(p1Pits[i]);
-		}
-		for(int i=0; i < p2Pits.length; i++)
-		{
-			this.add(p2Pits[i]);
-		}
-	}
-	
-	@Override
 	public Dimension getPreferredSize(){
-		return new Dimension(600,200);
+		return new Dimension(900,300);
 	}
 	
 	public PitPanel[] getP1Pits()

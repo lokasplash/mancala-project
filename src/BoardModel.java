@@ -128,7 +128,6 @@ class BoardModel {
 				// see if stones to capture
 				if (opponentPits[capturePitIndex] > 0) {
 					myPits[landedPit] = 0;
-					opponentPits[capturePitIndex] = 0;
 					// 'capture' from the appropriate pit by adding the player's landed stone and the captured opponent's
 					// stones to the player's mancala, and setting both the captured pit and the landed pit to 0
 					if (onSide1) {
@@ -136,6 +135,7 @@ class BoardModel {
 					} else {
 						player2Mancala += 1 + opponentPits[capturePitIndex];
 					}
+					opponentPits[capturePitIndex] = 0;
 				}
 
 			}

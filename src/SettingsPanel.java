@@ -1,8 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -17,6 +13,7 @@ public class SettingsPanel extends JPanel
 	 * Creates Buttons and actionlisteners that mutate the gameModel reference.
 	 */
 	SettingsPanel(JFrame parentFrame) {
+		this.setLayout(new GridLayout(0, 1));
 		JPanel chooseStonesPanel = new JPanel();
 		JTextArea question1 = new JTextArea();
 		question1.setText("How Many Stones per pit?");

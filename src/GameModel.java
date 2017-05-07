@@ -87,14 +87,15 @@ public class GameModel {
 	public void playerMove(int index) throws GameFinishedException {
 		if (currentBoard.isGameFinished()) throw new GameFinishedException();
 
-		redoHistory.clear(); // Reset the redo history
 		undoHistory.push(new BoardModel(currentBoard)); // Store the current board in undo history before updating.
-		//
-		checkResetUndos();
-
-		currentBoard.playerMove(index); // update the current board
-
-		updateListeners();
+		if (currentBoard.playerMove(index)){
+			// update the current board
+			redoHistory.clear(); // Reset the redo history
+			checkResetUndos();
+			updateListeners();
+		} else {
+			undoHistory.pop();
+		}
 	}
 
 	/**

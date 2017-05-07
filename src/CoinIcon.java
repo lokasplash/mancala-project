@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
  *
  */
 public class CoinIcon extends StoneIcon.ImageStoneIcon{
-ImageIcon imageIcon;
 	
 	/**
 	 * Constructor for an ImageStoneIcon
@@ -19,16 +18,8 @@ ImageIcon imageIcon;
 	 * @param filename Location of image file
 	 */
 	CoinIcon(int size) {
-		super(size, null);
-		imageIcon = new ImageIcon("images/coin_20.png");
-		
-		Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
-		imageIcon.setImage(image);
+		super(size, "images/coin_20.png");
+
 	}
 
-	@Override
-	public ImageIcon getImageIcon()
-	{
-		return imageIcon;
-	}
 }

@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
  *
  */
 public class YellowStoneIcon extends StoneIcon.ImageStoneIcon {
-ImageIcon imageIcon;
 	
 	/**
 	 * Constructor for an ImageStoneIcon
@@ -20,15 +19,6 @@ ImageIcon imageIcon;
 	 */
 	YellowStoneIcon(int size) {
 		super(size, "images/ballYellow_09.png");
-//		imageIcon = new ImageIcon("images/ballYellow_09.png");
-		
-//		Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
-//		imageIcon.setImage(image);
 	}
 
-	@Override
-	public ImageIcon getImageIcon()
-	{
-		return imageIcon;
-	}
 }

@@ -78,7 +78,11 @@ public abstract class StoneIcon implements Icon {
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			imageIcon.paintIcon(c, g, x, y);
+			getImageIcon().paintIcon(c, g, x, y);
+		}
+		
+		public Icon getImageIcon() {
+			return imageIcon;
 		}
 		
 	}

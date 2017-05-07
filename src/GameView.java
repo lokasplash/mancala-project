@@ -23,7 +23,7 @@ public class GameView extends JPanel {
 		/* Setup the board */
 		BoardPanel boardPanel = new BoardPanel();
 
-		GridPanel gridPanel = new GridPanel(stoneIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
+		GridPanel gridPanel = new GridPanel(stoneIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT, isPinkPitPanel);
 		gridPanel.setState(gameModel.getCurrentBoardData());
 
 		// TODO: Implement a MancalaPitPanel that's rounded rect

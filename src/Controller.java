@@ -34,6 +34,10 @@ public class Controller {
 	public static void setDefaultGameModel() {
 		gameModel = new GameModel();
 	}
+	
+	public static void setGameModel(GameModel m) {
+		gameModel = m;
+	}
 
 	public static GameModel getGameModel() {
 		return gameModel;
@@ -218,6 +222,20 @@ public class Controller {
 			System.out.println(startingStones);
 		}
 
+	}
+	
+	public static class PitColorListener implements ActionListener {
+		boolean pink; 
+		PitColorListener(String s) {
+			if (s.compareTo("pink") == 0) {pink = true;}
+			else {pink = false;}
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent ev) {
+			gameModel.setPink(pink);
+			System.out.println(gameModel.getPink());
+		}
 	}
 
 }

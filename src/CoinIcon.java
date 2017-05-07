@@ -27,6 +27,9 @@ ImageIcon imageIcon;
 	}
 
 	@Override
+	/**
+	 * Get the image icon
+	 */
 	public ImageIcon getImageIcon()
 	{
 		return imageIcon;

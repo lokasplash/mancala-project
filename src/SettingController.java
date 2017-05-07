@@ -8,21 +8,14 @@ import javax.swing.*;
 
 
 /**
- * Controller class for View.
+ * Controller class for Settings.
  * <p>
- * Contains various listeners for buttons, PitPanels, and general components
- * <p>
- * Controller class needs to be given an instance of the GameModel to manipulate.
- * <pre>
- * 	Ex:
- * 	GameModel gameModel = new GameModel();
- * 	Controller.setGameModel(gameModel);
- *
+ * Contains various listeners for each setting
  * 	JLabel label = new JLabel(...);
  * 	label.addMouseListener(new Controller.PitPanelListener(Side.P1, 1, panel));
  * 	...
  * </pre>
- * @author Vincent Diep, Prem Panchal
+ * @author Prem Panchal, Andrew Jong
  */
 public class SettingController {
 

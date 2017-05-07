@@ -39,11 +39,13 @@ public class GameView extends JPanel {
 		boardPanel.addRight(mancalaPanelP2);
 
 		this.add(boardPanel, BorderLayout.CENTER);
-		
+		Font font = new Font("SansSerif", Font.BOLD, 48);
 		JLabel P1MancalaCount = new JLabel();
+		P1MancalaCount.setFont(font);
 		P1MancalaCount.setText(String.valueOf(gameModel.getCurrentBoardData().PLAYER_1_MANCALA));
 		this.add(P1MancalaCount, BorderLayout.WEST);
 		JLabel P2MancalaCount = new JLabel();
+		P2MancalaCount.setFont(font);
 		P2MancalaCount.setText(String.valueOf(gameModel.getCurrentBoardData().PLAYER_2_MANCALA));
 		this.add(P2MancalaCount, BorderLayout.EAST);
 

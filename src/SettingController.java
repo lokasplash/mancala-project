@@ -72,6 +72,11 @@ public class SettingController {
 		}
 	}
 	
+	/**
+	 * Determines what Icon is being implemented for the Mancala
+	 * <p>When Button is clicked, the style of stoneIcon being implemented is changed
+	 *
+	 */
 	public static class StoneIconListener implements ActionListener {
 		StoneIcon i;
 		StoneIconListener(String s) {

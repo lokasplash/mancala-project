@@ -201,41 +201,4 @@ public class Controller {
 
 	}
 
-	/**
-	 * StartingStonesButtonListener is created with the number of stones each pit in the GameModel
-	 * should have.
-	 * <p> When its corresponding button is clicked, it will call gameModel.setStones(...)
-	 * with the appropriate value
-	 */
-	public static class StartingStonesButtonListener implements ActionListener {
-
-		int startingStones;
-
-		StartingStonesButtonListener(int stones) {
-			startingStones = stones;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent ev) {
-			// TODO Auto-generated method stub
-			gameModel = new GameModel(startingStones);
-			System.out.println(startingStones);
-		}
-
-	}
-	
-	public static class PitColorListener implements ActionListener {
-		boolean pink; 
-		PitColorListener(String s) {
-			if (s.compareTo("pink") == 0) {pink = true;}
-			else {pink = false;}
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent ev) {
-			gameModel.setPink(pink);
-			System.out.println(gameModel.getPink());
-		}
-	}
-
 }

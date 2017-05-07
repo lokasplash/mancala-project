@@ -45,6 +45,9 @@ public class BluePitPanel extends PitPanel {
 		return 0.1;
 	}
 
+	/**
+	 * Resizes Pit
+	 */
 	@Override
 	protected void updatePitSize() {
 		int pitWidth = (int) (this.getWidth() * RATIO);
@@ -54,6 +57,9 @@ public class BluePitPanel extends PitPanel {
 		pit = new RoundRectangle2D.Double(dx, dy, pitWidth, pitHeight, 50, 50);
 	}
 
+	/**
+	 * Draw method for PitPanel
+	 */
 	@Override
 	protected void drawPit(Graphics2D g2) {
 		g2.setColor(PIT_FILL_COLOR);
@@ -64,7 +70,11 @@ public class BluePitPanel extends PitPanel {
 		g2.setStroke(new BasicStroke(strokeWidth));
 		g2.draw(pit);
 	}
-
+	
+	/**
+	 * Draws Stones inside of pit
+	 * param numStones Number of stones to draw
+	 */
 	@Override
 	protected void placeStones(int numStones) {
 
@@ -107,6 +117,10 @@ public class BluePitPanel extends PitPanel {
 	
 		}
 	}
+	
+	/**
+	 * Colors Background of Panel
+	 */
 	@Override
 	protected void drawBackground(Graphics2D g2) {
 		g2.setColor(BACKGROUND_FILL_COLOR);

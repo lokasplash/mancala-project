@@ -4,6 +4,12 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+
+/**
+ * Creates a Yellow Stone Icon for the game
+ * @author Prem Panchal, Vincent Diep
+ *
+ */
 public class YellowStoneIcon extends StoneIcon.ImageStoneIcon {
 ImageIcon imageIcon;
 	

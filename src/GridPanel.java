@@ -18,6 +18,13 @@ public class GridPanel extends JPanel {
 		this(new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"), 6, 4, true);
 	}
 
+	/**
+	 * Constructor that makes pitpanels into a grid layout for the mancala board
+	 * @param icon Icon design being implemented
+	 * @param numPitsPerSide Number pits per player in mancala
+	 * @param startingStones Number of stones per pit
+	 * @param pink Which Color Strategy is being implemented
+	 */
 	GridPanel(StoneIcon icon, int numPitsPerSide, int startingStones, boolean pink) {
 		this.setLayout(new GridLayout(2, numPitsPerSide));
 
@@ -58,6 +65,10 @@ public class GridPanel extends JPanel {
 		return new Dimension(600, 200);
 	}
 
+	/**
+	 * Update all pitpanels after Change event
+	 * @param data number of stones in each pit
+	 */
 	public void setState(BoardData data) {
 		for (int i = 0; i < data.PLAYER_1_PITS.length; i++) {
 			p1Pits.get(i).setStones(data.PLAYER_1_PITS[i]);

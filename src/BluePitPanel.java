@@ -6,14 +6,14 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- * A panel for drawing the pit.
+ * A pit panel for drawing blue pit and orange backgrounds.
  * @author Andrew Jong
  */
 public class BluePitPanel extends PitPanel {
 	// the ratio of the size of the pit to the entire PinkPitPanel
 	private static final double RATIO = 0.80;
 
-	// weight of the outline of the pit
+	// self explanatory variables
 	private static final float STROKE_WEIGHT = 0.02f;
 	private static final Color BACKGROUND_FILL_COLOR = Color.decode("#f45f42");
 	private static final Color PIT_FILL_COLOR = Color.blue;
@@ -23,7 +23,7 @@ public class BluePitPanel extends PitPanel {
 	private static final double ALLOWED_STONE_OVERLAP = 0.05;
 
 	/**
-	 * 
+	 * Construct a blue pit panel
 	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
 	 * Else, may hang while choosing stone placement
 	 */
@@ -32,9 +32,11 @@ public class BluePitPanel extends PitPanel {
 	}
 
 	/**
-	 * 
-	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
-	 * Else, may hang while choosing stone placement
+	 * Construct a blue pit panel with the number of stones.
+	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel.
+	 *                     Else, may hang while choosing stone placement.
+	 * @param numStones the number of stones to draw in this pit
+	 *
 	 */
 	BluePitPanel(StoneIcon stoneType, int numStones) {
 		super(stoneType, numStones);
@@ -46,7 +48,7 @@ public class BluePitPanel extends PitPanel {
 	}
 
 	/**
-	 * Resizes Pit
+	 * Draws pit as rounded rectangle
 	 */
 	@Override
 	protected void updatePitSize() {

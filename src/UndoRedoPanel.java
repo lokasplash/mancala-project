@@ -34,14 +34,27 @@ public class UndoRedoPanel extends JPanel {
 
 	}
 
+	/**
+	 * Set the number of redos left.
+	 * @param left num redos left
+	 */
 	public void setRedosLeft(int left) {
 		redoButton.setText("Redo (" + left + ")");
 	}
 
+
+	/**
+	 * Set whether the undo button is enabled
+	 * @param canUndo true or false
+	 */
 	public void setCanUndo(boolean canUndo) {
 		undoButton.setEnabled(canUndo);
 	}
 
+	/**
+	 * Set whether the redo button is enabled
+	 * @param canRedo t/f
+	 */
 	public void setCanRedo(boolean canRedo) {
 		redoButton.setEnabled(canRedo);
 	}

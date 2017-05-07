@@ -1,10 +1,6 @@
-import java.awt.Point;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.*;
 
 
 /**
@@ -24,15 +20,14 @@ public class SettingController {
 	private static StoneIcon icon;
 	private static GameView gameview;
 	private static GameModel gamemodel;
-	
-	public static GameView getGameView() {
-		return gameview;
-	}
-	
-	public static GameModel getGameModel() {
-		return gamemodel;
-	}
 
+
+	/**
+	 *
+	 * Handlings toggling off of non-selected butons.
+	 * @param e the event source
+	 * @param buttons buttons to toggle off
+	 */
 	private static void toggleButtons(ActionEvent e, JToggleButton[] buttons) {
 		AbstractButton abstractButton = (AbstractButton) e.getSource();
 		boolean selected = !abstractButton.getModel().isSelected();

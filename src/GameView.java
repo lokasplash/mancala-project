@@ -17,7 +17,7 @@ public class GameView extends JPanel {
 		this.setPreferredSize(new Dimension(1000,470));
 
 		/* Setup the game state message */
-		GameStatePanel gameStatePanel = new GameStatePanel();
+		GameStatePanel gameStatePanel = new GameStatePanel(isPinkPitPanel);
 		this.add(gameStatePanel, BorderLayout.NORTH);
 
 		/* Setup the board */

@@ -18,8 +18,9 @@ public class GameStatePanel extends JPanel {
 	/**
 	 * Constructor, creates a Player Turn panel
 	 */
-	GameStatePanel() {
-		this.setBackground(Color.ORANGE);
+	GameStatePanel(boolean isPink) {
+		if(isPink) {this.setBackground(Color.ORANGE);}
+		else {this.setBackground(Color.decode("#f45f42"));}
 		font = new Font("SansSerif", Font.BOLD, fontSize);
 		this.setPreferredSize(new Dimension(200, 150));
 	}

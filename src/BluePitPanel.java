@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  * A panel for drawing the pit.
@@ -9,11 +10,11 @@ import java.awt.geom.Rectangle2D;
  */
 public class BluePitPanel extends PitPanel {
 	// the ratio of the size of the pit to the entire PinkPitPanel
-	private static final double RATIO = 0.50;
+	private static final double RATIO = 0.80;
 
 	// weight of the outline of the pit
 	private static final float STROKE_WEIGHT = 0.02f;
-	private static final Color BACKGROUND_FILL_COLOR = Color.green;
+	private static final Color BACKGROUND_FILL_COLOR = Color.decode("#f45f42");
 	private static final Color PIT_FILL_COLOR = Color.blue;
 	private static final Color PIT_OUTLINE_COLOR = Color.black;
 
@@ -39,7 +40,7 @@ public class BluePitPanel extends PitPanel {
 		int pitHeight = (int) (this.getHeight() * RATIO);
 		int dx = (getWidth() - pitWidth) / 2;
 		int dy = (getHeight() - pitHeight) / 2;
-		pit = new Ellipse2D.Double(dx, dy, pitWidth, pitHeight);
+		pit = new RoundRectangle2D.Double(dx, dy, pitWidth, pitHeight, 50, 50);
 	}
 
 	@Override

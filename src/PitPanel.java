@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 /**
@@ -12,6 +13,9 @@ public abstract class PitPanel extends JPanel {
 	private int stoneSize;
 	protected StoneIcon stoneIcon;
 	protected Shape pit;
+	protected Color clickableColor = Color.CYAN;
+	private boolean mouseHover = false;
+	private int strokeWidth = 5;
 	LinkedList<Point2D> relativeStoneLocations = new LinkedList<>();
 
 	/**
@@ -51,6 +55,20 @@ public abstract class PitPanel extends JPanel {
 		// Draw the num stones
 		updateStoneSize();
 		drawStones(g2);
+		drawClickable(g2);
+	}
+
+	/**
+	 * To show if the pit can be clicked.
+	 */
+	private void drawClickable(Graphics2D g2) {
+		if (isEnabled() && mouseHover) {
+			Rectangle2D highlightRect = new Rectangle2D.Double();
+			Stroke basic = new BasicStroke(strokeWidth);
+			g2.setStroke(basic);
+			g2.setColor(clickableColor);
+			g2.drawRect(0,0,getWidth(), getHeight());
+		}
 	}
 
 	/**
@@ -151,4 +169,7 @@ public abstract class PitPanel extends JPanel {
 		return new Dimension(getWidth(), getHeight());
 	}
 
+	public void setMouseHover(boolean mouseHover) {
+		this.mouseHover = mouseHover;
+	}
 }

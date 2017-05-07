@@ -45,16 +45,19 @@ public class GridPanel extends JPanel {
 		return new Dimension(600, 200);
 	}
 
-	public void setP1Pits(int[] stonesInPits) {
-		for (int i = 0; i < stonesInPits.length; i++) {
-			p1Pits.get(i).setStones(stonesInPits[i]);
+	public void setState(BoardData data) {
+		for (int i = 0; i < data.PLAYER_1_PITS.length; i++) {
+			p1Pits.get(i).setStones(data.PLAYER_1_PITS[i]);
+			if (data.PLAYER_1_PITS[i] != 0)
+				p1Pits.get(i).setEnabled(data.PLAYER_1_TURN);
+			else p1Pits.get(i).setEnabled(false);
 		}
-	}
-
-	public void setP2Pits(int[] stonesInPits) {
-		for (int i = 0; i < stonesInPits.length; i++) {
-			p2Pits.get(i).setStones(stonesInPits[i]);
+		for (int i = 0; i < data.PLAYER_2_PITS.length; i++) {
+			p2Pits.get(i).setStones(data.PLAYER_2_PITS[i]);
+			if (data.PLAYER_2_PITS[i] != 0)
+				p2Pits.get(i).setEnabled(!data.PLAYER_1_TURN);
+			else p2Pits.get(i).setEnabled(false);
 		}
-	}
 
+	}
 }

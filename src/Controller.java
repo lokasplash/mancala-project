@@ -129,26 +129,28 @@ public class Controller {
 
 		/** When mouse is over a pit, displays a tooltip containing the number of stones in the pit */
 		@Override
-		public void mouseMoved(MouseEvent e) {
+		public void mouseEntered(MouseEvent e) {
 			Point clickPoint = e.getPoint();
 			System.out.println("Moved to " + clickPoint.getX() + "," + clickPoint.getY());
-			if (pitPanel.getShape().contains(clickPoint)) {
-				System.out.println("side[" + side + "], pit " + pitNumber + " entered");
-				int stoneCount;
+			System.out.println("side[" + side + "], pit " + pitNumber + " entered");
+			int stoneCount;
 
-				if (side == Side.P1) {
-					stoneCount = gameModel.getCurrentBoardData().PLAYER_1_PITS[pitNumber];
-				} else {
-					stoneCount = gameModel.getCurrentBoardData().PLAYER_2_PITS[pitNumber];
-				}
-				pitPanel.setToolTipText(stoneCount + " stones");
+			if (side == Side.P1) {
+				stoneCount = gameModel.getCurrentBoardData().PLAYER_1_PITS[pitNumber];
 			} else {
-				pitPanel.setToolTipText(null);
+				stoneCount = gameModel.getCurrentBoardData().PLAYER_2_PITS[pitNumber];
 			}
-
+			pitPanel.setToolTipText(stoneCount + " stones");
+			pitPanel.setMouseHover(true);
+			pitPanel.repaint();
 		}
 
-
+		@Override
+		public void mouseExited(MouseEvent e) {
+			pitPanel.setToolTipText(null);
+			pitPanel.setMouseHover(false);
+			pitPanel.repaint();
+		}
 	}
 
 	/**

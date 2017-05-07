@@ -3,8 +3,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
 
 import javax.swing.JPanel;
+
+import javafx.geometry.Rectangle2D;
 
 /**
  * Creates a Text Field stating player Turn and victor when game ends
@@ -14,6 +17,7 @@ public class GameStatePanel extends JPanel {
 	private String stateMessage = "Player 1's Turn";
 	private Font font;
 	private int fontSize = 14;
+	private double msgLength = 0;
 
 	/**
 	 * Constructor, creates a Player Turn panel
@@ -32,9 +36,22 @@ public class GameStatePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		font = font.deriveFont((float) (this.getWidth() * 0.1));
+		
+		
+		
+		if(this.getWidth() > msgLength){
+			font = font.deriveFont((float) (this.getHeight()* 0.5 ));
+		}
+
+		
+		FontRenderContext frc = g2.getFontRenderContext();
+		java.awt.geom.Rectangle2D bounds = font.getStringBounds(stateMessage, frc);
+		msgLength = bounds.getWidth();
 		g2.setFont(font);
-		g2.drawString(stateMessage, 10, font.getSize());
+		
+		double x = (getWidth() - bounds.getWidth()) / 2;
+		double y = (getHeight() - bounds.getHeight()) / 2;
+		g2.drawString(stateMessage, (int) x, (int) (y-bounds.getY()));
 	}
 
 	/**

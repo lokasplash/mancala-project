@@ -109,9 +109,4 @@ public class BoardPanel extends JPanel {
 			return new Dimension((int) x, this.getHeight());
 		}
 	}
-
-	@Override
-	public Dimension getPreferredSize() {
-		return super.getPreferredSize();
-	}
 }

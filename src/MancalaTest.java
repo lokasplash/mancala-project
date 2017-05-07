@@ -13,7 +13,7 @@ public class MancalaTest {
 			GameModel model = Controller.getGameModel();
 
 			JFrame frame = new JFrame("Mancala");
-			frame.setSize(new Dimension(1000, 600));
+			frame.setSize(new Dimension(1000, 470));
 			SettingsPanel settings = new SettingsPanel(frame);
 			frame.add(settings);
 

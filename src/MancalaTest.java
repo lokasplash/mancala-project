@@ -17,7 +17,7 @@ public class MancalaTest {
 			SettingsPanel settings = new SettingsPanel(frame);
 			frame.add(settings);
 
-			frame.pack();
+//			frame.pack();
 
 			frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			frame.setVisible(true);

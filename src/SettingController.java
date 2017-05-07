@@ -19,8 +19,8 @@ import javax.swing.*;
  */
 public class SettingController {
 
-	private static int startingStones;
-	private static boolean isPink;
+	private static int startingStones = 4;
+	private static boolean isPink = true;
 	private static StoneIcon icon;
 	private static GameView gameview;
 	private static GameModel gamemodel;
@@ -33,6 +33,14 @@ public class SettingController {
 		return gamemodel;
 	}
 
+	private static void toggleButtons(ActionEvent e, JToggleButton[] buttons) {
+		AbstractButton abstractButton = (AbstractButton) e.getSource();
+		boolean selected = !abstractButton.getModel().isSelected();
+		for (JToggleButton b : buttons) {
+			b.setSelected(selected);
+		}
+	}
+
 
 	/**
 	 * Before the Gamemodel is created, it determines number of starting stones in pits
@@ -40,17 +48,20 @@ public class SettingController {
 	 * 
 	 */
 	public static class StartingStonesButtonListener implements ActionListener {
-			int stones;
-		StartingStonesButtonListener(int s) {
+		private int stones;
+		private JToggleButton[] buttons;
+
+		StartingStonesButtonListener(int s, JToggleButton... buttons) {
 			stones = s;
+			this.buttons = buttons;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			startingStones = stones;
 			System.out.println(startingStones);
+			toggleButtons(e, buttons);
 		}
-
 	}
 	
 	/**
@@ -60,18 +71,22 @@ public class SettingController {
 	 */
 	public static class PitColorListener implements ActionListener {
 		boolean pink;
-		PitColorListener(String s) {
+		private JToggleButton[] buttons;
+
+		PitColorListener(String s, JToggleButton... buttons) {
+			this.buttons = buttons;
 			if (s.compareTo("pink") == 0) {pink = true;}
 			else {pink = false;}
 		}
 		
 		@Override
-		public void actionPerformed(ActionEvent ev) {
+		public void actionPerformed(ActionEvent e) {
 			isPink = pink;
 			System.out.println(isPink);
+			toggleButtons(e, buttons);
 		}
 	}
-	
+
 	/**
 	 * Determines what Icon is being implemented for the Mancala
 	 * <p>When Button is clicked, the style of stoneIcon being implemented is changed
@@ -79,7 +94,10 @@ public class SettingController {
 	 */
 	public static class StoneIconListener implements ActionListener {
 		StoneIcon i;
-		StoneIconListener(String s) {
+		private JToggleButton[] buttons;
+
+		StoneIconListener(String s, JToggleButton... buttons) {
+			this.buttons = buttons;
 			if (s.compareTo("drawn") == 0) { i = new DrawnStoneIcon(30);}
 			else if(s.compareTo("white")==0) {i = new WhiteStoneIcon(30);}
 			else if(s.compareTo("yellow")==0) {i = new YellowStoneIcon(30);}
@@ -89,7 +107,7 @@ public class SettingController {
 		public void actionPerformed(ActionEvent e) {
 			icon=i;
 			System.out.println(icon.getClass());
-			
+			toggleButtons(e, buttons);
 		}
 		
 	}

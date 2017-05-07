@@ -32,13 +32,14 @@ public class PitPanelControllerTest {
 		testFrame.setLayout(new GridLayout(2,6));
 		testFrame.setSize(400, 400);
 
-		PitPanel panel = new PitPanel();
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		PitPanel panel = new PinkPitPanel(imageIcon);
 		panel.setSize(100,100);
 		
-		PitPanel panel2 = new PitPanel();
+		PitPanel panel2 = new PinkPitPanel(imageIcon);
 		panel2.setSize(100,100);
 		
-		PitPanel panel3 = new PitPanel();
+		PitPanel panel3 = new PinkPitPanel(imageIcon);
 		panel3.setSize(100,100);
 
 		int randomAmount = (int) (Math.random() * 10);

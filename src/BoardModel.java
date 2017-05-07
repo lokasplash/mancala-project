@@ -3,7 +3,6 @@ import java.util.Arrays;
 /**
  * The BoardModel represents the internal game state of the board and allows manipulation of the board via a player
  * move.
- *
  * @author Andrew Jong
  * @since 14 April 2017
  */
@@ -26,7 +25,7 @@ class BoardModel {
 
 	/**
 	 * Construct a BoardModel object.
-	 * @param pitsPerSide the number of pits (not including mancalas) per side of the board
+	 * @param pitsPerSide          the number of pits (not including mancalas) per side of the board
 	 * @param startingStonesPerPit the number of starting stones in each pit
 	 */
 	public BoardModel(int pitsPerSide, int startingStonesPerPit) {
@@ -37,6 +36,7 @@ class BoardModel {
 	}
 
 	// Because clone() method in Java is bad practice.
+
 	/**
 	 * Copy constructor, Creates a copy of a BoardModel.
 	 * @param copy the BoardModel to copy
@@ -51,28 +51,25 @@ class BoardModel {
 
 	/**
 	 * Process a move for the current player. The player is determined via the board's internal state.
-	 * @param side the side to start on, either BoardModel.SIDE1 or BoardModel.SIDE2
 	 * @param index the index of the pit, from 0 to the number of pits per side (obtainable via the method
-	 *                 getPitsPerSide()).
+	 *              getPitsPerSide()).
 	 */
-	public void playerMove(Side side, int index){
+	public void playerMove(int index) {
 		/* Argument checking. */
 		// index must be within board bounds.
 		if (index < 0 || index >= player1Pits.length) {
 			throw new IllegalArgumentException("Requested index out of board bounds, must be between 0 and " +
-					(player1Pits.length- 1) + ". Received " + index);
+					(player1Pits.length - 1) + ". Received " + index);
 		}
 
 		/* Determine the correct location of the move and pick up the stones */
-		boolean onSide1; // boolean for remembering which side the stones will go
+		boolean onSide1 = player1Turn; // boolean for remembering which side the stones will go
 		int numStones;
-		if (side == Side.P1) {
-			onSide1 = true;
+		if (onSide1) {
 			// pick up the stones from side 1
 			numStones = player1Pits[index];
 			player1Pits[index] = 0;
 		} else {
-			onSide1 = false;
 			// pick up the stones from side 2
 			numStones = player2Pits[index];
 			player2Pits[index] = 0;
@@ -107,7 +104,7 @@ class BoardModel {
 		int landedPit = nextPit - 1;
 		// can capture if the pit landed is within range, on the player's side, and pit landed in is empty
 		boolean withinRange = landedPit >= 0 && landedPit < player1Pits.length;
-		if (withinRange){
+		if (withinRange) {
 			boolean onPlayerSide = onSide1 == player1Turn;
 			// landed pit was empty if the only stone was the last stone placed (1)
 			boolean landedPitEmpty = (onSide1 && player1Pits[landedPit] == 1)
@@ -146,8 +143,8 @@ class BoardModel {
 	 * @return true if stones empty, false if has stones
 	 */
 	public boolean allPitsEmpty() {
-		for (int i : player1Pits) if (i!=0) return false;
-		for (int i : player2Pits) if (i!=0) return false;
+		for (int i : player1Pits) if (i != 0) return false;
+		for (int i : player2Pits) if (i != 0) return false;
 		return true;
 	}
 

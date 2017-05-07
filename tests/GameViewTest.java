@@ -11,7 +11,7 @@ public class GameViewTest {
 		GameView view = new GameView(gameModel);
 		
 		try {
-			gameModel.playerMove(Side.P1, 0);
+			gameModel.playerMove(0);
 		} catch (GameModel.GameFinishedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

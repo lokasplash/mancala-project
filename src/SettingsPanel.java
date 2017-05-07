@@ -21,9 +21,9 @@ public class SettingsPanel extends JPanel
 		JToggleButton threeStones = new JToggleButton("3");
 		JToggleButton fourStones = new JToggleButton("4");
 		chooseStonesPanel.add(threeStones);
-		threeStones.addActionListener(new SettingController.StartingStonesButtonListener(3));
+		threeStones.addActionListener(new SettingController.StartingStonesButtonListener(3, fourStones));
 		chooseStonesPanel.add(fourStones);
-		fourStones.addActionListener(new SettingController.StartingStonesButtonListener(4));
+		fourStones.addActionListener(new SettingController.StartingStonesButtonListener(4, threeStones));
 		this.add(chooseStonesPanel);
 
 		JPanel chooseColorPanel = new JPanel();

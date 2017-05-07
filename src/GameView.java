@@ -21,13 +21,13 @@ public class GameView extends JPanel {
 		BoardPanel boardPanel = new BoardPanel();
 		
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(20,"images/white_stone.png");
-		StoneIcon imageIcon2 = new StoneIcon.ImageStoneIcon(15,"images/white_stone.png");
+		StoneIcon scoringPitIcon = new StoneIcon.ImageStoneIcon(15,"images/white_stone.png");
 		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
 		gridPanel.setState(gameModel.getCurrentBoardData());
-		PitPanel mancalaPanelP1 = new BluePitPanel(imageIcon2); // TODO: Implement a MancalaPitPanel that's rounded rect
+		PitPanel mancalaPanelP1 = new BluePitPanel(scoringPitIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
 		mancalaPanelP1.setEnabled(false);
 		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
-		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
+		PitPanel mancalaPanelP2 = new PinkPitPanel(scoringPitIcon);
 		mancalaPanelP2.setEnabled(false);
 		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 

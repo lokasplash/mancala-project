@@ -118,7 +118,6 @@ public abstract class PitPanel extends JPanel {
 
 
 		}
-		g2.drawRect( (int) pit.getBounds().getX(), (int) pit.getBounds().getY(), pit.getBounds().width, pit.getBounds().height);
 	}
 
 	/**

@@ -54,11 +54,44 @@ public class PinkPitPanel extends PitPanel {
 
 	@Override
 	protected void placeStones(int numStones) {
-		for (int i = 0; i < numStones; i++) {
-			float x = (float) Math.random();
-			float y = (float) Math.random();
-			Point2D p = new Point2D.Float(x, y);
-			relativeStoneLocations.add(p);
+
+		Shape pitBounds = this.getShape();
+		double pitW = pitBounds.getBounds().getWidth();
+		double pitH = pitBounds.getBounds().getHeight();
+		
+
+		int stoneWidth = this.stoneIcon.getIconWidth();
+		int stoneHeight = this.stoneIcon.getIconHeight();
+
+			
+		for (int i = 0; i < numStones; i++){
+			boolean locationFound = false;
+			do{
+				float x = (float) Math.random();
+				float y = (float) Math.random();
+
+				x *= pitW;
+				y *= pitH;
+				
+				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x+pitBounds.getBounds().getX()), (float) (y+pitBounds.getBounds().getY()), (float) (stoneWidth), (float) (stoneHeight));
+
+				System.out.println(stoneBounds.getBounds());
+				pitBounds.getBounds().setLocation(0, 0);
+				Area pitArea = new Area(pitBounds);
+				Area pendingStoneLocation = new Area(stoneBounds);
+				Area intersectionArea = (Area) pitArea.clone();
+				intersectionArea.add(pendingStoneLocation);
+				intersectionArea.subtract(pitArea);
+				
+				if(intersectionArea.isEmpty() ){
+					locationFound = true;
+					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
+					relativeStoneLocations.add(p);
+					System.out.println(p);
+				}
+				
+			} while(!locationFound);
+	
 		}
 	}
 

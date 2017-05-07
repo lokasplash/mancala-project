@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 /**
- * Creates a Text Field stating player Turn
+ * Creates a Text Field stating player Turn and victor when game ends
  * @author Prem Panchal
  */
 public class GameStatePanel extends JPanel {

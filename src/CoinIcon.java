@@ -4,6 +4,12 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+
+/**
+ * Creates a StoneIcon using the coin image
+ * @author Prem Panchal
+ *
+ */
 public class CoinIcon extends StoneIcon.ImageStoneIcon{
 ImageIcon imageIcon;
 	

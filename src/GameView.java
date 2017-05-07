@@ -7,24 +7,31 @@ import java.awt.*;
  * @author Andrew Jong
  */
 public class GameView extends JPanel {
-	// Possibly add parameter of style
 	GameView(GameModel gameModel) {
+		this(gameModel, true, new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"));
+	}
 
+	// Possibly add parameter of style
+	GameView(GameModel gameModel, boolean isPinkPitPanel, StoneIcon stoneIcon) {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(1000,470));
-		// Player turn
+
+		/* Setup the game state message */
 		GameStatePanel gameStatePanel = new GameStatePanel();
 		this.add(gameStatePanel, BorderLayout.NORTH);
 
+		/* Setup the board */
 		BoardPanel boardPanel = new BoardPanel();
 
-		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
-		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
+		GridPanel gridPanel = new GridPanel(stoneIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
 		gridPanel.setState(gameModel.getCurrentBoardData());
-		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
+
+		// TODO: Implement a MancalaPitPanel that's rounded rect
+		PitPanel mancalaPanelP1 = new PinkPitPanel(stoneIcon);
 		mancalaPanelP1.setEnabled(false);
 		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
-		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
+
+		PitPanel mancalaPanelP2 = new PinkPitPanel(stoneIcon);
 		mancalaPanelP2.setEnabled(false);
 		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
@@ -33,13 +40,12 @@ public class GameView extends JPanel {
 		boardPanel.addRight(mancalaPanelP2);
 
 		this.add(boardPanel, BorderLayout.CENTER);
-//		this.add(bp, BorderLayout.CENTER);
 
-		// Undo/redo controls
+		/* Undo and Redo controls */
 		UndoRedoPanel undoRedoPanel = new UndoRedoPanel();
 		this.add(undoRedoPanel, BorderLayout.SOUTH);
 
-//		// the change listener. TODO: Currently all the methods in each panel are unimplemented.
+		/* Change listener, attach to model */
 		gameModel.addChangeListener(changeEvent -> {
 			BoardData boardData = gameModel.getCurrentBoardData();
 			// set the correct turn

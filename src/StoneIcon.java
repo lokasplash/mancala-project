@@ -97,7 +97,7 @@ public abstract class StoneIcon implements Icon {
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			getImageIcon().paintIcon(c, g, x, y);
+			
 			Rectangle newComponentBounds = c.getBounds();
 			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
 
@@ -118,6 +118,7 @@ public abstract class StoneIcon implements Icon {
 				imageIcon.setImage(newImage);
 				c.repaint();
 			}
+			imageIcon.paintIcon(c, g, x, y);
 		}
 		
 		public Icon getImageIcon() {

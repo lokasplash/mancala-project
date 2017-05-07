@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  * @author Prem Panchal
  */
 public class GameStatePanel extends JPanel {
-	private String stateMessage = "state not set";
+	private String stateMessage = "Player 1's Turn";
 	private Font font;
 	private int fontSize = 14;
 

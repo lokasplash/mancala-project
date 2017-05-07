@@ -11,15 +11,16 @@ import javax.swing.JPanel;
  * @author Prem Panchal
  */
 public class GameStatePanel extends JPanel {
-	private String stateMessage = "state not set";
+	private String stateMessage = "Player 1's Turn";
 	private Font font;
 	private int fontSize = 14;
 
 	/**
 	 * Constructor, creates a Player Turn panel
 	 */
-	GameStatePanel() {
-		this.setBackground(Color.ORANGE);
+	GameStatePanel(boolean isPink) {
+		if(isPink) {this.setBackground(Color.ORANGE);}
+		else {this.setBackground(Color.decode("#f45f42"));}
 		font = new Font("SansSerif", Font.BOLD, fontSize);
 		this.setPreferredSize(new Dimension(200, 150));
 	}

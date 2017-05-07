@@ -17,7 +17,7 @@ public class GameView extends JPanel {
 		this.setPreferredSize(new Dimension(1000,470));
 
 		/* Setup the game state message */
-		GameStatePanel gameStatePanel = new GameStatePanel();
+		GameStatePanel gameStatePanel = new GameStatePanel(isPinkPitPanel);
 		this.add(gameStatePanel, BorderLayout.NORTH);
 
 		/* Setup the board */
@@ -30,7 +30,7 @@ public class GameView extends JPanel {
 		mancalaPanelP1.setEnabled(false);
 		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
 
-		PitPanel mancalaPanelP2 =  isPinkPitPanel ? new PinkPitPanel(stoneIcon) : new BluePitPanel(stoneIcon);
+		PitPanel mancalaPanelP2 =  !isPinkPitPanel ? new PinkPitPanel(stoneIcon) : new BluePitPanel(stoneIcon);
 		mancalaPanelP2.setEnabled(false);
 		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 

@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.*;
 
 /**
- * Panel to decide How many stones the game starts with
+ * Panel to decide Settings of Game
  * @author Prem Panchal
  *
  */

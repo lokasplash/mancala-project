@@ -32,6 +32,9 @@ public class PinkPitPanel extends PitPanel {
 		return 0.1;
 	}
 
+	/**
+	 * Resize Pit
+	 */
 	@Override
 	protected void updatePitSize() {
 		int pitWidth = (int) (this.getWidth() * RATIO);
@@ -41,6 +44,9 @@ public class PinkPitPanel extends PitPanel {
 		pit = new Ellipse2D.Double(dx, dy, pitWidth, pitHeight);
 	}
 
+	/**
+	 * Draws Pit
+	 */
 	@Override
 	protected void drawPit(Graphics2D g2) {
 		g2.setColor(PIT_FILL_COLOR);
@@ -52,6 +58,10 @@ public class PinkPitPanel extends PitPanel {
 		g2.draw(pit);
 	}
 
+	/**
+	 * Draws Stones inside of Pit
+	 * param NumStones Number of stones to draw
+	 */
 	@Override
 	protected void placeStones(int numStones) {
 
@@ -95,6 +105,9 @@ public class PinkPitPanel extends PitPanel {
 		}
 	}
 
+	/**
+	 * Color panel Background
+	 */
 	@Override
 	protected void drawBackground(Graphics2D g2) {
 		g2.setColor(BACKGROUND_FILL_COLOR);

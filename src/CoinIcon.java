@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Creates a StoneIcon using the coin image
- * @author Prem Panchal
+ * @author Prem Panchal, Vincent Diep
  *
  */
 public class CoinIcon extends StoneIcon.ImageStoneIcon{

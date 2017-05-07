@@ -4,6 +4,11 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Creates a White Stone Icon style for the Game
+ * @author Prem Panchal, Vincent Diep
+ *
+ */
 public class WhiteStoneIcon extends StoneIcon.ImageStoneIcon {
 	ImageIcon imageIcon;
 	

@@ -15,7 +15,6 @@ public class YellowStoneIcon extends StoneIcon.ImageStoneIcon {
 	/**
 	 * Constructor for an ImageStoneIcon
 	 * @param size Size of the image <p> The image can be larger/smaller than the size since the image is rescaled.
-	 * @param filename Location of image file
 	 */
 	YellowStoneIcon(int size) {
 		super(size, "images/ballYellow_09.png");

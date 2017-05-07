@@ -177,6 +177,10 @@ public abstract class PitPanel extends JPanel {
 		return new Dimension(getWidth(), getHeight());
 	}
 
+	/**
+	 * Set whether the mouse is hovering over or not
+	 * @param mouseHover
+	 */
 	public void setMouseHover(boolean mouseHover) {
 		this.mouseHover = mouseHover;
 	}

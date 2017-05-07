@@ -19,7 +19,5 @@ public class CoinIcon extends StoneIcon.ImageStoneIcon{
 	 */
 	CoinIcon(int size) {
 		super(size, "images/coin_20.png");
-
 	}
-
 }

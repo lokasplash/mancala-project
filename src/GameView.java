@@ -2,16 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
- * implemented later.
+ * The main view for the Mancala Game. Contains everything for a playable game of Mancala
  * @author Andrew Jong
  */
 public class GameView extends JPanel {
+	/**
+	 * Constructor that creates default values of pink pit panel and white image stone icon.
+	 * @param gameModel the game model this view is observing.
+	 */
 	GameView(GameModel gameModel) {
 		this(gameModel, true, new StoneIcon.ImageStoneIcon(20, "images/white_stone.png"));
 	}
 
-	// Possibly add parameter of style
+
+	/**
+	 * Constructor to create a GameView with specifications.
+	 * @param gameModel the game model this view is observing.
+	 * @param isPinkPitPanel whether the panel is pink (if false, then blue)
+	 * @param stoneIcon the stone icon style
+	 */
 	GameView(GameModel gameModel, boolean isPinkPitPanel, StoneIcon stoneIcon) {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(1000,470));

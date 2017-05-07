@@ -19,11 +19,11 @@ ImageIcon imageIcon;
 	 * @param filename Location of image file
 	 */
 	YellowStoneIcon(int size) {
-		super(size, null);
-		imageIcon = new ImageIcon("images/ballYellow_09.png");
+		super(size, "images/ballYellow_09.png");
+//		imageIcon = new ImageIcon("images/ballYellow_09.png");
 		
-		Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
-		imageIcon.setImage(image);
+//		Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
+//		imageIcon.setImage(image);
 	}
 
 	@Override

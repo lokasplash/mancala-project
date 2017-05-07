@@ -166,6 +166,7 @@ public class GameModel {
 			throw new EmptyHistoryException("The redo history is empty. No more redos available.");
 		}
 		numUndos--;
+		undoResetCounter++;
 
 		// update undo history, current board, and redo history
 		undoHistory.push(new BoardModel(currentBoard));

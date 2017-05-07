@@ -42,10 +42,9 @@ public class SettingController {
 
 
 	/**
-	 * StartingStonesButtonListener is created with the number of stones each pit in the GameModel
-	 * should have.
-	 * <p> When its corresponding button is clicked, it will call gameModel.setStones(...)
-	 * with the appropriate value
+	 * Before the Gamemodel is created, it determines number of starting stones in pits
+	 * <p> When its corresponding button is clicked, it will edit startingStones with the new Value
+	 * 
 	 */
 	public static class StartingStonesButtonListener implements ActionListener {
 			int stones;
@@ -61,6 +60,11 @@ public class SettingController {
 
 	}
 	
+	/**
+	 * Determines what color Pitpanels will be used
+	 * <p> When the button is clicked, it changes the boolean value that determines which pitpanel is used
+	 *
+	 */
 	public static class PitColorListener implements ActionListener {
 		boolean pink;
 		PitColorListener(String s) {
@@ -92,6 +96,11 @@ public class SettingController {
 		
 	}
 	
+	/**
+	 * Starts the game and creates the Gamemodel and Game View
+	 * <p> Button is clicked and fields are created
+	 *
+	 */
 	public static class StartGame implements ActionListener {
 
 		@Override

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 /**
- * Panel to decide How many stones the game starts with
+ * Panel to decide Settings of Game
  * @author Prem Panchal
  *
  */

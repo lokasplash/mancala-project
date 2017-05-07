@@ -13,8 +13,8 @@ public class MancalaTest {
 
 			JFrame frame = new JFrame("Mancala");
 			frame.setSize(new Dimension(1000, 600));
-			GameView view = new GameView(model);
-			frame.add(view);
+			SettingsPanel settings = new SettingsPanel(frame);
+			frame.add(settings);
 
 			frame.pack();
 

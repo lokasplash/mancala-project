@@ -19,8 +19,8 @@ import javax.swing.*;
  */
 public class SettingController {
 
-	private static int startingStones;
-	private static boolean isPink;
+	private static int startingStones = 4;
+	private static boolean isPink = true;
 	private static StoneIcon icon;
 	private static GameView gameview;
 	private static GameModel gamemodel;

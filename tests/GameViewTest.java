@@ -1,5 +1,5 @@
 
-
+/* See MancalaTest.java in src/ */
 public class GameViewTest {
 
 	public static void main(String[] args) {

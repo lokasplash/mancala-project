@@ -24,7 +24,7 @@ public class GridPanel extends JPanel {
 		p1Pits = new ArrayList<>(numPitsPerSide);
 		p2Pits = new ArrayList<>(numPitsPerSide);
 		for (int i = numPitsPerSide - 1; i >= 0; i--) {
-			PitPanel pit = new PinkPitPanel(icon, startingStones);
+			PitPanel pit = new BluePitPanel(icon, startingStones);
 			pit.setSize(100, 100);
 			p1Pits.add(pit);
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, i, pit));

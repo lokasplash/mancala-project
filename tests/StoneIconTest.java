@@ -23,10 +23,6 @@ public class StoneIconTest {
 		JLabel label = new JLabel(drawnIcon);
 		frame.add(label);
 		
-		System.out.print(label.getX()+"," + label.getY());
-		
-		
-		
 		JLabel label2 = new JLabel(drawnIcon);
 		
 		frame.add(label2);
@@ -43,6 +39,10 @@ public class StoneIconTest {
 		
 		JLabel label6 = new JLabel(new StoneIcon.ImageStoneIcon(50, "images/coin_20.png"));
 		frame.add(label6);
+		
+		
+		JLabel label7 = new JLabel(new StoneIcon.ImageStoneIcon(100, "images/ballYellow_09.png"));
+		frame.add(label7);
 		
 //		frame.pack();
 		frame.setVisible(true);

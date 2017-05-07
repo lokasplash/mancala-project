@@ -16,15 +16,18 @@ public class GameView extends JPanel {
 		GameStatePanel gameStatePanel = new GameStatePanel();
 		this.add(gameStatePanel, BorderLayout.NORTH);
 
-		BoardPanel boardPanel = new BoardPanel();
+		// Board Panel
 
-		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		BoardPanel boardPanel = new BoardPanel();
+		
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(20,"images/white_stone.png");
+		StoneIcon scoringPitIcon = new StoneIcon.ImageStoneIcon(15,"images/white_stone.png");
 		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
 		gridPanel.setState(gameModel.getCurrentBoardData());
-		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
+		PitPanel mancalaPanelP1 = new BluePitPanel(scoringPitIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
 		mancalaPanelP1.setEnabled(false);
 		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
-		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
+		PitPanel mancalaPanelP2 = new PinkPitPanel(scoringPitIcon);
 		mancalaPanelP2.setEnabled(false);
 		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
@@ -33,7 +36,7 @@ public class GameView extends JPanel {
 		boardPanel.addRight(mancalaPanelP2);
 
 		this.add(boardPanel, BorderLayout.CENTER);
-//		this.add(bp, BorderLayout.CENTER);
+
 
 		// Undo/redo controls
 		UndoRedoPanel undoRedoPanel = new UndoRedoPanel();
@@ -45,6 +48,7 @@ public class GameView extends JPanel {
 			// set the correct turn
 			gameStatePanel.setState(boardData);
 			// set the board view
+
 			mancalaPanelP1.setStones(boardData.PLAYER_1_MANCALA);
 			mancalaPanelP2.setStones(boardData.PLAYER_2_MANCALA);
 

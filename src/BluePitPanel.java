@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -9,7 +10,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class BluePitPanel extends PitPanel {
 	// the ratio of the size of the pit to the entire PinkPitPanel
-	private static final double RATIO = 0.50;
+	private static final double RATIO = 0.80;
 
 	// weight of the outline of the pit
 	private static final float STROKE_WEIGHT = 0.02f;
@@ -20,10 +21,20 @@ public class BluePitPanel extends PitPanel {
 	// amount of overlap allowed for stones
 	private static final double ALLOWED_STONE_OVERLAP = 0.05;
 
+	/**
+	 * 
+	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
+	 * Else, may hang while choosing stone placement
+	 */
 	BluePitPanel(StoneIcon stoneType) {
 		super(stoneType, 4);
 	}
 
+	/**
+	 * 
+	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
+	 * Else, may hang while choosing stone placement
+	 */
 	BluePitPanel(StoneIcon stoneType, int numStones) {
 		super(stoneType, numStones);
 	}
@@ -55,11 +66,44 @@ public class BluePitPanel extends PitPanel {
 
 	@Override
 	protected void placeStones(int numStones) {
-		for (int i = 0; i < numStones; i++) {
-			float x = (float) Math.random();
-			float y = (float) Math.random();
-			Point2D p = new Point2D.Float(x, y);
-			relativeStoneLocations.add(p);
+
+		Shape pitBounds = this.getShape();
+		double pitW = pitBounds.getBounds().getWidth();
+		double pitH = pitBounds.getBounds().getHeight();
+		
+
+		int stoneWidth = this.stoneIcon.getIconWidth();
+		int stoneHeight = this.stoneIcon.getIconHeight();
+
+			
+		for (int i = 0; i < numStones; i++){
+			boolean locationFound = false;
+			do{
+				float x = (float) Math.random();
+				float y = (float) Math.random();
+
+				x *= pitW;
+				y *= pitH;
+				
+				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x+pitBounds.getBounds().getX()), (float) (y+pitBounds.getBounds().getY()), (float) (stoneWidth), (float) (stoneHeight));
+
+				System.out.println(stoneBounds.getBounds());
+				pitBounds.getBounds().setLocation(0, 0);
+				Area pitArea = new Area(pitBounds);
+				Area pendingStoneLocation = new Area(stoneBounds);
+				Area intersectionArea = (Area) pitArea.clone();
+				intersectionArea.add(pendingStoneLocation);
+				intersectionArea.subtract(pitArea);
+				
+				if(intersectionArea.isEmpty() ){
+					locationFound = true;
+					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
+					relativeStoneLocations.add(p);
+					System.out.println(p);
+				}
+				
+			} while(!locationFound);
+	
 		}
 	}
 	@Override

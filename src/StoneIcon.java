@@ -97,44 +97,31 @@ public abstract class StoneIcon implements Icon {
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			
+			getImageIcon().paintIcon(c, g, x, y);
 			Rectangle newComponentBounds = c.getBounds();
 			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
-				
+
 				int newWidth = (int) newComponentBounds.getBounds().getWidth();
 				int newHeight = (int) newComponentBounds.getBounds().getHeight();
-				
-				
-//				if(c instanceof PitPanel){
-//					System.out.println("is PPanel");
-//					PitPanel pitPanel = (PitPanel) c;
-//					double ratio = pitPanel.getStoneRatio();
-//					newWidth *= ratio;
-//					newHeight *= ratio;
-//				}
-				
+
 				// adjust according to base size
 				newWidth *= (float)size/100;
 				newHeight *= (float)size/100;
-				
+
 				width = newWidth;
 				height = newHeight;
-				
+
 				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
 				imageIcon.setImage(newImage);
-				
 
-				
 				oldComponentBounds = newComponentBounds;
-//				System.out.println(c);
-//				System.out.println("Size of icon " + width+","+height);
 				imageIcon.setImage(newImage);
 				c.repaint();
 			}
-
-//			System.out.println("Paint at " + x +"," + y);
-			
-			imageIcon.paintIcon(c, g, x, y);
+		}
+		
+		public Icon getImageIcon() {
+			return imageIcon;
 		}
 		
 	}

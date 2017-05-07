@@ -22,6 +22,7 @@ public class GameModel {
 	/* Number of stones to initialize in each pit, default value is 4, should be consistent across all instances
 	of BoardModel */
 	final int STARTING_STONES_PER_PIT;
+	boolean Pink;
 
 	/* === ATTRIBUTES === */
 
@@ -230,6 +231,14 @@ public class GameModel {
 	}
 	public int getRedoStackSize() {
 		return redoHistory.size();
+	}
+	
+	public boolean getPink(){
+		return Pink;
+	}
+	
+	public void setPink(boolean b){
+		Pink = b;
 	}
 
 	/**

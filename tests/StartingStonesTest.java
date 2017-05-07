@@ -9,14 +9,12 @@ public class StartingStonesTest {
 		JFrame frame = new JFrame();
 		frame.setSize(800, 600);
 		
-		JPanel stones = new StartingStonesPanel();
+		JPanel stones = new SettingsPanel(frame);
 		frame.add(stones);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
-	
-		
 	}
 
 }

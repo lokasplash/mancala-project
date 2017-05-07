@@ -15,16 +15,23 @@ public class GridPanel extends JPanel {
 	private ArrayList<PitPanel> p2Pits;
 
 	GridPanel() {
-		this(new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"), 6, 4);
+		this(new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"), 6, 4, true);
 	}
 
-	GridPanel(StoneIcon icon, int numPitsPerSide, int startingStones) {
+	GridPanel(StoneIcon icon, int numPitsPerSide, int startingStones, boolean pink) {
 		this.setLayout(new GridLayout(2, numPitsPerSide));
 
 		p1Pits = new ArrayList<>(numPitsPerSide);
 		p2Pits = new ArrayList<>(numPitsPerSide);
 		for (int i = numPitsPerSide - 1; i >= 0; i--) {
-			PitPanel pit = new BluePitPanel(icon, startingStones);
+			PitPanel pit;
+			if(pink){
+				pit = new PinkPitPanel(icon, startingStones);
+			}
+			else
+			{
+				pit = new BluePitPanel(icon, startingStones);
+			}
 			pit.setSize(100, 100);
 			p1Pits.add(pit);
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P1, i, pit));
@@ -32,7 +39,13 @@ public class GridPanel extends JPanel {
 		}
 		Collections.reverse(p1Pits);
 		for (int i = 0; i < numPitsPerSide; i++) {
-			PitPanel pit = new PinkPitPanel(icon, startingStones);
+			PitPanel pit;
+			if(pink){
+			pit = new PinkPitPanel(icon, startingStones);
+			}
+			else{
+				pit = new BluePitPanel(icon, startingStones);
+			}
 			pit.setSize(100, 100);
 			p2Pits.add(pit);
 			pit.addMouseListener(new Controller.PitPanelListener(Side.P2, i, pit));

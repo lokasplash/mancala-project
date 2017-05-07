@@ -113,7 +113,8 @@ public abstract class PitPanel extends JPanel {
 
 
 			double scaledX = getWidth()/pitWidth;
-			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX/2)+dx, (int) (pitHeight *ratio.getY()*scaledX/2 )+dy);
+//			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX/2)+dx, (int) (pitHeight *ratio.getY()*scaledX/2 )+dy);
+			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX)+dx, (int) (pitHeight *ratio.getY() )+dy);
 
 
 		}

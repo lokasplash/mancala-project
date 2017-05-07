@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class BluePitPanel extends PitPanel {
 	// the ratio of the size of the pit to the entire PinkPitPanel
-	private static final double RATIO = 0.50;
+	private static final double RATIO = 0.80;
 
 	// weight of the outline of the pit
 	private static final float STROKE_WEIGHT = 0.02f;

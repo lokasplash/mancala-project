@@ -40,14 +40,22 @@ public class SettingController {
 	 * 
 	 */
 	public static class StartingStonesButtonListener implements ActionListener {
-			int stones;
-		StartingStonesButtonListener(int s) {
+		private int stones;
+		private JToggleButton[] buttons;
+
+		StartingStonesButtonListener(int s, JToggleButton... buttons) {
 			stones = s;
+			this.buttons = buttons;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			AbstractButton abstractButton = (AbstractButton) e.getSource();
+			boolean selected = abstractButton.getModel().isSelected();
 			startingStones = stones;
+			for (JToggleButton b : buttons) {
+				b.setSelected(selected);
+			}
 			System.out.println(startingStones);
 		}
 

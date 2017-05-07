@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
+import javax.swing.*;
 
 
 /**
@@ -94,11 +94,21 @@ public class SettingController {
 	
 	public static class StartGame implements ActionListener {
 
+		private SettingsPanel settingsPanel;
+		private JFrame frameToSet;
+
+		public StartGame(SettingsPanel settingsPanel, JFrame frameToSet) {
+			this.settingsPanel = settingsPanel;
+
+			this.frameToSet = frameToSet;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gamemodel = new GameModel(startingStones);
-			gameview = new GameView(gamemodel, isPink, icon);
 			Controller.setGameModel(gamemodel);
+			gameview = new GameView(gamemodel, isPink, icon);
+			settingsPanel.setVisible(false);
+			frameToSet.add(gameview);
 		}
 		
 	}

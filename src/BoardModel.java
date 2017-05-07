@@ -58,8 +58,8 @@ class BoardModel {
 	 * @param index the index of the pit, from 0 to the number of pits per side (obtainable via the method
 	 *              getPitsPerSide()).
 	 */
-	public void playerMove(int index) {
-		if (gameFinished) return; // don't do anything if game finished
+	public boolean playerMove(int index) {
+		if (gameFinished) return false; // don't do anything if game finished
 
 		/* Argument checking. */
 
@@ -84,7 +84,7 @@ class BoardModel {
 		}
 		if (numStones == 0) {
 			System.out.println("No stones!");
-			return;
+			return false;
 		}
 
 		/* Distribute the stones around the board */
@@ -160,6 +160,7 @@ class BoardModel {
 		if (notInEitherMancala || landOpponentMancala)
 			player1Turn = !player1Turn;
 		// otherwise the player gets to go again
+		return true;
 	}
 
 	/**

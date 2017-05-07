@@ -32,6 +32,8 @@ public class GameModel {
 
 	/* Keep track of the amount of numUndos taken per player */
 	private int numUndos = 0;
+	/* Variable is necessary for tracking when to reset the undos */
+	private int undoResetCounter = 0;
 
 	/* List of change Listeners for views */
 	private List<ChangeListener> changeListeners = new LinkedList<>();
@@ -99,13 +101,20 @@ public class GameModel {
 	 * Checks if two turns have been moved consecutively to reset the number of undos taken on the current turn.
 	 */
 	private void checkResetUndos(){
-		if (undoHistory.size() >=2 ){
-			BoardModel temp = undoHistory.pop();
-			if (undoHistory.peek().isPlayer1Turn() == currentBoard.isPlayer1Turn()) {
-				numUndos = 0;
-			}
-			undoHistory.add(temp);
+		undoResetCounter++;
+		if (undoResetCounter == 1) {
+			undoResetCounter = 0;
+			numUndos = 0;
 		}
+//		if (numUndos == MAX_UNDOS_PER_TURN) numUndos = 0;
+//		if (numUndos != 0) numUndos = 0;
+//		if (undoHistory.size() >=2 ){
+//			BoardModel temp = undoHistory.pop();
+//			if (undoHistory.peek().isPlayer1Turn() == currentBoard.isPlayer1Turn()) {
+//				numUndos = 0;
+//			}
+//			undoHistory.add(temp);
+//		}
 	}
 
 	/**
@@ -140,6 +149,7 @@ public class GameModel {
 				MaxUndosReachedException();
 
 		numUndos++;
+		undoResetCounter--;
 
 		// update undo history, current board, and redo history
 		redoHistory.push(new BoardModel(currentBoard));

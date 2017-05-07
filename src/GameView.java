@@ -1,83 +1,63 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * The main view for the Mancala Game. Note many of these methods and classes don't exist yet, as they will be
  * implemented later.
  * @author Andrew Jong
  */
-public class GameView {
+public class GameView extends JPanel {
 	// Possibly add parameter of style
 	GameView(GameModel gameModel) {
-		JFrame frame = new JFrame("Mancala");
-		frame.setLayout(new BorderLayout());
-		frame.setSize(new Dimension(1000, 600));
 
+		this.setLayout(new BorderLayout());
+		this.setPreferredSize(new Dimension(1000,470));
 		// Player turn
-		PlayerTurnPanel playerTurnPanel = new PlayerTurnPanel(gameModel);
-		frame.add(playerTurnPanel, BorderLayout.NORTH);
+		GameStatePanel gameStatePanel = new GameStatePanel();
+		this.add(gameStatePanel, BorderLayout.NORTH);
 
 		// Board Panel
+
 		BoardPanel boardPanel = new BoardPanel();
 		
-		/* Temporary placeholder */
-			// left side mancala
-				JPanel mancalaLeft = new JPanel();
-				mancalaLeft.setPreferredSize(new Dimension(200,400));
-				mancalaLeft.setBackground(java.awt.Color.GREEN);
-				boardPanel.left.add(mancalaLeft);
-				
-				// right side mancala
-				JPanel mancalaRight = new JPanel();
-				mancalaRight.setPreferredSize(new Dimension(200,400));
-				mancalaRight.setBackground(java.awt.Color.GREEN);
-				boardPanel.right.add(mancalaRight);
-				
-				
-				// board center
-				JPanel boardCenter = new JPanel();
-				boardCenter.setPreferredSize(new Dimension(600,400));
-				boardCenter.setBackground(java.awt.Color.PINK);
-				boardPanel.center.add(boardCenter);
-		/* End temp placeholder */
-//
-//		GridPanel gridPanel = new GridPanel();
-//		MancalaPanel mancalaPanelP1 = new MancalaPanel();
-//		
-//		
-//		MancalaPanel mancalaPanelP2 = new MancalaPanel();
-//		boardPanel.left = mancalaPanelP2;
-//		boardPanel.center = gridPanel;
-//		boardPanel.right = mancalaPanelP1;
+		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30,"images/white_stone.png");
+		GridPanel gridPanel = new GridPanel(imageIcon, gameModel.PITS_PER_SIDE, gameModel.STARTING_STONES_PER_PIT);
+		gridPanel.setState(gameModel.getCurrentBoardData());
+		PitPanel mancalaPanelP1 = new PinkPitPanel(imageIcon); // TODO: Implement a MancalaPitPanel that's rounded rect
+		mancalaPanelP1.setEnabled(false);
+		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
+		PitPanel mancalaPanelP2 = new PinkPitPanel(imageIcon);
+		mancalaPanelP2.setEnabled(false);
+		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 
+		boardPanel.addLeft(mancalaPanelP1);
+		boardPanel.addCenter(gridPanel);
+		boardPanel.addRight(mancalaPanelP2);
 
+		this.add(boardPanel, BorderLayout.CENTER);
 
-		frame.add(boardPanel, BorderLayout.CENTER);
 
 		// Undo/redo controls
 		UndoRedoPanel undoRedoPanel = new UndoRedoPanel();
-		frame.add(undoRedoPanel, BorderLayout.SOUTH);
-		frame.pack();
-		
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-//
+		this.add(undoRedoPanel, BorderLayout.SOUTH);
+
 //		// the change listener. TODO: Currently all the methods in each panel are unimplemented.
 		gameModel.addChangeListener(changeEvent -> {
 			BoardData boardData = gameModel.getCurrentBoardData();
 			// set the correct turn
-			playerTurnPanel.setPlayerTurn(boardData.PLAYER_1_TURN);
+			gameStatePanel.setState(boardData);
 			// set the board view
-//			mancalaPanelP1.setMancala(boardData.PLAYER_1_MANCALA);
 
-//			PitPanel[] p1Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-//			gridPanel.setP1Pits(p1Pits);
-//			PitPanel[] p2Pits = (PitPanel[]) Arrays.stream(boardData.PLAYER_1_PITS).mapToObj(PitPanel::new).toArray();
-//			gridPanel.setP2Pits(p2Pits);
-			// set the undo/redo buttons as available or not based on undo history
-			undoRedoPanel.setUndoButton(gameModel.canUndo());
-			undoRedoPanel.setRedoButton(gameModel.canRedo());
+			mancalaPanelP1.setStones(boardData.PLAYER_1_MANCALA);
+			mancalaPanelP2.setStones(boardData.PLAYER_2_MANCALA);
+
+			gridPanel.setState(boardData);
+
+//			 set the undo/redo buttons as available or not based on undo history
+			undoRedoPanel.setCanUndo(gameModel.canUndo());
+			undoRedoPanel.setUndosLeft(gameModel.MAX_UNDOS_PER_TURN - gameModel.getNumUndosFromCurrentTurn());
+			undoRedoPanel.setCanRedo(gameModel.canRedo());
+			undoRedoPanel.setRedosLeft(gameModel.getRedoStackSize());
 
 		});
 	}

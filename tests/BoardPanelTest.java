@@ -20,7 +20,7 @@ public class BoardPanelTest {
 		JPanel mancalaLeft = new JPanel();
 		mancalaLeft.setPreferredSize(new Dimension(200,400));
 		mancalaLeft.setBackground(java.awt.Color.GREEN);
-		boardPanel.left.add(mancalaLeft);
+		boardPanel.addLeft(mancalaLeft);
 		
 //		PitPanel panel = new PitPanel();
 //		panel.setSize(100,100);
@@ -30,14 +30,14 @@ public class BoardPanelTest {
 		JPanel mancalaRight = new JPanel();
 		mancalaRight.setPreferredSize(new Dimension(200,400));
 		mancalaRight.setBackground(java.awt.Color.GREEN);
-		boardPanel.right.add(mancalaRight);
+		boardPanel.addRight(mancalaRight);
 		
 		
 		// board center
 		JPanel boardCenter = new JPanel();
 		boardCenter.setPreferredSize(new Dimension(600,400));
 		boardCenter.setBackground(java.awt.Color.PINK);
-		boardPanel.center.add(boardCenter);
+		boardPanel.addCenter(boardCenter);
 		
 		
 		frame.add(boardPanel);

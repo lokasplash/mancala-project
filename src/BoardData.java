@@ -21,6 +21,8 @@ public class BoardData {
 	/* Keep track of whose turn it is to determine which pits/mancala to place stones in */
 	public final boolean PLAYER_1_TURN;
 
+	public final boolean GAME_FINISHED;
+
 	/**
 	 * Constructor for BoardData that represents the data of a BoardModel. Uses the information of a
 	 * BoardModel object.
@@ -32,6 +34,7 @@ public class BoardData {
 		this.PLAYER_1_MANCALA = boardModel.getPlayer1Mancala();
 		this.PLAYER_2_MANCALA = boardModel.getPlayer2Mancala();
 		this.PLAYER_1_TURN = boardModel.isPlayer1Turn();
+		this.GAME_FINISHED = boardModel.isGameFinished();
 	}
 
 
@@ -45,6 +48,7 @@ public class BoardData {
 		if (PLAYER_1_MANCALA != boardData.PLAYER_1_MANCALA) return false;
 		if (PLAYER_2_MANCALA != boardData.PLAYER_2_MANCALA) return false;
 		if (PLAYER_1_TURN != boardData.PLAYER_1_TURN) return false;
+		if (GAME_FINISHED != boardData.GAME_FINISHED) return false;
 		if (!Arrays.equals(PLAYER_1_PITS, boardData.PLAYER_1_PITS)) return false;
 		return Arrays.equals(PLAYER_2_PITS, boardData.PLAYER_2_PITS);
 	}
@@ -56,6 +60,7 @@ public class BoardData {
 		result = 31 * result + PLAYER_1_MANCALA;
 		result = 31 * result + PLAYER_2_MANCALA;
 		result = 31 * result + (PLAYER_1_TURN ? 1 : 0);
+		result = 31 * result + (GAME_FINISHED ? 1 : 0);
 		return result;
 	}
 }

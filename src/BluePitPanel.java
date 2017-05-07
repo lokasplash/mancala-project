@@ -72,8 +72,8 @@ public class BluePitPanel extends PitPanel {
 		double pitH = pitBounds.getBounds().getHeight();
 		
 
-		int stoneWidth = this.stoneType.getIconWidth();
-		int stoneHeight = this.stoneType.getIconHeight();
+		int stoneWidth = this.stoneIcon.getIconWidth();
+		int stoneHeight = this.stoneIcon.getIconHeight();
 
 			
 		for (int i = 0; i < numStones; i++){

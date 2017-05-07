@@ -10,35 +10,43 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
- * Icon to display image for the stone; Can be drawn from graphics, or use image file
+ * Can be drawn from graphics, or use image file
+ * It automatically resizes based on its container.
  * @author Vincent Diep
  *
  */
 public abstract class StoneIcon implements Icon {
 	int size;
+	int width;
+	int height;
 
 	
 	/**
 	 * Constructor for StoneIcon
-	 * @param size Size of the StoneIcon
+	 * @param size This determines the base size of the StoneIcon.
 	 */
 	StoneIcon(int size){
 		this.size = size;
+		width = size;
+		height = size;
 	}
+
 
 	@Override
 	public int getIconHeight() {
-		return size;
+		return height;
 	}
+
 
 	@Override
 	public int getIconWidth() {
-		return size;
+		return width;
 	}
 
 		
 	/**
-	 * A StoneIcon that is drawn using Java's graphics
+	 * A StoneIcon that is drawn using Java's graphics.
+	 * This does not resize but stays centered.
 	 */
 	public static class DrawnStoneIcon extends StoneIcon{
 
@@ -63,17 +71,17 @@ public abstract class StoneIcon implements Icon {
 	
 	/**
 	 * A StoneIcon that displays an image
+	 * It automatically resizes itself according to its container.
 	 */
 	public static class ImageStoneIcon extends StoneIcon{
 		ImageIcon imageIcon;
 		Image originalImage;
-		Rectangle componentBounds = null;
-		float ratioX;
-		float ratioY;
+		Rectangle oldComponentBounds = null;
+
 		
 		/**
 		 * Constructor for an ImageStoneIcon
-		 * @param size Size of the image <p> The image can be larger/smaller than the size since the image is rescaled.
+		 * @param size Base size <p> The file source image can be larger/smaller than size, since the image is rescaled.
 		 * @param filename Location of image file
 		 */
 		ImageStoneIcon(int size, String filename) {
@@ -82,37 +90,50 @@ public abstract class StoneIcon implements Icon {
 			imageIcon = new ImageIcon(filename);
 			originalImage = imageIcon.getImage();
 			
-			ratioX = size/(float)imageIcon.getIconWidth();
-			ratioY = size/ (float)imageIcon.getIconHeight();
-			System.out.println(ratioX);
-			
+
 			Image image = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
-//			originalImage = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
 			imageIcon.setImage(image);
-//			imageIcon.setImage(originalImage);
 		}
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			Rectangle newBounds = c.getBounds();
-			if(componentBounds == null || !(componentBounds.equals(newBounds))){
+			
+			Rectangle newComponentBounds = c.getBounds();
+			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
 				
-				int newWidth = (int) newBounds.getBounds().getWidth();
-				int newHeight = (int) newBounds.getBounds().getHeight();
+				int newWidth = (int) newComponentBounds.getBounds().getWidth();
+				int newHeight = (int) newComponentBounds.getBounds().getHeight();
 				
-				System.out.println(c);
-				System.out.println(newWidth);
 				
+//				if(c instanceof PitPanel){
+//					System.out.println("is PPanel");
+//					PitPanel pitPanel = (PitPanel) c;
+//					double ratio = pitPanel.getStoneRatio();
+//					newWidth *= ratio;
+//					newHeight *= ratio;
+//				}
+				
+				// adjust according to base size
 				newWidth *= (float)size/100;
 				newHeight *= (float)size/100;
 				
-//				int newSize = Math.min(newWidth, newHeight);
+				width = newWidth;
+				height = newHeight;
+				
 				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
-//				Image newImage= originalImage.getScaledInstance(newSize, newSize, Image.SCALE_FAST);
 				imageIcon.setImage(newImage);
-				componentBounds = newBounds;
+				
+
+				
+				oldComponentBounds = newComponentBounds;
+//				System.out.println(c);
+//				System.out.println("Size of icon " + width+","+height);
+				imageIcon.setImage(newImage);
+				c.repaint();
 			}
 
+//			System.out.println("Paint at " + x +"," + y);
+			
 			imageIcon.paintIcon(c, g, x, y);
 		}
 		

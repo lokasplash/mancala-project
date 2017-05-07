@@ -21,10 +21,20 @@ public class BluePitPanel extends PitPanel {
 	// amount of overlap allowed for stones
 	private static final double ALLOWED_STONE_OVERLAP = 0.05;
 
+	/**
+	 * 
+	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
+	 * Else, may hang while choosing stone placement
+	 */
 	BluePitPanel(StoneIcon stoneType) {
 		super(stoneType, 4);
 	}
 
+	/**
+	 * 
+	 * @param stoneType StoneIcon's base size should be less than .95 the size of the pit of this PitPanel
+	 * Else, may hang while choosing stone placement
+	 */
 	BluePitPanel(StoneIcon stoneType, int numStones) {
 		super(stoneType, numStones);
 	}
@@ -56,32 +66,15 @@ public class BluePitPanel extends PitPanel {
 
 	@Override
 	protected void placeStones(int numStones) {
-		/* Original 
-//		for (int i = 0; i < numStones; i++) {
-//			float x = (float) Math.random();
-//			float y = (float) Math.random();
-//			Point2D p = new Point2D.Float(x, y);
-//			relativeStoneLocations.add(p);
-//		} */
 
- 
 		Shape pitBounds = this.getShape();
 		double pitW = pitBounds.getBounds().getWidth();
 		double pitH = pitBounds.getBounds().getHeight();
 		
+
 		int stoneWidth = this.stoneType.getIconWidth();
 		int stoneHeight = this.stoneType.getIconHeight();
-		
-//		for (int i = 0; i < numStones; i++){
-//			boolean locationFound = false;
-//			
-//			float x = (float) Math.random();
-//			float y = (float) Math.random();
-//			
-//			x = (float) (x*(1-RATIO)/2);
-//			y = (float) (y*(1-RATIO)/2);
-//			
-//		}
+
 			
 		for (int i = 0; i < numStones; i++){
 			boolean locationFound = false;
@@ -89,14 +82,10 @@ public class BluePitPanel extends PitPanel {
 				float x = (float) Math.random();
 				float y = (float) Math.random();
 
-//				x *= this.getWidth();
-//				y *= this.getHeight();
-				
 				x *= pitW;
 				y *= pitH;
 				
 				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x+pitBounds.getBounds().getX()), (float) (y+pitBounds.getBounds().getY()), (float) (stoneWidth), (float) (stoneHeight));
-//				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) x, (float) y, (float) (stoneWidth), (float) (stoneHeight));
 
 				System.out.println(stoneBounds.getBounds());
 				pitBounds.getBounds().setLocation(0, 0);
@@ -105,14 +94,11 @@ public class BluePitPanel extends PitPanel {
 				Area intersectionArea = (Area) pitArea.clone();
 				intersectionArea.add(pendingStoneLocation);
 				intersectionArea.subtract(pitArea);
-//				intersectionArea.intersect(pendingStoneLocation);
 				
 				if(intersectionArea.isEmpty() ){
 					locationFound = true;
 					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
-//					Point2D p = new Point2D.Float((float) (x/this.getWidth()), (float) (y/this.getHeight())); //ok
 					relativeStoneLocations.add(p);
-//					System.out.println(intersectionArea.getBounds().getWidth()+" " + intersectionArea.getBounds().getHeight());
 					System.out.println(p);
 				}
 				

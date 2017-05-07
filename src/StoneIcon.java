@@ -3,38 +3,50 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
- * Icon to display image for the stone; Can be drawn from graphics, or use image file
+ * Can be drawn from graphics, or use image file
+ * It automatically resizes based on its container.
  * @author Vincent Diep
  *
  */
 public abstract class StoneIcon implements Icon {
 	int size;
+	int width;
+	int height;
+
 	
 	/**
 	 * Constructor for StoneIcon
-	 * @param size Size of the StoneIcon
+	 * @param size This determines the base size of the StoneIcon.
 	 */
 	StoneIcon(int size){
 		this.size = size;
+		width = size;
+		height = size;
 	}
+
 
 	@Override
 	public int getIconHeight() {
-		return size;
+		return height;
 	}
+
 
 	@Override
 	public int getIconWidth() {
-		return size;
+		return width;
 	}
 
-
+		
 	/**
-	 * A StoneIcon that is drawn using Java's graphics
+	 * A StoneIcon that is drawn using Java's graphics.
+	 * This does not resize but stays centered.
 	 */
 	public static class DrawnStoneIcon extends StoneIcon{
 
@@ -59,26 +71,53 @@ public abstract class StoneIcon implements Icon {
 	
 	/**
 	 * A StoneIcon that displays an image
+	 * It automatically resizes itself according to its container.
 	 */
 	public static class ImageStoneIcon extends StoneIcon{
 		ImageIcon imageIcon;
+		Image originalImage;
+		Rectangle oldComponentBounds = null;
+
 		
 		/**
 		 * Constructor for an ImageStoneIcon
-		 * @param size Size of the image <p> The image can be larger/smaller than the size since the image is rescaled.
+		 * @param size Base size <p> The file source image can be larger/smaller than size, since the image is rescaled.
 		 * @param filename Location of image file
 		 */
 		ImageStoneIcon(int size, String filename) {
 			super(size);
-			imageIcon = new ImageIcon(filename);
 			
-			Image image = imageIcon.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT);
+			imageIcon = new ImageIcon(filename);
+			originalImage = imageIcon.getImage();
+			
+
+			Image image = originalImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
 			imageIcon.setImage(image);
 		}
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			getImageIcon().paintIcon(c, g, x, y);
+			Rectangle newComponentBounds = c.getBounds();
+			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
+
+				int newWidth = (int) newComponentBounds.getBounds().getWidth();
+				int newHeight = (int) newComponentBounds.getBounds().getHeight();
+
+				// adjust according to base size
+				newWidth *= (float)size/100;
+				newHeight *= (float)size/100;
+
+				width = newWidth;
+				height = newHeight;
+
+				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+				imageIcon.setImage(newImage);
+
+				oldComponentBounds = newComponentBounds;
+				imageIcon.setImage(newImage);
+				c.repaint();
+			}
 		}
 		
 		public Icon getImageIcon() {

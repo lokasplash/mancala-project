@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class GameView extends JPanel {
 	GameView(GameModel gameModel) {
-		this(gameModel, true, new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"));
+		this(gameModel, false, new StoneIcon.ImageStoneIcon(30, "images/white_stone.png"));
 	}
 
 	// Possibly add parameter of style
@@ -27,11 +27,15 @@ public class GameView extends JPanel {
 		gridPanel.setState(gameModel.getCurrentBoardData());
 
 		// TODO: Implement a MancalaPitPanel that's rounded rect
-		PitPanel mancalaPanelP1 = new PinkPitPanel(stoneIcon);
+		PitPanel mancalaPanelP1;
+		if(isPinkPitPanel) {mancalaPanelP1 = new PinkPitPanel(stoneIcon);}
+		else { mancalaPanelP1 = new BluePitPanel(stoneIcon);} 
 		mancalaPanelP1.setEnabled(false);
 		mancalaPanelP1.setStones(gameModel.getCurrentBoardData().PLAYER_1_MANCALA);
 
-		PitPanel mancalaPanelP2 = new PinkPitPanel(stoneIcon);
+		PitPanel mancalaPanelP2;
+		if(isPinkPitPanel) {mancalaPanelP2 = new PinkPitPanel(stoneIcon);}
+		else { mancalaPanelP2 = new BluePitPanel(stoneIcon);}
 		mancalaPanelP2.setEnabled(false);
 		mancalaPanelP2.setStones(gameModel.getCurrentBoardData().PLAYER_2_MANCALA);
 

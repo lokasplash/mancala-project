@@ -13,7 +13,9 @@ import javax.swing.SwingUtilities;
 
 /**
  * Can be drawn from graphics, or use image file
- * It automatically resizes based on its container.
+ * <p>
+ * It automatically resizes based on the frame.
+ * For non-resizing copy, use {@link #getIcon()}
  * @author Vincent Diep
  *
  */
@@ -48,6 +50,7 @@ public abstract class StoneIcon implements Icon {
 	/**
 	 * 
 	 * @return an independent copy of the current StoneIcon as <b>Icon</b>
+	 * <p>
 	 * Note: this means that the returned copy will not resize.
 	 */
 	public abstract Icon getIcon();
@@ -84,7 +87,6 @@ public abstract class StoneIcon implements Icon {
 	
 	/**
 	 * A StoneIcon that displays an image
-	 * It automatically resizes itself according to its container.
 	 */
 	public static class ImageStoneIcon extends StoneIcon{
 		ImageIcon imageIcon;
@@ -144,15 +146,11 @@ public abstract class StoneIcon implements Icon {
 			height = newHeight;
 			width = newWidth;
 		}
-		
-		public Icon getImageIcon() {
-			return imageIcon;
-		}
 
 		/**
 		 * 
 		 * @return an independent copy of the current ImageStoneIcon as <b>ImageIcon</b>
-		 * Note that this returned icon does not resize.
+		 * <p>Note that this returned icon does not resize.
 		 */
 		@Override
 		public Icon getIcon() {

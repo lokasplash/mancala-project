@@ -8,9 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 
-/*
- *  A StoneIcon that is drawn using Java's graphics.
- * This does not resize but stays centered.
+/**
+ * A StoneIcon that is drawn using Java's graphics.
  */
 public class DrawnStoneIcon extends StoneIcon{
 
@@ -47,13 +46,11 @@ public class DrawnStoneIcon extends StoneIcon{
 
 			@Override
 			public int getIconHeight() {
-				// TODO Auto-generated method stub
 				return size;
 			}
 
 			@Override
 			public int getIconWidth() {
-				// TODO Auto-generated method stub
 				return size;
 			}
 

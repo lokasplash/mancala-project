@@ -8,6 +8,8 @@ import java.awt.Shape;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * Can be drawn from graphics, or use image file
@@ -99,26 +101,37 @@ public abstract class StoneIcon implements Icon {
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			
 			Rectangle newComponentBounds = c.getBounds();
-			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
-
-				int newWidth = (int) newComponentBounds.getBounds().getWidth();
-				int newHeight = (int) newComponentBounds.getBounds().getHeight();
-
-				// adjust according to base size
-				newWidth *= (float)size/100;
-				newHeight *= (float)size/100;
-
-				width = newWidth;
-				height = newHeight;
-
-				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
-				imageIcon.setImage(newImage);
-
-				oldComponentBounds = newComponentBounds;
-				imageIcon.setImage(newImage);
-				c.repaint();
-			}
+//			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
+//
+//				int newWidth = (int) newComponentBounds.getBounds().getWidth();
+//				int newHeight = (int) newComponentBounds.getBounds().getHeight();
+//
+//				// adjust according to base size
+//				newWidth *= (float)size/100;
+//				newHeight *= (float)size/100;
+//
+//				width = newWidth;
+//				height = newHeight;
+//
+//				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+//				imageIcon.setImage(newImage);
+//
+//				oldComponentBounds = newComponentBounds;
+//				imageIcon.setImage(newImage);
+//				c.repaint();
+//			}
+			
+			JFrame f = (JFrame) SwingUtilities.getRoot(c);
+			int newWidth = (int) (f.getWidth()* 0.03);
+			int newHeight = (int) (f.getHeight() * 0.03);
+			
+			Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+			imageIcon.setImage(newImage);
+			
 			imageIcon.paintIcon(c, g, x, y);
+			
+			height = newHeight;
+			width = newWidth;
 		}
 		
 		public Icon getImageIcon() {

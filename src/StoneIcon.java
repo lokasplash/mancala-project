@@ -44,32 +44,43 @@ public abstract class StoneIcon implements Icon {
 	public int getIconWidth() {
 		return width;
 	}
-
-		
-	/**
-	 * A StoneIcon that is drawn using Java's graphics.
-	 * This does not resize but stays centered.
-	 */
-	public static class DrawnStoneIcon extends StoneIcon{
-
-		DrawnStoneIcon(int size) {
-			super(size);
-		}
 	
-		@Override
-		public void paintIcon(Component c, Graphics g, int x, int y) {
-			Graphics2D g3 = (Graphics2D) g.create();
-			
-			g3.fillOval(x, y, size, size);
-			g3.setColor(Color.BLUE);
-			g3.fillOval(x+size/4, y+size/4, size/2, size/2);
-			
-			g3.setColor(Color.BLACK);
-			g3.dispose();
-			
-		}
+	/**
+	 * 
+	 * @return an independent copy of the current StoneIcon as <b>Icon</b>
+	 * Note: this means that the returned copy will not resize.
+	 */
+	public abstract Icon getIcon();
 		
-	}
+//	/**
+//	 * A StoneIcon that is drawn using Java's graphics.
+//	 * This does not resize but stays centered.
+//	 */
+//	public static class DrawnStoneIcon extends StoneIcon{
+//
+//		DrawnStoneIcon(int size) {
+//			super(size);
+//		}
+//	
+//		@Override
+//		public void paintIcon(Component c, Graphics g, int x, int y) {
+//			Graphics2D g3 = (Graphics2D) g.create();
+//			
+//			g3.fillOval(x, y, size, size);
+//			g3.setColor(Color.BLUE);
+//			g3.fillOval(x+size/4, y+size/4, size/2, size/2);
+//			
+//			g3.setColor(Color.BLACK);
+//			g3.dispose();
+//			
+//		}
+//
+//		@Override
+//		public Icon getIcon() {
+//			return new Icon()
+//		}
+//		
+//	}
 	
 	/**
 	 * A StoneIcon that displays an image
@@ -136,6 +147,16 @@ public abstract class StoneIcon implements Icon {
 		
 		public Icon getImageIcon() {
 			return imageIcon;
+		}
+
+		/**
+		 * 
+		 * @return an independent copy of the current ImageStoneIcon as <b>ImageIcon</b>
+		 * Note that this returned icon does not resize.
+		 */
+		@Override
+		public Icon getIcon() {
+			return new ImageIcon(originalImage.getScaledInstance(width, height, Image.SCALE_FAST));
 		}
 		
 	}

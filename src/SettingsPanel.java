@@ -40,13 +40,13 @@ public class SettingsPanel extends JPanel {
 		JTextArea question3 = new JTextArea();
 		question3.setText("Which Stone");
 		JToggleButton drawn = new JToggleButton();
-		drawn.setIcon(new DrawnStoneIcon(30));
+		drawn.setIcon(new DrawnStoneIcon(30).getIcon());
 		JToggleButton white = new JToggleButton();
-		white.setIcon(new WhiteStoneIcon(30));
+		white.setIcon(new WhiteStoneIcon(30).getIcon());
 		JToggleButton yellow = new JToggleButton();
-		yellow.setIcon(new YellowStoneIcon(30));
+		yellow.setIcon(new YellowStoneIcon(30).getIcon());
 		JToggleButton coin = new JToggleButton();
-		coin.setIcon(new CoinIcon(30));
+		coin.setIcon(new CoinIcon(30).getIcon());
 		drawn.addActionListener(new SettingController.StoneIconListener("drawn", white, yellow, coin));
 		white.addActionListener(new SettingController.StoneIconListener("white", drawn, yellow, coin));
 		yellow.addActionListener(new SettingController.StoneIconListener("yellow", drawn, white, coin));

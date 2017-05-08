@@ -26,12 +26,12 @@ public class DrawnStoneIcon extends StoneIcon{
 		int newWidth = (int) (f.getWidth()* 0.03);
 		int newHeight = (int) (f.getHeight() * 0.03);
 		size  = Math.min(newWidth, newHeight);
-		
+		g3.setColor(Color.BLACK);
 		g3.fillOval(x, y, size, size);
 		g3.setColor(Color.BLUE);
 		g3.fillOval(x+size/4, y+size/4, size/2, size/2);
 		
-		g3.setColor(Color.BLACK);
+	
 		g3.dispose();
 		
 	}
@@ -60,11 +60,12 @@ public class DrawnStoneIcon extends StoneIcon{
 			@Override
 			public void paintIcon(Component c, Graphics g, int x, int y) {
 				Graphics2D g3 = (Graphics2D) g.create();
+				g3.setColor(Color.BLACK);
 				g3.fillOval(x, y, size, size);
 				g3.setColor(Color.BLUE);
 				g3.fillOval(x+size/4, y+size/4, size/2, size/2);
 				
-				g3.setColor(Color.BLACK);
+				
 				g3.dispose();
 			}
 			

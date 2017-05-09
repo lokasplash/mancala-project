@@ -19,7 +19,7 @@ public class StoneIconTest {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(200, 200);
 		
-		StoneIcon drawnIcon = new StoneIcon.DrawnStoneIcon(30);
+		StoneIcon drawnIcon = new DrawnStoneIcon(30);
 		JLabel label = new JLabel(drawnIcon);
 		frame.add(label);
 		

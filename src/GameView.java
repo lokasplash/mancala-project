@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 /**
  * The main view for the Mancala Game. Contains everything for a playable game of Mancala
@@ -82,6 +84,47 @@ public class GameView extends JPanel {
 			undoRedoPanel.setCanRedo(gameModel.canRedo());
 			undoRedoPanel.setRedosLeft(gameModel.getRedoStackSize());
 
+		});
+		
+		
+		Rectangle b = this.getBounds();
+		 System.out.println("orig gameview size is "+b.width+","+ b.height);
+		
+		
+		this.addComponentListener(new ComponentListener(){
+
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentResized(ComponentEvent ev) {
+				// TODO Auto-generated method stub
+				double h = ev.getComponent().getHeight()/470d;
+				double w = ev.getComponent().getWidth()/1000d;
+				
+				System.out.println("resized " + w +","+h);
+				
+				stoneIcon.width = (int) (stoneIcon.size *w);
+				stoneIcon.height = (int) (stoneIcon.size*h);
+				ev.getComponent().repaint();
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 	}
 }

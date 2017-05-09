@@ -128,7 +128,9 @@ public class SettingController {
 			Controller.setGameModel(gamemodel);
 			gameview = new GameView(gamemodel, isPink, icon);
 			settingsPanel.setVisible(false);
+			frameToSet.setVisible(false);
 			frameToSet.add(gameview);
+			frameToSet.setVisible(true);
 		}
 		
 	}

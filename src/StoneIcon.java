@@ -23,6 +23,8 @@ public abstract class StoneIcon implements Icon {
 	int size;
 	int width;
 	int height;
+	
+	public static double scale;
 
 	
 	/**
@@ -33,6 +35,7 @@ public abstract class StoneIcon implements Icon {
 		this.size = size;
 		width = size;
 		height = size;
+		scale = 1d;
 	}
 
 
@@ -55,6 +58,11 @@ public abstract class StoneIcon implements Icon {
 	 */
 	public abstract Icon getIcon();
 		
+	
+//	protected updateScale(double s){
+//		if ()
+//	}
+	
 //	/**
 //	 * A StoneIcon that is drawn using Java's graphics.
 //	 * This does not resize but stays centered.
@@ -134,17 +142,20 @@ public abstract class StoneIcon implements Icon {
 //				c.repaint();
 //			}
 			
-			JFrame f = (JFrame) SwingUtilities.getRoot(c);
-			int newWidth = (int) (f.getWidth()* 0.03);
-			int newHeight = (int) (f.getHeight() * 0.03);
+//			JFrame f = (JFrame) SwingUtilities.getRoot(c);
+//			int newWidth = (int) (f.getWidth()* 0.03);
+//			int newHeight = (int) (f.getHeight() * 0.03);
+//			
+			int newWidth  = (int) (width*scale);
+			int newHeight  = (int) (height*scale);
 			
 			Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
 			imageIcon.setImage(newImage);
-			
+//			
 			imageIcon.paintIcon(c, g, x, y);
-			
-			height = newHeight;
-			width = newWidth;
+//			
+//			height = newHeight;
+//			width = newWidth;
 		}
 
 		/**

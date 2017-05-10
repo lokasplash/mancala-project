@@ -65,43 +65,110 @@ public class PinkPitPanel extends PitPanel {
 	 */
 	@Override
 	protected void placeStones(int numStones) {
+		System.out.println("placing stones");
 
-		Shape pitBounds = this.getShape();
+		Shape pitBounds = (Ellipse2D) this.getShape();
 	
 		double pitW = pitBounds.getBounds().getWidth();
 		double pitH = pitBounds.getBounds().getHeight();
+
+		
 		
 		System.out.println("pit bounds "+pitW+","+ pitH);
+		System.out.println("pitpanel bounds "+this.getWidth()+","+ this.getHeight());
 
-		double stoneWidth = this.stoneIcon.getIconWidth()* this.stoneIcon.scaleX;
-		double stoneHeight = this.stoneIcon.getIconHeight()* this.stoneIcon.scaleY;
-
+//		double stoneWidth = this.stoneIcon.getIconWidth()* this.stoneIcon.scaleX;
+//		double stoneHeight = this.stoneIcon.getIconHeight()* this.stoneIcon.scaleY;
+		double stoneWidth = this.stoneIcon.getIconWidth();
+		double stoneHeight = this.stoneIcon.getIconHeight();
+		
+		stoneWidth *= this.stoneIcon.scaleX;
+		stoneHeight *= this.stoneIcon.scaleY;
+		
+		System.out.println("scaleX is"+this.stoneIcon.scaleX);
+		
+		System.out.println("Inside PPP, stone size "+stoneWidth+","+stoneHeight);
+		
+		boolean adjustForScaling = false;
+		if( !relativeStoneLocationsX.isEmpty()){
+			adjustForScaling = true;
+			System.out.println("adjusting for scaling");
+		}
 			
 		for (int i = 0; i < numStones; i++){
 			boolean locationFound = false;
 			do{
 				float x = (float) Math.random();
 				float y = (float) Math.random();
-
-				x *= pitW;
-				y *= pitH;
 				
-				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x+pitBounds.getBounds().getX()), (float) (y+pitBounds.getBounds().getY()), (float) (stoneWidth), (float) (stoneHeight));
+//				x /= this.stoneIcon.scaleX;
+//				y /= this.stoneIcon.scaleY;
 
-				System.out.println("pending stone bounds "+stoneBounds.getBounds());
+//				x *= 80;
+//				y *= 80;
+				
+//				x *= pitW;
+//				y *= pitH;
+				
+//				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x), (float) (y), (float) (stoneWidth), (float) (stoneHeight));
+//
+//				System.out.println("pending stone bounds "+stoneBounds.getBounds());
 //				pitBounds.getBounds().setLocation(0, 0);
-				Area pitArea = new Area(pitBounds);
-				Area pendingStoneLocation = new Area(stoneBounds);
+//				Area pitArea = new Area(pitBounds);
+//				Area pendingStoneLocation = new Area(stoneBounds);
+//				Area intersectionArea = (Area) pitArea.clone();
+//				intersectionArea.add(pendingStoneLocation);
+//				intersectionArea.subtract(pitArea);
+//				
+//				if(intersectionArea.isEmpty() ){
+//					locationFound = true;
+//					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
+//					relativeStoneLocations.add(p);
+//					System.out.println(p);
+//				}
+				
+				if(adjustForScaling){
+					x = (float) relativeStoneLocationsX.get(i).getX();
+					y = (float) relativeStoneLocationsX.get(i).getY();
+				}
+
+
+				float a = (float) (1f - stoneWidth/pitW);
+				float b = (float) (1f - stoneHeight/pitH);
+				
+				if(!adjustForScaling){
+				Ellipse2D.Double stoneEllipseBound = new Ellipse2D.Double(a*x*pitW, b*y*pitH, stoneWidth, stoneHeight);
+				System.out.println("stoneEllipse "+a*x*pitW+","+ b*y*pitH+","+  stoneWidth+","+  stoneHeight);
+				Ellipse2D.Double pitEllipseBound = new Ellipse2D.Double(0, 0, pitW*0.95, pitH*0.95);
+				System.out.println("pitEllipse "+pitW+","+pitH);
+				
+				Area pitArea = new Area(pitEllipseBound);
+				Area pendingStoneLocation = new Area(stoneEllipseBound);
 				Area intersectionArea = (Area) pitArea.clone();
 				intersectionArea.add(pendingStoneLocation);
 				intersectionArea.subtract(pitArea);
 				
-				if(intersectionArea.isEmpty() ){
-					locationFound = true;
-					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
-					relativeStoneLocations.add(p);
-					System.out.println(p);
+					if(intersectionArea.isEmpty() ){
+						locationFound = true;
+						Point2D p = new Point2D.Float((float) (a*x), (float) (b*y));
+						relativeStoneLocations.add(p);
+						relativeStoneLocationsX.add(new Point2D.Float(x,y));
+					}
 				}
+				
+				else{
+					System.out.println("a is "+a);
+					locationFound = true;
+					Point2D p = new Point2D.Float((float) (a*x), (float) (b*y));
+					relativeStoneLocations.add(p);
+					
+					if(!adjustForScaling){
+						relativeStoneLocationsX.add(new Point2D.Float(x,y));
+					}
+			
+				}
+
+
 				
 			} while(!locationFound);
 	

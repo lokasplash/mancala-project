@@ -17,6 +17,7 @@ public abstract class PitPanel extends JPanel {
 	private boolean mouseHover = false;
 	private int strokeWidth = 5;
 	LinkedList<Point2D> relativeStoneLocations = new LinkedList<>();
+	LinkedList<Point2D> relativeStoneLocationsX = new LinkedList<>();
 
 	/**
 	 * Constructor with a stone icon and no stones specified. Stones default to 4.
@@ -56,6 +57,7 @@ public abstract class PitPanel extends JPanel {
 		drawPit(g2);
 		// Draw the num stones
 		updateStoneSize();
+		updateStoneLocationRelativeToSizeChange();
 		drawStones(g2);
 		drawClickable(g2);
 	}
@@ -111,10 +113,13 @@ public abstract class PitPanel extends JPanel {
 			int dx = (getWidth() - pitWidth) / 2;
 			int dy = (getHeight() - pitHeight) / 2;
 
-
-			double scaledX = getWidth()/pitWidth;
+//
+//			double scaledX = getWidth()/pitWidth;
 			
-			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()+ pit.getBounds().getX()), (int)pit.getBounds().getY());
+//			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()), (int)pit.getBounds().getY());
+
+			
+			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()+ pit.getBounds().getX()), (int)pit.getBounds().getY()+(int) (pitHeight*ratio.getY()));
 //			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX)+dx, (int) (pitHeight *ratio.getY() )+dy);
 
 
@@ -152,10 +157,19 @@ public abstract class PitPanel extends JPanel {
 	public void setStones(int numStones) {
 		if (numStones != getNumStones()) {
 			relativeStoneLocations.clear();
+			relativeStoneLocationsX.clear();
 			placeStones(numStones);
 			repaint();
 		}
 	}
+	
+	public void updateStoneLocationRelativeToSizeChange() {
+		int numStones = getNumStones();
+			relativeStoneLocations.clear();
+			placeStones(numStones);
+	}
+	
+
 
 	/**
 	 * The algorithm for placing the stones. This method is called everytime the number of stones is set.

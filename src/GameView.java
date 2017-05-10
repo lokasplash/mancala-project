@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -91,40 +92,73 @@ public class GameView extends JPanel {
 		 System.out.println("orig gameview size is "+b.width+","+ b.height);
 		
 		
-		this.addComponentListener(new ComponentListener(){
+//		this.addComponentListener(new ComponentListener(){
+//
+//			@Override
+//			public void componentHidden(ComponentEvent arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void componentMoved(ComponentEvent arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void componentResized(ComponentEvent ev) {
+//				// TODO Auto-generated method stub
+//				double h = ev.getComponent().getHeight()/470d;
+//				double w = ev.getComponent().getWidth()/1000d;
+//				
+//				System.out.println("resized " + w +","+h);
+//				
+//				stoneIcon.width = (int) (stoneIcon.size *w);
+//				stoneIcon.height = (int) (stoneIcon.size*h);
+//				ev.getComponent().repaint();
+//				
+//			}
+//
+//			@Override
+//			public void componentShown(ComponentEvent arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//		});
+		 
+		 boardPanel.addComponentListener(new ComponentAdapter(){
+				@Override
+				public void componentResized(ComponentEvent ev) {
 
-			@Override
-			public void componentHidden(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void componentMoved(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void componentResized(ComponentEvent ev) {
-				// TODO Auto-generated method stub
-				double h = ev.getComponent().getHeight()/470d;
-				double w = ev.getComponent().getWidth()/1000d;
-				
-				System.out.println("resized " + w +","+h);
-				
-				stoneIcon.width = (int) (stoneIcon.size *w);
-				stoneIcon.height = (int) (stoneIcon.size*h);
-				ev.getComponent().repaint();
-				
-			}
-
-			@Override
-			public void componentShown(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+					Dimension s = boardPanel.getSize();
+					
+//					double wScale = s.getWidth()/boardPanel.baseDimension.getWidth();
+//					double hScale = s.getHeight()/boardPanel.baseDimension.getHeight();
+//					
+//					
+//					stoneIcon.rescale( wScale, hScale);
+					
+					double wScale = s.getWidth()/boardPanel.baseDimension.getWidth();
+					double hScale = s.getHeight()/boardPanel.baseDimension.getHeight();
+					
+					
+					stoneIcon.rescale( wScale, hScale);
+					
+					
+//						width = newWidth;
+//						height = newHeight;
+//						
+//						Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+//						imageIcon.setImage(newImage);
+		//	
+//						oldComponentBounds = newComponentBounds;
+//						imageIcon.setImage(newImage);
+					
+					boardPanel.repaint();
+//					boardPanel.baseDimension = s;
+				}
+		 });
 	}
 }

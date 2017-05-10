@@ -24,7 +24,8 @@ public abstract class StoneIcon implements Icon {
 	int width;
 	int height;
 	
-	public static double scale;
+	double scaleX;
+	double scaleY;
 
 	
 	/**
@@ -35,7 +36,8 @@ public abstract class StoneIcon implements Icon {
 		this.size = size;
 		width = size;
 		height = size;
-		scale = 1d;
+		scaleX = 1;
+		scaleY = 1;
 	}
 
 
@@ -57,6 +59,16 @@ public abstract class StoneIcon implements Icon {
 	 * Note: this means that the returned copy will not resize.
 	 */
 	public abstract Icon getIcon();
+	
+	protected void rescale(double wScale, double hScale){
+//		System.out.println("rescaling stoneIcon:\t"+
+//				width+","+height + "\tby factor "+ wScale+","+hScale);
+//		width = (int)(width * wScale);
+//		height = (int) (height * hScale);
+		
+		scaleX = wScale;
+		scaleY = hScale;
+	}
 		
 	
 //	protected updateScale(double s){
@@ -118,45 +130,48 @@ public abstract class StoneIcon implements Icon {
 			imageIcon.setImage(image);
 		}
 
+//		@Override
+//		public void paintIcon(Component c, Graphics g, int x, int y) {
+//			
+//	
+//			int newWidth  = (int) (width*scale);
+//			int newHeight  = (int) (height*scale);
+//			
+//			Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
+//			imageIcon.setImage(newImage);
+////			
+//			imageIcon.paintIcon(c, g, x, y);
+////			
+//			height = newHeight;
+//			width = newWidth;
+//		}
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {
 			
-			Rectangle newComponentBounds = c.getBounds();
+//			Rectangle newComponentBounds = c.getBounds();
 //			if(oldComponentBounds == null || !(oldComponentBounds.equals(newComponentBounds))){
-//
+//				
 //				int newWidth = (int) newComponentBounds.getBounds().getWidth();
 //				int newHeight = (int) newComponentBounds.getBounds().getHeight();
-//
+//	
 //				// adjust according to base size
 //				newWidth *= (float)size/100;
 //				newHeight *= (float)size/100;
-//
+//				
 //				width = newWidth;
 //				height = newHeight;
-//
+//				
 //				Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
 //				imageIcon.setImage(newImage);
-//
+//	
 //				oldComponentBounds = newComponentBounds;
 //				imageIcon.setImage(newImage);
 //				c.repaint();
 //			}
-			
-//			JFrame f = (JFrame) SwingUtilities.getRoot(c);
-//			int newWidth = (int) (f.getWidth()* 0.03);
-//			int newHeight = (int) (f.getHeight() * 0.03);
-//			
-			int newWidth  = (int) (width*scale);
-			int newHeight  = (int) (height*scale);
-			
-			Image newImage= originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_FAST);
-			imageIcon.setImage(newImage);
-//			
+
 			imageIcon.paintIcon(c, g, x, y);
-//			
-//			height = newHeight;
-//			width = newWidth;
 		}
+		
 
 		/**
 		 * 
@@ -166,6 +181,17 @@ public abstract class StoneIcon implements Icon {
 		@Override
 		public Icon getIcon() {
 			return new ImageIcon(originalImage.getScaledInstance(width, height, Image.SCALE_FAST));
+		}
+		
+		@Override
+		protected void rescale(double wScale, double hScale){
+			super.rescale(wScale, hScale);
+				Image newImage= originalImage.getScaledInstance( (int) (width*scaleX), (int) (height*scaleY), Image.SCALE_FAST);
+				imageIcon.setImage(newImage);
+//	
+//				oldComponentBounds = newComponentBounds;
+//				imageIcon.setImage(newImage);
+//				c.repaint();
 		}
 		
 	}

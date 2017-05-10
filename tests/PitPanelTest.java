@@ -16,7 +16,7 @@ class PitPanelTest {
 
 		StoneIcon imageIcon = new StoneIcon.ImageStoneIcon(30, "images/white_stone.png");
 		PitPanel panel = new PinkPitPanel(imageIcon);
-		panel.setStones(100);
+		panel.setStones(400);
 		panel.setSize(100,100);
 
 		testFrame.add(panel);
@@ -31,7 +31,7 @@ class PitPanelTest {
 		testFrame2.setSize(400, 400);
 
 		StoneIcon imageIcon2 = new StoneIcon.ImageStoneIcon(10, "images/coin_20.png");
-		PitPanel panel2 = new BluePitPanel(imageIcon2, 100);
+		PitPanel panel2 = new BluePitPanel(imageIcon2, 400);
 		panel2.setSize(100, 100);
 //
 		testFrame2.add(panel2);

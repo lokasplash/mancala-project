@@ -41,6 +41,7 @@ public class PinkPitPanel extends PitPanel {
 		int pitHeight = (int) (this.getHeight() * RATIO);
 		int dx = (getWidth() - pitWidth) / 2;
 		int dy = (getHeight() - pitHeight) / 2;
+		System.out.println("updated pit size "+pitWidth+","+pitHeight);
 		pit = new Ellipse2D.Double(dx, dy, pitWidth, pitHeight);
 	}
 
@@ -66,12 +67,14 @@ public class PinkPitPanel extends PitPanel {
 	protected void placeStones(int numStones) {
 
 		Shape pitBounds = this.getShape();
+	
 		double pitW = pitBounds.getBounds().getWidth();
 		double pitH = pitBounds.getBounds().getHeight();
 		
+		System.out.println("pit bounds "+pitW+","+ pitH);
 
-		int stoneWidth = this.stoneIcon.getIconWidth();
-		int stoneHeight = this.stoneIcon.getIconHeight();
+		double stoneWidth = this.stoneIcon.getIconWidth()* this.stoneIcon.scaleX;
+		double stoneHeight = this.stoneIcon.getIconHeight()* this.stoneIcon.scaleY;
 
 			
 		for (int i = 0; i < numStones; i++){
@@ -85,8 +88,8 @@ public class PinkPitPanel extends PitPanel {
 				
 				Ellipse2D.Float stoneBounds = new Ellipse2D.Float((float) (x+pitBounds.getBounds().getX()), (float) (y+pitBounds.getBounds().getY()), (float) (stoneWidth), (float) (stoneHeight));
 
-				System.out.println(stoneBounds.getBounds());
-				pitBounds.getBounds().setLocation(0, 0);
+				System.out.println("pending stone bounds "+stoneBounds.getBounds());
+//				pitBounds.getBounds().setLocation(0, 0);
 				Area pitArea = new Area(pitBounds);
 				Area pendingStoneLocation = new Area(stoneBounds);
 				Area intersectionArea = (Area) pitArea.clone();

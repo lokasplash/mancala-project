@@ -11,6 +11,8 @@ public class BoardPanel extends JPanel {
 	private JPanel left;
 	private JPanel right;
 	private JPanel center;
+	
+	public Dimension baseDimension = new Dimension(600,400);
 
 	/**
 	 * How much of the width of a BoardPanel an InternalBoardPanel should take up
@@ -28,6 +30,8 @@ public class BoardPanel extends JPanel {
 		left = new InternalBoardPanel();
 		right = new InternalBoardPanel();
 		center = new JPanel();
+		
+		this.setPreferredSize(baseDimension);
 
 		// this makes stretching of panels occur
 		left.setLayout(new BorderLayout());

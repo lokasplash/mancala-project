@@ -80,7 +80,13 @@ public class BluePitPanel extends PitPanel {
 	@Override
 	protected void placeStones(int numStones) {
 
-		Shape pitBounds = this.getShape();
+		int pitWidth = (int) (this.getWidth() * RATIO);
+		int pitHeight = (int) (this.getHeight() * RATIO);
+		int dx = (getWidth() - pitWidth) / 2;
+		int dy = (getHeight() - pitHeight) / 2;
+		
+		Rectangle2D.Float pitBounds = new Rectangle2D.Float((float)dx,(float) dy, 0.99f * (float) pitWidth,(float) 0.99 * pitHeight);
+
 		double pitW = pitBounds.getBounds().getWidth();
 		double pitH = pitBounds.getBounds().getHeight();
 		

@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import stone_icons.StoneIcon;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -16,8 +19,68 @@ public abstract class PitPanel extends JPanel {
 	protected Color clickableColor = Color.CYAN;
 	private boolean mouseHover = false;
 	private int strokeWidth = 5;
-	LinkedList<Point2D> relativeStoneLocations = new LinkedList<>();
-	LinkedList<Point2D> relativeStoneLocationsX = new LinkedList<>();
+	
+
+	 /*
+	 * ---------pitW------------   
+	 *  
+	 * ----------a---------               
+	 * (0,0)
+	 *  _______________________
+	 * |                   |   |    |      |
+	 * |                   |   |    |      |
+	 * |                   |   |    |      |
+	 * |                   |   |    b      | 
+	 * |                   |   |    |     pitH
+	 * |                   |   |    |      |
+	 * |___________________|___|    |      |
+	 * |                   |   |           |
+	 * |___________________|___|           |
+	 *                          (1,1)
+	 * 
+	 * Let us represent the pit as a square, such that possible values for X are between 0 and 1, and the possible values
+	 * for Y are between 0 and 1.
+	 * AKA The square of possible values
+	 * 
+	 * In short, an x value of 1 means that that the point will be somewhere along the right edge of the pit.
+	 * A y value of 1 means that the point will be somewhere along the bottom edge of the pit.
+	 *               
+	 * In order to find a valid stone position, we have to determine the limits of where the stone can go.
+	 * Keep in mind that the stone is drawn from its upper left corner.
+	 * This means that if the stone is drawn with at x=1 on this coordinate system, the stone will appear to the right of the pit.
+	 * Similarly for y=1, the stone will appear below the pit bottom.
+	 * 
+	 * The region bounded by a,b is the area where we can place the stone and still have it be drawn inside the pit.
+	 * 
+	 */
+	LinkedList<Point2D> stoneLocationsRelativeToSquareOfPossibleValues = new LinkedList<>();
+	
+	/*
+	 * We want to pick a point inside the region bounded by a,b
+	 * So, again, we will consider the valid region of a,b to be a square of length 1
+	 * AKA square of valid values
+	 * 
+	 * Example:
+	 * 
+	 * ---------a-----------               
+	 * (0,0)
+	 *  ____________________
+	 * |                    |   |
+	 * |                    |   |
+	 * |                    |   |
+	 * |                    |   |
+	 * |                    |   b
+	 * |                    |   |
+	 * |                    |   |
+	 * |                    |   |
+	 * |____________________|   |
+	 * 
+	 *                      (1,1)
+	 */
+	LinkedList<Point2D> stoneLocationsRelativeToSquareOfValidValues = new LinkedList<>();
+	/*
+	 * This is used to prevent stone locations from changing when doing a screen resize
+	 */
 
 	/**
 	 * Constructor with a stone icon and no stones specified. Stones default to 4.
@@ -57,7 +120,7 @@ public abstract class PitPanel extends JPanel {
 		drawPit(g2);
 		// Draw the num stones
 		updateStoneSize();
-		updateStoneLocationRelativeToSizeChange();
+		updateCurrentStoneLocationsInCaseOfResize();
 		drawStones(g2);
 		drawClickable(g2);
 	}
@@ -106,25 +169,17 @@ public abstract class PitPanel extends JPanel {
 	 */
 	protected void drawStones(Graphics2D g2) {
 
-		for (Point2D ratio : relativeStoneLocations) {
+		for (Point2D ratio : stoneLocationsRelativeToSquareOfPossibleValues) {
 			int pitWidth = pit.getBounds().width;
 			int pitHeight = pit.getBounds().height;
 
 			int dx = (getWidth() - pitWidth) / 2;
 			int dy = (getHeight() - pitHeight) / 2;
-
-//
-//			double scaledX = getWidth()/pitWidth;
-			
-//			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()), (int)pit.getBounds().getY());
-
 			
 			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()+ pit.getBounds().getX()), (int)pit.getBounds().getY()+(int) (pitHeight*ratio.getY()));
-//			stoneIcon.paintIcon(this, g2, (int) (pitWidth*ratio.getX()*scaledX)+dx, (int) (pitHeight *ratio.getY() )+dy);
-
-
 		}
-		g2.drawRect( (int) pit.getBounds().getX(), (int) pit.getBounds().getY(), pit.getBounds().width, pit.getBounds().height);
+		// Draw bounding box for pit
+//		g2.drawRect( (int) pit.getBounds().getX(), (int) pit.getBounds().getY(), pit.getBounds().width, pit.getBounds().height);
 	}
 
 	/**
@@ -138,7 +193,7 @@ public abstract class PitPanel extends JPanel {
 	 * @return number stones
 	 */
 	public int getNumStones() {
-		return relativeStoneLocations.size();
+		return stoneLocationsRelativeToSquareOfPossibleValues.size();
 	}
 
 	/**
@@ -156,16 +211,20 @@ public abstract class PitPanel extends JPanel {
 	 */
 	public void setStones(int numStones) {
 		if (numStones != getNumStones()) {
-			relativeStoneLocations.clear();
-			relativeStoneLocationsX.clear();
+			stoneLocationsRelativeToSquareOfPossibleValues.clear();
+			stoneLocationsRelativeToSquareOfValidValues.clear();
 			placeStones(numStones);
 			repaint();
 		}
 	}
 	
-	public void updateStoneLocationRelativeToSizeChange() {
+	/**
+	 * Recalculates stoneLocations relative to the Square of Possible Values
+	 * Note that it does not change the location of the stones inside the Square of Valid Values
+	 */
+	public void updateCurrentStoneLocationsInCaseOfResize() {
 		int numStones = getNumStones();
-			relativeStoneLocations.clear();
+			stoneLocationsRelativeToSquareOfPossibleValues.clear();
 			placeStones(numStones);
 	}
 	

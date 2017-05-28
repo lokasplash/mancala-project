@@ -1,11 +1,15 @@
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+
+import stone_icons.StoneIcon;
 
 /**
  * 
@@ -71,5 +75,6 @@ public class TooltipTest {
 		testFrame.pack();
 		testFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		testFrame.setVisible(true);
+		
 	}
 }

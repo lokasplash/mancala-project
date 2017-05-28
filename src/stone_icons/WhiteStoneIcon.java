@@ -1,3 +1,4 @@
+package stone_icons;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,7 +16,7 @@ public class WhiteStoneIcon extends StoneIcon.ImageStoneIcon {
 	 * Constructor for an ImageStoneIcon
 	 * @param size Size of the image <p> The image can be larger/smaller than the size since the image is rescaled.
 	 */
-	WhiteStoneIcon(int size) {
+	public WhiteStoneIcon(int size) {
 		super(size, "images/white_stone.png");
 
 	}

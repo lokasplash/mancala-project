@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
+import stone_icons.StoneIcon;
+
 /**
  * A pit panel for drawing blue pit and orange backgrounds.
  * @author Andrew Jong
@@ -117,7 +119,7 @@ public class BluePitPanel extends PitPanel {
 				if(intersectionArea.isEmpty() ){
 					locationFound = true;
 					Point2D p = new Point2D.Float((float) (x/pitW), (float) (y/pitH));
-					relativeStoneLocations.add(p);
+					stoneLocationsRelativeToSquareOfPossibleValues.add(p);
 					System.out.println(p);
 				}
 				

@@ -1,3 +1,4 @@
+package stone_icons;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -13,22 +14,23 @@ import javax.swing.SwingUtilities;
  */
 public class DrawnStoneIcon extends StoneIcon{
 
-	DrawnStoneIcon(int size) {
+	public DrawnStoneIcon(int size) {
 		super(size);
 	}
 
+	/**
+	 * Base Icon image is a black circle with a blue center, subject to scaleX and scaleY factors
+	 */
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g3 = (Graphics2D) g.create();
 		
-		JFrame f = (JFrame) SwingUtilities.getRoot(c);
-		int newWidth = (int) (f.getWidth()* 0.03);
-		int newHeight = (int) (f.getHeight() * 0.03);
-		size  = Math.min(newWidth, newHeight);
 		g3.setColor(Color.BLACK);
-		g3.fillOval(x, y, size, size);
+		int width = (int) (size* getScaleX());
+		int height = (int) (size*getScaleY());
+		g3.fillOval(x, y, width, height );
 		g3.setColor(Color.BLUE);
-		g3.fillOval(x+size/4, y+size/4, size/2, size/2);
+		g3.fillOval(x+width/4, y+height/4, width/2, height/2);
 		
 	
 		g3.dispose();
@@ -38,7 +40,7 @@ public class DrawnStoneIcon extends StoneIcon{
 	/**
 	 * 
 	 * @return an independent copy of the current DrawnStoneIcon as <b>Icon</b>
-	 * Note that this returned icon does not resize.
+	 * 
 	 */
 	@Override
 	public Icon getIcon() {
@@ -58,11 +60,13 @@ public class DrawnStoneIcon extends StoneIcon{
 			public void paintIcon(Component c, Graphics g, int x, int y) {
 				Graphics2D g3 = (Graphics2D) g.create();
 				g3.setColor(Color.BLACK);
-				g3.fillOval(x, y, size, size);
+				int width = (int) (size* getScaleX());
+				int height = (int) (size*getScaleY());
+				g3.fillOval(x, y, width, height );
 				g3.setColor(Color.BLUE);
-				g3.fillOval(x+size/4, y+size/4, size/2, size/2);
+				g3.fillOval(x+width/4, y+height/4, width/2, height/2);
 				
-				
+			
 				g3.dispose();
 			}
 			

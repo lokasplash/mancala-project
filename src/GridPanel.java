@@ -5,6 +5,8 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
+import stone_icons.StoneIcon;
+
 /**
  * Creates a panel with a Gridlayout storing PitPanels
  * @author Prem Panchal & Andrew Jong

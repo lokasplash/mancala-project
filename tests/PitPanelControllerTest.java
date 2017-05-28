@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
+import stone_icons.StoneIcon;
+
 /**
  * 
  * In this demo, side 0 is the top row

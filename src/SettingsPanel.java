@@ -2,6 +2,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import stone_icons.*;
+
 /**
  * Panel to decide Settings of Game
  * @author Prem Panchal

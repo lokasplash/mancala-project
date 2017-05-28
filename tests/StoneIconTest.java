@@ -4,6 +4,9 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import stone_icons.DrawnStoneIcon;
+import stone_icons.StoneIcon;
+
 /**
  * 
  * @author Vincent Diep

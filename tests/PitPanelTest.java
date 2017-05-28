@@ -1,5 +1,7 @@
 import javax.swing.*;
 
+import stone_icons.StoneIcon;
+
 /**
  * Test the PitPanel
  * @author Andrew Jong

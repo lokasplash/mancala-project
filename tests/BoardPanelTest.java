@@ -9,6 +9,9 @@ import java.awt.event.ContainerListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import stone_icons.StoneIcon;
+import stone_icons.YellowStoneIcon;
+
 
 public class BoardPanelTest {
 	public static void main(String[] args) {

@@ -139,7 +139,7 @@ public class PinkPitPanel extends PitPanel {
 				if(!adjustForScaling){
 				Ellipse2D.Double stoneEllipseBound = new Ellipse2D.Double(a*x*pitW, b*y*pitH, stoneWidth, stoneHeight);
 				System.out.println("stoneEllipse "+a*x*pitW+","+ b*y*pitH+","+  stoneWidth+","+  stoneHeight);
-				Ellipse2D.Double pitEllipseBound = new Ellipse2D.Double(0, 0, pitW*0.95, pitH*0.95);
+				Ellipse2D.Double pitEllipseBound = new Ellipse2D.Double(0, 0, pitW, pitH);
 				System.out.println("pitEllipse "+pitW+","+pitH);
 				
 				Area pitArea = new Area(pitEllipseBound);
